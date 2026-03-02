@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
  <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
  <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMTQxNDE0Ii8+PHRleHQgeD0iMzIiIHk9IjQ0IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzOUQzNTMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpNPC90ZXh0Pjwvc3ZnPg==" />
  <link rel="apple-touch-icon" id="apple-touch-favicon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMTQxNDE0Ii8+PHRleHQgeD0iMzIiIHk9IjQ0IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzOUQzNTMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpNPC90ZXh0Pjwvc3ZnPg==" />
  <meta property="og:type" content="website" />
@@ -677,18 +677,19 @@
   .toggle-container { display: none !important; }
   .bottom-nav { display: flex; }
   .hamburger-btn { display: flex; }
+  body.mode-deckblatt:not(.deckblatt-typing-done) .bottom-nav,
+  body.mode-deckblatt:not(.deckblatt-typing-done) .hamburger-btn { display: none !important; }
   .toggle-segment[data-mode="deckblatt"],
   .toggle-segment[data-mode="anschreiben"],
   .toggle-segment[data-mode="komplett"],
   #segDrucken { display: none !important; }
-  /* Handoff: Seite scrollbar – Sidebar + Hauptbereich sichtbar, keine leere schwarze Spalte */
+  /* Handoff: eine Scrollzone – Sidebar komplett sichtbar, kein eigenes Scroll */
   .design { flex-direction: column; min-height: auto; }
   .design-page .sidebar {
    width: 100%;
    padding: 12px 10px;
-   max-height: 42vh;
-   overflow-y: auto;
-   -webkit-overflow-scrolling: touch;
+   max-height: none;
+   overflow: visible;
    flex-shrink: 0;
   }
   .sidebar-section p, .sidebar-section a, .sidebar .link-green { word-break: break-word; overflow-wrap: break-word; }
@@ -709,7 +710,7 @@
    -webkit-overflow-scrolling: touch;
    padding-bottom: 70px;
   }
-  /* 1-Seite: Sidebar + Hauptinhalt sichtbar */
+  /* 1-Seite: eine Scrollzone – op-sidebar komplett sichtbar, kein eigenes Scroll */
   body.mode-onepage .onepage-page {
    display: flex !important;
    flex-direction: column;
@@ -723,9 +724,8 @@
    width: 100%;
    min-width: 0;
    padding: 10px;
-   max-height: 38vh;
-   overflow-y: auto;
-   -webkit-overflow-scrolling: touch;
+   max-height: none;
+   overflow: visible;
    flex-shrink: 0;
   }
   .op-sidebar p, .op-sidebar a { word-break: break-word; overflow-wrap: break-word; }
@@ -738,6 +738,29 @@
   }
   body.mode-ats .ats-page,
   body.mode-profilplus .profilplus-page { padding-bottom: 70px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  body.mode-anschreiben .anschreiben-page,
+  body.mode-komplett .anschreiben-page {
+   padding-bottom: 70px;
+   overflow-y: auto;
+   -webkit-overflow-scrolling: touch;
+   min-height: 100vh;
+   display: block !important;
+  }
+  .anschreiben-page .design .sidebar {
+   width: 100%;
+   padding: 12px 10px;
+   max-height: none;
+   overflow: visible;
+   flex-shrink: 0;
+  }
+  .anschreiben-page .design .main-content {
+   width: 100%;
+   padding: 12px 10px 80px 10px;
+   display: block !important;
+   flex: 1;
+   min-height: 50vh;
+  }
+  .anschreiben-page .main-content > .watermark-code { display: none !important; }
   .profilplus-page .profilplus-meta { word-break: break-word; overflow-wrap: break-word; }
   .op-wrap { flex-direction: column; }
   .ats-page { padding: 10px; }
@@ -2670,6 +2693,8 @@
  body.os-iphone #android-installer,
  body.os-iphone #boot-screen,
  body.os-iphone #preload-screen { display: none !important; }
+ /* Oberer Bereich (Safe-Area/Notch) vollständig sichtbar ohne Scrollen */
+ body.os-iphone { padding-top: env(safe-area-inset-top, 0); box-sizing: border-box; }
  #iphone-boot-intro {
   position: fixed;
   inset: 0;
@@ -3620,6 +3645,7 @@
    { text: "[    0.234567] systemd[1]: systemd 252.5 running in system mode", cls: "" },
    { text: "[    0.267890] systemd[1]: Set hostname to <host>", cls: "" },
    { text: "[    0.389012] systemd[1]: Reached target System Initialization", cls: "" },
+   { text: "23 Easter Eggs gefunden.", cls: "" },
    { text: "Speicherfehler", cls: "error" },
    { text: "Starte DFU-Modus...", cls: "" }
   ];
@@ -4508,17 +4534,35 @@
   runInstallation();
  }
 
- /* ══ ANDROID: Uhr in Statusbar ══ */
+ /* ══ ANDROID: Uhr + Akku in Statusbar (Original-Zustand wie Gerät) ══ */
  function updateAndroidClock() {
   var el = document.getElementById('android-time');
   if (!el) return;
   var d = new Date();
   el.textContent = d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0');
  }
+ function updateAndroidBattery(battery) {
+  var el = document.getElementById('android-battery');
+  if (!el) return;
+  if (!battery) {
+   el.textContent = '–%🔋';
+   return;
+  }
+  var pct = Math.round(battery.level * 100);
+  var icon = battery.charging ? '⚡' : '🔋';
+  el.textContent = pct + '%' + icon;
+ }
  if (document.body.classList.contains('os-android')) {
   updateAndroidClock();
   setInterval(updateAndroidClock, 30000);
   document.body.style.paddingTop = '24px';
+  if (navigator.getBattery) {
+   navigator.getBattery().then(function(b) {
+    updateAndroidBattery(b);
+    b.addEventListener('levelchange', function() { updateAndroidBattery(b); });
+    b.addEventListener('chargingchange', function() { updateAndroidBattery(b); });
+   }).catch(function() { updateAndroidBattery(null); });
+  }
  }
 
  /* ══ ANDROID: Story als Chat ══ */
@@ -4797,6 +4841,8 @@
  <button type="button" class="deckblatt-bubble" onclick="setMode('design')">Handoff</button>
  <button type="button" class="deckblatt-bubble" onclick="setMode('onepage')">1 Seite</button>
  <button type="button" class="deckblatt-bubble" onclick="setMode('ats')">ATS</button>
+ <button type="button" class="deckblatt-bubble" onclick="setMode('anschreiben')">Anschreiben</button>
+ <button type="button" class="deckblatt-bubble" onclick="setMode('komplett')">Komplett</button>
  <button type="button" class="deckblatt-bubble" onclick="setMode('profilplus')">Profil+</button>
  </div>
  </div>

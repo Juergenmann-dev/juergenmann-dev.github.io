@@ -38,6 +38,18 @@
  <div id="boot-loading-output"></div>
 </div>
 <script>
+(function() {
+  var ua = navigator.userAgent || "";
+  var origin = window.location.origin || (window.location.protocol + "//" + window.location.host);
+  if (ua.indexOf("Android") !== -1) {
+    window.location.replace(origin + "/2.4_android/");
+    return;
+  }
+  if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) {
+    window.location.replace(origin + "/2.5_iphone/");
+    return;
+  }
+})();
 var BOOT_LINES = [
 "[    0.000000] Linux version 6.1.0-25-generic",
 "[    0.000001] Command line: BOOT_IMAGE=/vmlinuz root=UUID=xxx ro quiet splash",
@@ -185,6 +197,8 @@ var BOOT_LINES = [
 ];
 
 async function run() {
+  var ua = navigator.userAgent || "";
+  if (ua.indexOf("Android") !== -1 || ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) return;
   var screen = document.getElementById("boot-loading-screen");
   var output = document.getElementById("boot-loading-output");
   if (!screen || !output) return;

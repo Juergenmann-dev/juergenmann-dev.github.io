@@ -622,6 +622,8 @@
   .toggle-container { display: none !important; }
   .bottom-nav { display: flex; }
   .hamburger-btn { display: flex; }
+  body.mode-deckblatt:not(.deckblatt-typing-done) .bottom-nav,
+  body.mode-deckblatt:not(.deckblatt-typing-done) .hamburger-btn { display: none !important; }
   .toggle-segment[data-mode="deckblatt"],
   .toggle-segment[data-mode="anschreiben"],
   .toggle-segment[data-mode="komplett"],
@@ -2252,6 +2254,7 @@
 </style>
 </head>
 <body class="mode-deckblatt">
+<script>(function(){var ua=navigator.userAgent||"";if(ua.indexOf("Android")!==-1){document.body.classList.add("os-android");}else if(ua.indexOf("Win")!==-1){document.body.classList.add("os-win");}else if(ua.indexOf("Linux")!==-1){document.body.classList.add("os-linux");}else{document.body.classList.add("os-mac");}})();</script>
  <div id="projekt-2-modern">
  <div class="toggle-container">
  <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Menü öffnen" onclick="toggleHamburger()">☰</button>
@@ -3073,7 +3076,21 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
   line.classList.remove("done", "fade-out");
  });
  document.body.classList.remove("deckblatt-typing-done");
- var prefixText = "print(\"";
+ var isWin = document.body.classList.contains("os-win");
+ var isLinux = document.body.classList.contains("os-linux");
+ var isAndroid = document.body.classList.contains("os-android");
+ var prefixText = isAndroid ? 'Log.d("CV", "' : (isWin || isLinux ? 'echo "' : "print(\"");
+ if (isWin || isLinux) {
+  lines.forEach(function(line) {
+   var suf = line.querySelector(".deckblatt-print-suffix");
+   if (suf) suf.textContent = '"';
+  });
+ } else if (isAndroid) {
+  lines.forEach(function(line) {
+   var suf = line.querySelector(".deckblatt-print-suffix");
+   if (suf) suf.textContent = '")';
+  });
+ }
  var charSpeed = 55;
  var prefixSpeed = 35;
  var pauseBetween = 380;

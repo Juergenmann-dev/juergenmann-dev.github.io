@@ -8,6 +8,9 @@ Retro-Lebenslauf als Web-App mit OS-spezifischen Flows (Boot, Terminal/DFU, Stor
 .
 ├── index.html                 # Einstieg → Weiterleitung auf 1_bootvorgang/
 ├── index-os-weiterleitung.html # OS-Weiterleitung (Boot → plattformspezifische Seite)
+├── 01_Die_Geschichte.html      # Doku: Hintergrund & Entstehung
+├── 02_Technische_Analyse.html # Doku: Architektur & Mechaniken
+├── 03_Easter_Egg_Hunt.html    # Doku: Easter Eggs (27 Details)
 ├── 1_bootvorgang/
 │   └── index.html             # Boot-Screen, erkennt OS, leitet weiter
 ├── 2_mac/

@@ -838,6 +838,8 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
   .toggle-container { display: none !important; }
   .bottom-nav { display: flex; }
   .hamburger-btn { display: flex; }
+  body.mode-deckblatt:not(.deckblatt-typing-done) .bottom-nav,
+  body.mode-deckblatt:not(.deckblatt-typing-done) .hamburger-btn { display: none !important; }
   .toggle-segment[data-mode="deckblatt"],
   .toggle-segment[data-mode="anschreiben"],
   .toggle-segment[data-mode="komplett"],
@@ -1980,6 +1982,18 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
  body.retro-bg-off #os-dock-bar-wrapper {
   display: none !important;
  }
+ /* Linux: Nerd-Ebene – nur Konsole, kein Desktop (kein Dock, keine Menüleiste, keine Icons; ~20 Jahre her: oft nur Textmodus, braun/erdig) */
+ body.os-linux #os-dock-bar-wrapper,
+ body.os-linux #mac-menu-bar,
+ body.os-linux #desktop-icons { display: none !important; }
+ body.os-linux.retro-bg {
+  background-image: none !important;
+  background: linear-gradient(180deg, #2d1810 0%, #1a0f0a 35%, #0d0805 100%) !important;
+  background-color: #1a0f0a !important;
+ }
+ body.os-linux.retro-active {
+  background: linear-gradient(180deg, #2d1810 0%, #1a0f0a 35%, #0d0805 100%) !important;
+ }
  /* Mac Menu Bar (Statusleiste oben) */
  #mac-menu-bar {
   display: none;
@@ -2451,7 +2465,9 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
  body.os-mac.retro-active #spotlight-screen,
  body.os-mac.retro-bg #spotlight-screen,
  body.os-win.retro-active #spotlight-screen,
- body.os-win.retro-bg #spotlight-screen {
+ body.os-win.retro-bg #spotlight-screen,
+ body.os-linux.retro-active #spotlight-screen,
+ body.os-linux.retro-bg #spotlight-screen {
   display: block;
  }
  body.retro-bg-off #spotlight-screen { display: none !important; }
@@ -2926,6 +2942,7 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
   <div class="spotlight-shortcut spotlight-hidden" id="spotlight-shortcut">
    <span class="spotlight-shortcut-mac"><kbd>⌘</kbd> + <kbd>Leertaste</kbd></span>
    <span class="spotlight-shortcut-win" style="display:none;"><kbd>Win</kbd> + <kbd>R</kbd></span>
+   <span class="spotlight-shortcut-linux" style="display:none;"><kbd>Strg</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> · Konsole öffnen</span>
   </div>
   <div class="spotlight-enter spotlight-hidden" id="spotlight-enter">
    <kbd>Enter</kbd>
@@ -3629,6 +3646,14 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
    var credit = document.getElementById("unsplash-credit");
    if (credit) credit.style.display = "block";
    setTimeout(runSpotlightSimulation, 200);
+  } else if (document.body.classList.contains("os-linux") && (path.indexOf("2.3_linux") !== -1)) {
+   // Linux: gleiche Implementierung wie Mac/Win – Desktop (braun) + Shortcut (Strg+Alt+T), dann Konsole
+   document.body.classList.remove("boot-phase");
+   document.documentElement.style.setProperty("--wallpaper",
+    "linear-gradient(180deg, #2d1810 0%, #1a0f0a 35%, #0d0805 100%)"
+   );
+   document.body.classList.add("retro-bg");
+   setTimeout(runSpotlightSimulation, 200);
   } else {
    setTimeout(runPreload, 200);
   }
@@ -3705,10 +3730,13 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
   }
 
   var isWin = document.body.classList.contains("os-win");
+  var isLinux = document.body.classList.contains("os-linux");
   var shortcutMac = shortcut.querySelector(".spotlight-shortcut-mac");
   var shortcutWin = shortcut.querySelector(".spotlight-shortcut-win");
-  if (shortcutMac) shortcutMac.style.display = isWin ? "none" : "";
+  var shortcutLinux = shortcut.querySelector(".spotlight-shortcut-linux");
+  if (shortcutMac) shortcutMac.style.display = (isWin || isLinux) ? "none" : "";
   if (shortcutWin) shortcutWin.style.display = isWin ? "" : "none";
+  if (shortcutLinux) shortcutLinux.style.display = isLinux ? "" : "none";
   var searchTerm = isWin ? "cmd" : "Terminal";
 
   function showEl(el) { if (el) el.classList.remove("spotlight-hidden"); }
@@ -3716,6 +3744,16 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
 
   (async function step() {
    try {
+    if (isLinux) {
+     showEl(shortcut);
+     await wait(SPOTLIGHT.DELAY.LONG);
+     hideEl(shortcut);
+     document.body.classList.remove("spotlight-active");
+     var spot = document.getElementById("spotlight-screen");
+     if (spot) spot.style.display = "none";
+     runStory();
+     return;
+    }
     hideEl(bar);
     hideEl(enterEl);
     if (categories) hideEl(categories);
@@ -4022,8 +4060,8 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
   var isAndroid = document.body.classList.contains("os-android");
   var isLinux = document.body.classList.contains("os-linux") && !isAndroid;
   var promptStr = isWin ? "C:\\Users\\jm\\lebenslauf>" : (isAndroid ? "shell>$ " : (isLinux ? "jm@DESKTOP-Mama-Papa:~$ " : "jm@Mac lebenslauf %"));
-  var installCmdStr = isWin ? "winget install jürgen-mann" : (isAndroid ? "pm install jürgen-mann" : "brew install jürgen-mann");
-  var outputCmdStr = isWin ? "echo" : (isAndroid ? "log" : "print story");
+  var installCmdStr = isWin ? "winget install jürgen-mann" : (isAndroid ? "pm install jürgen-mann" : (isLinux ? "apt install jürgen-mann" : "brew install jürgen-mann"));
+  var outputCmdStr = isWin || isLinux ? "echo" : (isAndroid ? "log" : "print story");
 
   var storyTitleEl = screen.querySelector(".term-win-title");
   var storyStatusEl = screen.querySelector(".term-win-statusbar");
@@ -4137,10 +4175,10 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
   scrollStoryToBottom();
   await storyWait(300);
 
-  // Öffnung: print(""" / echo """ / log("""
+  // Öffnung: Mac print(""" · Win/Linux echo " · Android log · Kotlin println("
   var openRow = document.createElement("div");
   openRow.style.cssText = "line-height:1.8;";
-  openRow.innerHTML = '<span style="opacity:0.45;">' + outputCmdStr + (isWin ? ' """' : '("""') + '</span>';
+  openRow.innerHTML = '<span style="opacity:0.45;">' + outputCmdStr + (isWin || isLinux ? ' "' : '("""') + '</span>';
   container.appendChild(openRow);
   scrollStoryToBottom();
   await storyWait(400);
@@ -4196,7 +4234,7 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
   scrollStoryToBottom();
   await storyWait(300);
 
-  // brew install animiert eintippen
+  // Install-Befehl animiert eintippen (brew / apt / winget / pm)
   var brewRow = document.createElement("div");
   brewRow.style.cssText = "line-height:1.8;";
   var brewPromptSpan = document.createElement("span");
@@ -5288,7 +5326,14 @@ setTimeout(function() { window.print(); }, 500);
   line.classList.remove("done", "fade-out");
  });
  document.body.classList.remove("deckblatt-typing-done");
- var prefixText = "print(\"";
+ var isLinuxDeckblatt = document.body.classList.contains("os-linux");
+ var prefixText = isLinuxDeckblatt ? 'echo "' : "print(\"";
+ if (isLinuxDeckblatt) {
+  lines.forEach(function(line) {
+   var suf = line.querySelector(".deckblatt-print-suffix");
+   if (suf) suf.textContent = '"';
+  });
+ }
  var charSpeed = 55;
  var prefixSpeed = 35;
  var pauseBetween = 380;

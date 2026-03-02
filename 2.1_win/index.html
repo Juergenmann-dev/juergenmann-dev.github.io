@@ -731,6 +731,8 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
   .toggle-container { display: none !important; }
   .bottom-nav { display: flex; }
   .hamburger-btn { display: flex; }
+  body.mode-deckblatt:not(.deckblatt-typing-done) .bottom-nav,
+  body.mode-deckblatt:not(.deckblatt-typing-done) .hamburger-btn { display: none !important; }
   .toggle-segment[data-mode="deckblatt"],
   .toggle-segment[data-mode="anschreiben"],
   .toggle-segment[data-mode="komplett"],
@@ -2780,7 +2782,7 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
    </div>
   </div>
   <div style="font-size:11px;color:#424242;margin-top:16px;text-align:center;padding:0 24px;">
-   ⚠️ Diese App enthält 11 Easter Eggs und nachgewiesene Kaffee-Abhängigkeiten.
+   ⚠️ Diese App enthält 16 Easter Eggs (Windows) und nachgewiesene Kaffee-Abhängigkeiten.
   </div>
  </div>
 
@@ -3200,7 +3202,7 @@ body { background: #fff !important; -webkit-print-color-adjust: exact; print-col
  await addLine("✓ SUCCESS: Installation complete", 800);
  await addLine("", 500);
  await addLine("⚠️  WARNING: Package contains:", 500);
- await addLine("  - 11 Easter Eggs detected", 300);
+ await addLine("  - 16 Easter Eggs detected (Windows)", 300);
  await addLine("  - State Management that actually works", 300);
  await addLine("  - Typewriter animations (may cause sleeplessness)", 300);
  await addLine("  - And apparently, coffee-making skills", 300);
@@ -5119,7 +5121,14 @@ setTimeout(function() { window.print(); }, 500);
   line.classList.remove("done", "fade-out");
  });
  document.body.classList.remove("deckblatt-typing-done");
- var prefixText = "print(\"";
+ var isWinDeckblatt = document.body.classList.contains("os-win");
+ var prefixText = isWinDeckblatt ? 'echo "' : "print(\"";
+ if (isWinDeckblatt) {
+  lines.forEach(function(line) {
+   var suf = line.querySelector(".deckblatt-print-suffix");
+   if (suf) suf.textContent = '"';
+  });
+ }
  var charSpeed = 55;
  var prefixSpeed = 35;
  var pauseBetween = 380;

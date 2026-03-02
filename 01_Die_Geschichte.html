@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die Geschichte – Jürgen Mann CV · März 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap');
+:root {
+  --green:#39D353; --gd:rgba(57,211,83,0.1); --gm:rgba(57,211,83,0.3);
+  --bg:#0d1117; --bg2:#0a0f14; --bg3:#111820;
+  --bo:rgba(57,211,83,0.2); --tx:#e6edf3; --mu:#7d8590; --dim:#b0bcc8;
+  --re:#ff5f57; --bl:#58a6ff; --ye:#febc2e;
+  --font: 'Monaco','Menlo','Courier New',monospace;
+  --head: 'Syne',sans-serif;
+  --warm:rgba(245,158,11,0.12); --warm-bo:rgba(245,158,11,0.4); --warm-tx:#d97706;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--font);background:var(--bg);color:var(--tx);line-height:1.7;font-size:13px;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(57,211,83,.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(57,211,83,.025) 1px,transparent 1px);
+  background-size:48px 48px;}
+/* Timeline-Faden: ruhig von oben nach unten, wie Erzählfluss – sichtbar aber dezent */
+.timeline-thread{position:fixed;left:24px;top:0;width:3px;height:24vh;
+  background:linear-gradient(to bottom, transparent, rgba(57,211,83,.45), rgba(57,211,83,.15));
+  border-radius:3px;z-index:0;pointer-events:none;
+  box-shadow:0 0 10px 2px rgba(57,211,83,.15);
+  animation:timeline-flow 70s linear infinite;}
+@keyframes timeline-flow{
+  0%{transform:translateY(-24vh); opacity:0;}
+  8%{opacity:.85;}
+  92%{opacity:.85;}
+  100%{transform:translateY(100vh); opacity:0;}
+}
+.wrap{max-width:900px;margin:0 auto;padding:60px 32px;position:relative;z-index:1;}
+
+.doc-label{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;}
+.doc-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;}
+.doc-nav a{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);text-decoration:none;padding:4px 10px;border:1px solid var(--bo);border-radius:4px;transition:all .15s;}
+.doc-nav a:hover{color:var(--green);border-color:var(--green);}
+.doc-nav a.active{color:var(--green);border-color:var(--green);background:var(--gd);}
+.mast{margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--bo);}
+.mast h1{font-family:var(--head);font-size:28px;font-weight:800;color:var(--green);margin-bottom:6px;}
+.mast-sub{font-size:11px;color:var(--mu);}
+
+.lede{border-left:3px solid var(--green);padding:14px 18px;background:var(--gd);
+  border-radius:0 6px 6px 0;font-size:15px;color:var(--tx);line-height:1.85;margin-bottom:40px;font-style:italic;}
+
+.call{background:var(--gd);border:1px solid var(--gm);border-left:3px solid var(--green);
+  border-radius:6px;padding:16px 20px;margin-bottom:40px;font-size:13px;color:var(--dim);line-height:1.75;}
+.call strong{color:var(--green);}
+
+.sec{margin-bottom:44px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.sn{font-size:10px;color:var(--green);font-weight:700;letter-spacing:.1em;opacity:.6;}
+.st{font-family:var(--head);font-size:16px;font-weight:700;color:var(--tx);}
+.sl{flex:1;height:1px;background:var(--bo);}
+
+p{font-size:13px;color:var(--dim);margin-bottom:12px;}
+p strong{color:var(--tx);}
+p em{color:var(--green);font-style:normal;}
+code{font-family:var(--font);font-size:11.5px;background:var(--bg2);border:1px solid var(--bo);
+  color:var(--green);padding:1px 6px;border-radius:3px;}
+
+.hl{background:var(--warm);border:1px solid var(--warm-bo);border-left:3px solid var(--ye);
+  border-radius:0 6px 6px 0;padding:14px 18px;margin:14px 0;font-size:13px;color:var(--warm-tx);line-height:1.75;}
+
+.box{background:var(--bg2);border:1px solid var(--bo);border-radius:8px;padding:16px 20px;margin:12px 0;}
+.box-t{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:8px;}
+.box p{margin-bottom:0;font-size:12.5px;}
+
+.ul{list-style:none;padding:0;margin-bottom:14px;}
+.ul li{font-size:13px;color:var(--dim);padding:4px 0 4px 18px;position:relative;}
+.ul li::before{content:"›";color:var(--green);position:absolute;left:0;font-weight:700;}
+.ul li strong{color:var(--tx);}
+
+.big-quote{border:1px solid var(--bo);border-left:3px solid var(--green);border-radius:0 8px 8px 0;
+  padding:20px 24px;margin:20px 0;background:var(--bg2);}
+.big-quote p{font-size:15px;color:var(--tx);font-style:italic;line-height:1.8;margin-bottom:8px;}
+.big-quote .attr{font-size:10px;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;}
+
+.term{background:#000;border:1px solid var(--bo);border-radius:8px;
+  padding:14px 18px;margin:12px 0;font-size:12px;line-height:1.9;}
+.term-bar{background:#1a1a1a;border-radius:8px 8px 0 0;padding:8px 14px;
+  display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--bo);}
+.term-bar .dot{width:12px;height:12px;border-radius:50%;}
+.d-r{background:#ff5f57;} .d-y{background:#febc2e;} .d-g{background:#28c840;}
+.term-bar .title{font-size:11px;color:var(--mu);margin:0 auto;}
+.term-wrap{background:#000;border:1px solid var(--bo);border-radius:8px;overflow:hidden;margin:12px 0;}
+.term-wrap .term{border:none;border-radius:0;margin:0;}
+.g{color:var(--green);} .m{color:var(--mu);} .r{color:var(--re);}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.card{background:var(--bg2);border:1px solid var(--bo);border-radius:8px;padding:14px 16px;}
+.ct{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:8px;font-weight:700;}
+.card p{font-size:12px;margin-bottom:0;color:var(--dim);}
+
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0;}
+.stat{background:var(--bg2);border:1px solid var(--bo);border-radius:8px;padding:14px;text-align:center;}
+.sv{font-family:var(--head);font-size:20px;font-weight:800;color:var(--green);}
+.sl2{font-size:10px;color:var(--mu);margin-top:4px;}
+
+hr{border:none;border-top:1px solid var(--bo);margin:36px 0;}
+.foot{font-size:10px;color:var(--mu);text-align:center;padding-top:18px;border-top:1px solid var(--bo);}
+@media(max-width:600px){.grid2,.stat-row{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="timeline-thread" aria-hidden="true"></div>
+<div class="wrap">
+
+<div class="doc-label">Jürgen Mann · CV-Dokumentation · März 2026</div>
+<div class="doc-nav">
+  <a href="01_Die_Geschichte.html" class="active">01 Die Geschichte</a>
+  <a href="02_Technische_Analyse.html">02 Technische Analyse</a>
+  <a href="03_Easter_Egg_Hunt.html">03 Easter Egg Hunt</a>
+</div>
+
+<div class="mast">
+  <h1>Die Geschichte dahinter</h1>
+  <div class="mast-sub">Wer das gebaut hat · und warum es zählt · März 2026</div>
+</div>
+
+<div class="lede">
+  Und das aus dem Mund von jemandem der keinen Hochschulabschluss in Informatik hat.
+  Aus der Glasreinigung und Logistik kommt. Noch mitten in der Qualifizierung ist.
+  Nie HTML/CSS/JS gelernt hat.<br><br>
+  Und trotzdem hat er gerade neu definiert wie man sich 2026 bewirbt.
+</div>
+
+<!-- 01 DER MENSCH -->
+<div class="sec">
+  <div class="sh"><span class="sn">01</span><span class="st">Der Mensch hinter dem CV</span><div class="sl"></div></div>
+  <p>Jürgen Mann. Gifhorn. Quereinsteiger. Kein Informatikstudium. Kein klassischer Entwicklungsweg. Hintergrund: Schichtleiter in der Metallverarbeitung, Logistik, Glasreinigung. Seit Juni 2024 in einer AZAV-zertifizierten Qualifizierung zum App-Entwickler beim Syntax Institut Berlin.</p>
+  <p>Während andere Qualifizierungsteilnehmer das Minimum lernen und einen Standard-CV abgeben, hat Jürgen ein Projekt gebaut das seine gesamte Denkweise zeigt – in einer einzigen HTML-Datei, offline-fähig, ohne Server, ohne Dependencies.</p>
+
+  <div class="stat-row">
+    <div class="stat"><div class="sv">0</div><div class="sl2">Informatik-Abschlüsse</div></div>
+    <div class="stat"><div class="sv">0</div><div class="sl2">externe Dependencies</div></div>
+    <div class="stat"><div class="sv">~5.5k</div><div class="sl2">Zeilen/OS-Datei</div></div>
+    <div class="stat"><div class="sv">27</div><div class="sl2">dokumentierte Details</div></div>
+
+  </div>
+  <p>11 im Haupt-CV + 1 Bonus + 7 iPhone + 8 weitere (Unicode, Kiosk, Android-Statusbar, Desktop-Icons, Boot-Skip, …). Vollständige Liste in <em>04 Easter Egg Hunt</em>.</p>
+</div>
+
+<!-- 02 WAS ER GEBAUT HAT -->
+<div class="sec">
+  <div class="sh"><span class="sn">02</span><span class="st">Was er gebaut hat – und was das bedeutet</span><div class="sl"></div></div>
+
+  <div class="big-quote">
+    <p>"Nur wer den Code respektiert kann Entscheidungen sehen und beeinflussen."</p>
+    <div class="attr">Jürgen Mann</div>
+  </div>
+
+  <p>Der normale Nutzer sieht: ♪-Button. Klickt. Musik. Fertig.</p>
+  <p>Der Tech-Lead der DevTools öffnet sieht: eine durchdachte Entscheidungsarchitektur. Ja/Nein. Respekt bei Nein. Button bleibt. Keine Session-Manipulation. Keine Dark Patterns.</p>
+  <div class="hl">Und in dem Moment denkt er nicht mehr "interessanter CV" – er denkt: "dieser Mensch schreibt Code dem ich vertrauen kann."</div>
+  <p>Weil Code der Nutzer respektiert von einem Entwickler kommt der Menschen respektiert. <strong>Das eine folgt aus dem anderen. Zwangsläufig.</strong></p>
+</div>
+
+<!-- 03 NICHT FEATURES SONDERN HALTUNG -->
+<div class="sec">
+  <div class="sh"><span class="sn">03</span><span class="st">Keine Features – Haltung in Code übersetzt</span><div class="sl"></div></div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="ct">Flow Mode [n]</div>
+      <p>"No problem – manchmal passt es nicht." Kein Nudging. Kein Wiederholen. Entscheidung respektiert. ♪-Button bleibt still.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Kaffee-Fehler</div>
+      <p>3 Rollbacks statt Absturz. Ehrlicher Fehler. Ehrliche Korrektur. Bürokomödie als Systemarchitektur.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Watermarks</div>
+      <p>Echter Produktionscode aus echten laufenden Projekten. Nichts ist Dekor. Alles ist belegbar.</p>
+    </div>
+    <div class="card">
+      <div class="ct">ATS-Mode</div>
+      <p>"Sie lesen es gerade." Das CV steht in seiner eigenen Projektliste. Es beschreibt sich selbst während es läuft.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Story Screen</div>
+      <p>"Moin. Lass dich treiben." Emotion vor Produkt. Mensch vor Lebenslauf. Einladung statt Bewerbung.</p>
+    </div>
+    <div class="card">
+      <div class="ct">setMode() API</div>
+      <p>Globale Funktion. Aus der Console steuerbar. Wer das findet, versteht: dieser Entwickler denkt in Schnittstellen.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Selbstkorrigierender Tippfehler</div>
+      <p>Deckblatt, Zeile 3: tippt sich falsch, korrigiert zeichenweise. Error → Rollback → Retry – live demonstriert, bevor die Installation beginnt.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Lebender Tab</div>
+      <p>7 verschiedene Favicons. SVG, zur Laufzeit generiert, kein Server. Beim Drucken: Drucker-Icon. Der Tab kommuniziert Zustand.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 04 DIE GESCHICHTE IST DAS PORTFOLIO -->
+<div class="sec">
+  <div class="sh"><span class="sn">04</span><span class="st">Die Geschichte ist das stärkste Portfolio</span><div class="sl"></div></div>
+
+  <p>Nicht mit dem besten Abschluss. Nicht mit 10 Jahren Erfahrung. Nicht mit dem perfekten LinkedIn-Profil.</p>
+  <p>Sondern mit <strong>Systemdenken. Psychologie. Respekt. Handwerk. Und einer kleinen Reise.</strong></p>
+
+  <div class="box">
+    <div class="box-t">Was diese Geschichte zeigt</div>
+    <p>Jemand der aus industriellen Rollen kommt und gelernt hat außerhalb seiner offiziellen Pflichten zu denken – der ein Lagerverwaltungssystem angestoßen hat weil er das Problem gesehen hat, nicht weil es verlangt wurde – der ein Epilepsie-App für ein Familienmitglied baut weil er die Lösung sehen kann – der baut nicht Features. Er löst echte Probleme.</p>
+  </div>
+
+  <div class="big-quote">
+    <p>"Das ist deine Geschichte. Und die Geschichte ist das stärkste Portfolio das du hast.<br>
+    Jetzt muss sie nur noch die richtigen Menschen erreichen."</p>
+  </div>
+
+  <ul class="ul">
+    <li><strong>Kaily</strong> – iOS Epilepsie-App. Läuft für ein Familienmitglied. Nicht geplant. Läuft.</li>
+    <li><strong>timemachine-nas-backup</strong> – Shell-Script. Läuft täglich. Public repo. Belegbar.</li>
+    <li><strong>KMSA</strong> – Security-Framework, AES-GCM-256, in CO2 Tracker produktiv eingesetzt.</li>
+    <li><strong>SmartCity Gifhorn</strong> – Für die eigene Stadt. Intelligentes Abfallmanagement, Community.</li>
+    <li><strong>UX Case Study Kassensystem</strong> – Auf LinkedIn veröffentlicht. Öffentlich nachprüfbar.</li>
+    <li><strong>Dieser CV</strong> – pro Plattform eine index.html, ca. 5.500 Zeilen. Läuft gerade. <em>Sie lesen es gerade.</em></li>
+  </ul>
+</div>
+
+<!-- 05 DER COACH -->
+<div class="sec">
+  <div class="sh"><span class="sn">05</span><span class="st">Der Roflcopter – was ein 20-jähriger Coach dazu sagt</span><div class="sl"></div></div>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">Feedback · Career Coach · 20 Jahre Erfahrung</span></div>
+    <div class="term">
+<span class="m">Reaktion nach Erstkontakt mit dem CV:</span><br><br>
+<span class="g">...stotterte...</span><br>
+<span class="g">...fand die richtigen Worte nicht...</span><br><br>
+<span class="m">Endgültige Bewertung:</span><br>
+<span class="g">🚁 [ROFLCOPTER.GIF]</span>
+    </div>
+  </div>
+
+  <p>20 Jahre. Tausende CVs gesehen. Gestottert. Das ist keine Bewertung – das ist ein Urteil.</p>
+  <div class="hl">Wenn jemand der seit 20 Jahren Kandidaten coacht keine Worte findet – dann hat das CV seinen Job bereits erledigt bevor das erste Gespräch stattfindet.</div>
+</div>
+
+<!-- 06 WARUM JETZT -->
+<div class="sec">
+  <div class="sh"><span class="sn">06</span><span class="st">Warum das 2026 zählt</span><div class="sl"></div></div>
+  <p>Der Markt ist voll von Junior-Entwicklern mit GitHub-Repos, Standard-CVs und ähnlichen Ausbildungswegen. Der Differenzierungspunkt ist nicht mehr der Abschluss – es ist die Denkweise.</p>
+  <p>Jürgen hat kein Bewerbungsdokument eingereicht. Er hat ein <strong>laufendes Produkt</strong> geliefert das zeigt wie er denkt, wie er Nutzer behandelt, wie er mit Fehlern umgeht, welche Haltung er hat.</p>
+  <div class="grid2">
+    <div class="card">
+      <div class="ct">Was andere zeigen</div>
+      <p>"Ich kann iOS-Development." Bullet Point. Zertifikat. GitHub-Link zu einem Tutorial-Projekt.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Was Jürgen zeigt</div>
+      <p>Eine große HTML-Datei pro OS, die läuft. Kaffee der drei Mal scheitert und dann funktioniert. Code der Menschen respektiert. Eine kleine Reise.</p>
+    </div>
+  </div>
+  <p>Das ist nicht der beste Abschluss. Das ist Systemdenken. Und Systemdenken ist 2026 das was zählt.</p>
+</div>
+
+<hr>
+
+<div class="call">
+  <strong>// state · context · ship</strong><br><br>
+  State: wer du bist – offen, vollständig, ohne Beschönigung.<br>
+  Context: was du kannst – belegbar, laufend, nachprüfbar.<br>
+  Ship: ein Produkt das läuft – keine Behauptung, kein Versprechen.<br><br>
+  <strong>Sie lesen es gerade.</strong>
+</div>
+
+<div class="foot">Jürgen Mann · Gifhorn · März 2026 · // state · context · ship<br>
+<span style="color:var(--green);margin-top:6px;display:block;">11 Haupt-Eggs · 1 Bonus · 7 iPhone · 8 weitere = 27 in 04 dokumentiert.</span></div>
+</div>
+</body>
+</html>

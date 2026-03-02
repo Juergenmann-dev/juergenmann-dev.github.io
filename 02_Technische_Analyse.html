@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technische Analyse – Jürgen Mann CV · März 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap');
+:root {
+  --green:#39D353; --gd:rgba(57,211,83,0.1); --gm:rgba(57,211,83,0.3);
+  --bg:#0d1117; --bg2:#0a0f14; --bg3:#111820;
+  --bo:rgba(57,211,83,0.2); --tx:#e6edf3; --mu:#7d8590; --dim:#b0bcc8;
+  --re:#ff5f57; --bl:#58a6ff; --ye:#febc2e;
+  --font: 'Monaco','Menlo','Courier New',monospace;
+  --head: 'Syne',sans-serif;
+  --warm:rgba(245,158,11,0.12); --warm-bo:rgba(245,158,11,0.4); --warm-tx:#d97706;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--font);background:var(--bg);color:var(--tx);line-height:1.7;font-size:13px;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(57,211,83,.1) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(57,211,83,.1) 1px,transparent 1px);
+  background-size:48px 48px;}
+/* Laufender Glow – kreuz und quer wie Datentransport, sichtbar aber dezent */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+   linear-gradient(115deg, transparent 0%, transparent 30%, rgba(57,211,83,.14) 50%, transparent 70%, transparent 100%),
+   linear-gradient(245deg, transparent 0%, transparent 30%, rgba(57,211,83,.1) 50%, transparent 70%, transparent 100%);
+  background-size: 260% 260%, 300% 300%;
+  background-position: 0% 0%, 100% 100%;
+  animation: data-glow 14s linear infinite;}
+@keyframes data-glow {
+  0%{ background-position: 0% 0%, 100% 100%; }
+  100%{ background-position: 100% 100%, 0% 0%; }
+}
+/* Leuchtender Punkt: dezent – spürbar da, nicht störend, unterbewusst wahrnehmbar */
+.data-dot{
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  left: 0;
+  top: 48px;
+  margin-left: -3px;
+  margin-top: -3px;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: rgba(57,211,83,0.32);
+  box-shadow: 0 0 4px 1px rgba(57,211,83,0.2), 0 0 12px 2px rgba(57,211,83,0.08);
+}
+.wrap{max-width:900px;margin:0 auto;padding:60px 32px;position:relative;z-index:1;}
+
+.doc-label{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;}
+.doc-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;}
+.doc-nav a{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);text-decoration:none;padding:4px 10px;border:1px solid var(--bo);border-radius:4px;transition:all .15s;}
+.doc-nav a:hover{color:var(--green);border-color:var(--green);}
+.doc-nav a.active{color:var(--green);border-color:var(--green);background:var(--gd);}
+.mast{margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--bo);}
+.mast h1{font-family:var(--head);font-size:28px;font-weight:800;color:var(--green);margin-bottom:6px;}
+.mast-sub{font-size:11px;color:var(--mu);}
+
+.verdict{background:var(--gd);border:1px solid var(--gm);border-left:3px solid var(--green);
+  border-radius:6px;padding:16px 20px;margin-bottom:40px;font-size:13px;color:var(--dim);line-height:1.75;position:relative;}
+.verdict::after{content:'// VERDICT';position:absolute;top:12px;right:16px;font-size:9px;
+  color:var(--green);opacity:.5;letter-spacing:.15em;text-transform:uppercase;}
+.verdict strong{color:var(--green);}
+
+.sec{margin-bottom:44px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.sn{font-size:10px;color:var(--green);font-weight:700;letter-spacing:.1em;opacity:.6;}
+.st{font-family:var(--head);font-size:16px;font-weight:700;color:var(--tx);}
+.sl{flex:1;height:1px;background:var(--bo);}
+
+p{font-size:13px;color:var(--dim);margin-bottom:12px;}
+p strong{color:var(--tx);}
+p em{color:var(--green);font-style:normal;}
+code{font-family:var(--font);font-size:11.5px;background:var(--bg2);border:1px solid var(--bo);
+  color:var(--green);padding:1px 6px;border-radius:3px;}
+
+.hl{background:var(--warm);border:1px solid var(--warm-bo);border-left:3px solid var(--ye);
+  border-radius:0 6px 6px 0;padding:14px 18px;margin:14px 0;font-size:13px;color:var(--warm-tx);line-height:1.75;}
+
+.box{background:var(--bg2);border:1px solid var(--bo);border-radius:8px;padding:16px 20px;margin:12px 0;}
+.box-t{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:8px;}
+.box p{margin-bottom:6px;font-size:12.5px;}
+.box p:last-child{margin-bottom:0;}
+
+.term-wrap{background:#000;border:1px solid var(--bo);border-radius:8px;overflow:hidden;margin:12px 0;}
+.term-bar{background:#1a1a1a;padding:8px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--bo);}
+.term-bar .dot{width:12px;height:12px;border-radius:50%;}
+.d-r{background:#ff5f57;} .d-y{background:#febc2e;} .d-g{background:#28c840;}
+.term-bar .title{font-size:11px;color:var(--mu);margin:0 auto;}
+.term{background:#000;padding:14px 18px;font-size:12px;line-height:1.9;overflow-x:auto;}
+.g{color:var(--green);} .m{color:var(--mu);} .r{color:var(--re);} .b{color:var(--bl);}
+
+.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0;}
+.metric{background:var(--bg2);border:1px solid var(--bo);border-radius:8px;padding:14px;text-align:center;}
+.mv{font-family:var(--head);font-size:22px;font-weight:800;color:var(--green);}
+.ml{font-size:10px;color:var(--mu);margin-top:4px;}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.card{background:var(--bg2);border:1px solid var(--bo);border-radius:8px;padding:14px 16px;}
+.ct{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:8px;font-weight:700;}
+.card p{font-size:12px;margin-bottom:0;color:var(--dim);}
+
+.ul{list-style:none;padding:0;margin-bottom:14px;}
+.ul li{font-size:13px;color:var(--dim);padding:4px 0 4px 18px;position:relative;}
+.ul li::before{content:"›";color:var(--green);position:absolute;left:0;font-weight:700;}
+.ul li strong{color:var(--tx);}
+
+hr{border:none;border-top:1px solid var(--bo);margin:36px 0;}
+.foot{font-size:10px;color:var(--mu);text-align:center;padding-top:18px;border-top:1px solid var(--bo);}
+@media(max-width:600px){.metric-row,.grid2{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div id="data-dots" aria-hidden="true"></div>
+<div class="wrap">
+
+<div class="doc-label">Jürgen Mann · CV-Dokumentation · März 2026</div>
+<div class="doc-nav">
+  <a href="01_Die_Geschichte.html">01 Die Geschichte</a>
+  <a href="02_Technische_Analyse.html" class="active">02 Technische Analyse</a>
+  <a href="03_Easter_Egg_Hunt.html">03 Easter Egg Hunt</a>
+</div>
+
+<div class="mast">
+  <h1>Technische Analyse</h1>
+  <div class="mast-sub">Architektur, Mechaniken & Entscheidungen · index.html pro OS-Ordner (2_mac, 2.4_android, …) · März 2026</div>
+</div>
+
+<div class="verdict">
+  Eine einzige HTML-Datei. Kein Server. Keine externen Dependencies außer einem Google Font.
+  Kein Build-Prozess. <strong>Ca. 4.300–5.600 Zeilen pro OS-Datei. 7 View-Modi (+ Drucken). 27 dokumentierte Easter Eggs & Details (11 im Kern, + 1 Bonus, 7 iPhone, 8 weitere). 5 OS-Themes (Mac, Win, Linux, Android, iPhone). Vollständig offline-fähig.</strong>
+  Das ist kein Dokument – das ist ein laufendes Produkt. Die vollständige Liste aller 27 steht in <em>04 Easter Egg Hunt</em>.
+</div>
+
+<!-- 01 -->
+<div class="sec">
+  <div class="sh"><span class="sn">01</span><span class="st">Kennzahlen</span><div class="sl"></div></div>
+
+  <div class="metric-row">
+    <div class="metric"><div class="mv">~5.5k</div><div class="ml">Zeilen/OS-Datei</div></div>
+    <div class="metric"><div class="mv">7</div><div class="ml">View-Modi</div></div>
+    <div class="metric"><div class="mv">27</div><div class="ml">Easter Eggs</div></div>
+    <div class="metric"><div class="mv">0</div><div class="ml">Dependencies</div></div>
+  </div>
+
+  <div class="box">
+    <div class="box-t">Was die Zahlen bedeuten</div>
+    <p><strong>Ca. 4.300–5.600 Zeilen</strong> pro Plattformdatei (2_mac/index.html, 2.4_android/index.html, …): CSS, JavaScript, alle Assets, alle Inhalte, alle Easter Eggs. Kein Bundler. Kein npm. Kein Webpack. Pro OS eine zentrale <code>index.html</code> mit vollem Flow.</p>
+    <p><strong>7 View-Modi</strong> (+ Drucken): Deckblatt · Handoff (Design-Specs) · 1 Seite · ATS · Anschreiben · Komplett · Profil+ · Drucken. Jeder Modus hat eigenes Layout, eigenes Favicon, eigene CSS-Klassen.</p>
+    <p><strong>0 externe Dependencies</strong>: Einzige externe Ressource ist Google Fonts (Syne). Bilder kommen von GitHub Pages. Alle Logik, alle Animationen, alle Mechaniken: reines HTML/CSS/JS.</p>
+  </div>
+</div>
+
+<!-- 02 -->
+<div class="sec">
+  <div class="sh"><span class="sn">02</span><span class="st">Architektur & State Management</span><div class="sl"></div></div>
+
+  <p>Das CV verwaltet einen komplexen Zustand ohne Framework. Alle Phasen laufen über CSS-Klassen auf <code>document.body</code> – das ist das komplette State-System.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">State Flow – body.className</span></div>
+    <div class="term">
+<span class="m">Phase 1:</span> <span class="g">boot-phase</span>                <span class="m">→ Schwarzer BG, Linux-Boot-Messages scrollend</span><br>
+<span class="m">Phase 2:</span> <span class="g">retro-bg os-mac</span>           <span class="m">→ Eigenes Wallpaper geladen, OS erkannt</span><br>
+<span class="m">Phase 3:</span> <span class="g">retro-active os-mac</span>       <span class="m">→ Spotlight, Terminal-Overlay aktiv</span><br>
+<span class="m">Phase 4:</span> <span class="g">mode-deckblatt</span>            <span class="m">→ removeOverlay() · CV-Inhalt erscheint</span><br>
+<span class="m">Phase 5:</span> <span class="g">mode-design / mode-ats / …</span>  <span class="m">→ setMode() Wechsel per Toggle oder Console</span>
+    </div>
+  </div>
+
+  <p>Kein React. Kein Vue. Kein State-Management-Framework. Trotzdem: saubere Zustandsübergänge, keine Race Conditions, keine doppelten Trigger.</p>
+
+  <div class="box">
+    <div class="box-t">setMode() – Die globale API</div>
+    <p><code>setMode(mode)</code> ist als <strong>globale window-Funktion</strong> verfügbar. Alle 7 Modi sind aus der Browser-Console steuerbar. Das ist kein Zufall – das ist eine bewusste Schnittstelle.</p>
+    <p>Interne Mechanik: Body-Klassen entfernen → neue setzen → <code>updateToggleActive()</code> → <code>updateFavicon()</code>. Eine Funktion steuert alles. Single Responsibility, richtig umgesetzt.</p>
+  </div>
+</div>
+
+<!-- 03 -->
+<div class="sec">
+  <div class="sh"><span class="sn">03</span><span class="st">OS-Erkennung & Plattform-Theming</span><div class="sl"></div></div>
+
+  <p>Beim ersten Load liest <code>navigator.userAgent</code> das Betriebssystem und setzt sofort eine Body-Klasse. Danach ist das gesamte CSS kaskadierend – kein JavaScript steuert mehr die Optik, das übernimmt der Browser.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">OS Detection → Theme → Content → Sprache</span></div>
+    <div class="term">
+<span class="m">Win    →</span> <span class="g">os-win</span>    <span class="m">→ Windows.jpg · winget install · Taskbar · =- Progressbar · "Kaffee ist fertig."</span><br>
+<span class="m">Mac    →</span> <span class="g">os-mac</span>    <span class="m">→ Mac.jpg · brew install · Dock · █░ Progressbar · "Coffee is ready."</span><br>
+<span class="m">Linux  →</span> <span class="g">os-linux</span>  <span class="m">→ brauner Hintergrund · kein Dock/Menü · echo · apt install · Strg+Alt+T Konsole · bash · Ubuntu-Theme</span><br>
+<span class="m">iPhone →</span> <span class="g">os-iphone</span> <span class="m">→ 2.5_iphone/ · Boot-Skip · DFU · Linux-Kernel-Kompakt · Mac-Desktop-Crash · .ipsw</span><br>
+<span class="m">Android→</span> <span class="g">os-android</span> <span class="m">→ 2.4_android/ · Boot-Skip · Homescreen+Kacheln · Notification → Chat „Jürgen Mann“ · Log.d auf Deckblatt · APK-Installer · echte Uhr/Akku</span>
+    </div>
+  </div>
+
+  <p>Die Plattform-Anpassungen sind tief: nicht nur Theme, sondern auch <strong>Sprache</strong> (Coffee vs. Kaffee), <strong>Progressbar-Zeichen</strong>, <strong>Terminal-Wrapper</strong> (<code>brew install</code> / <code>winget install</code> / <code>apt install</code>), <strong>Deckblatt-Ausgabe</strong> (Mac/iPhone <code>print("</code>, Win/Linux <code>echo "</code>, Android <code>Log.d("CV", "</code>) und <strong>Fensterdekoration</strong> (macOS Aqua vs. Ubuntu Dots).</p>
+
+  <div class="hl">Wer auf Mac öffnet, sieht ein Mac-Fenster. Wer auf Windows öffnet, sieht cmd.exe. Das Gehirn registriert nicht den Unterschied – es registriert: das fühlt sich echt an.</div>
+</div>
+
+<!-- 04 -->
+<div class="sec">
+  <div class="sh"><span class="sn">04</span><span class="st">Boot-Sequenz & Linux-Kernel-Fake</span><div class="sl"></div></div>
+
+  <p>Vor dem Wallpaper-Load läuft eine schwarze Boot-Phase mit echten Linux-Kernel-Nachrichten. Das Array <code>BOOT_LINES[]</code> enthält über 80 Einträge mit syntaktisch authentischen Kernel-Timestamps.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">boot-loading-screen (Auszug BOOT_LINES[])</span></div>
+    <div class="term">
+<span class="g">[    0.000000] Linux version 6.1.0-25-generic</span><br>
+<span class="g">[    0.000001] Command line: BOOT_IMAGE=/vmlinuz root=UUID=xxx ro quiet splash</span><br>
+<span class="g">[    0.001234] e820: BIOS-provided physical RAM map</span><br>
+<span class="g">[    0.234567] systemd[1]: systemd 252.5 running in system mode</span><br>
+<span class="g">[    0.667890] iwlwifi 0000:03:00.0: Detected Intel(R) Wi-Fi 6 AX201 160MHz</span><br>
+<span class="m">... 80+ Zeilen: ACPI, PCI, SCSI, Bluetooth, IPv6, AppArmor, Wi-Fi-Stack ...</span><br>
+<span class="g">[    1.323456] systemd[1]: Startup finished in 1.323s (kernel) + 2.456s (initrd) + 3.789s (userspace)</span>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-t">Warum das das primäre Easter Egg ist</div>
+    <p>Ein <strong>Linux-Kernel</strong> bootet auf einem <strong>iPhone im DFU-Modus</strong>, während im Hintergrund ein <strong>Mac-Desktop</strong> sichtbar ist, betrachtet in einem <strong>Mac-Browser</strong>. Drei Betriebssysteme gleichzeitig. Nur wer Linux kennt, erkennt die Absurdität – und denkt: dieser Mensch weiß was er tut.</p>
+    <p>Das ist kein Gag. Das ist ein Easter Egg: es sieht echt aus, bis man genau hinschaut.</p>
+  </div>
+</div>
+
+<!-- 05 -->
+<div class="sec">
+  <div class="sh"><span class="sn">05</span><span class="st">Installer-Phase & Coffee-Maker-Architektur</span><div class="sl"></div></div>
+
+  <p>Die Terminal-Simulation nutzt <code>async/await</code> über Promises. Jede Zeile, jeder Fortschrittsbalken, jeder Rollback ist ein eigenes <code>await</code>. Das Timing ist choreografiert, nicht zufällig.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">animateProgressBar + animateRollback</span></div>
+    <div class="term">
+<span class="g">✓ ui/ux-module</span>                <span class="m">0% → 15%</span><br>
+<span class="g">✓ xcode-toolchain</span>              <span class="m">15% → 30%</span><br>
+<span class="g">✓ firebase-sdk</span>                 <span class="m">30% → 45%</span><br>
+<span class="g">✓ android-sdk</span>                  <span class="m">45% → 60%</span><br>
+<span class="r">⟳ coffee-maker-integration</span>     <span class="m">60% → 72% → ERROR → animateRollback(72, 60)</span><br>
+<span class="r">⟳ coffee-maker-integration</span>     <span class="m">60% → 72% → ERROR → animateRollback(72, 60)</span><br>
+<span class="r">⟳ coffee-maker-integration</span>     <span class="m">60% → 72% → ERROR → animateRollback(72, 60)</span><br>
+<span class="g">✓ coffee-maker [HTML enabled]</span>  <span class="m">60% → 100%</span>
+    </div>
+  </div>
+
+  <p><code>animateRollback(72, 60)</code> ist das exakte Pattern aus echten Transaktionssystemen. Error → Detect → Rollback → Retry. Nicht nur ein Gag – ein demonstriertes Architekturprinzip.</p>
+</div>
+
+<!-- 06 -->
+<div class="sec">
+  <div class="sh"><span class="sn">06</span><span class="st">Typewriter-Engine & Typo-Mechanik</span><div class="sl"></div></div>
+
+  <p>Die Typewriter-Funktion unterstützt absichtliche Tippfehler mit automatischer Zeichenweiser-Korrektur. Die Parameter werden als <code>data-</code>-Attribute im HTML gesetzt.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">typeWriter() mit Typo + backspaceChars()</span></div>
+    <div class="term">
+<span class="m">data-typo-after="Produkte "</span>          <span class="m">← Punkt wo Typo beginnt</span><br>
+<span class="m">data-typo-wrong="machen beide verbinden"</span>  <span class="m">← falsche Version</span><br><br>
+<span class="g">1.</span> Tippt: <span class="g">"Produkte "</span>                   <span class="m">→ typo.after erreicht</span><br>
+<span class="g">2.</span> Tippt: <span class="r">"machen beide verbinden"</span>       <span class="m">→ typo.wrong</span><br>
+<span class="g">3.</span> <span class="g">backspaceChars(N, 55ms/Zeichen)</span>     <span class="m">→ zeichenweise löschen</span><br>
+<span class="g">4.</span> Tippt: <span class="g">"müssen beides verbinden."</span>      <span class="m">→ korrekte Version</span>
+    </div>
+  </div>
+
+  <p>Timing: 55ms pro Backspace. 36ms Typing-Speed. 480ms Pausen nach Satzenden. Dieselbe Error → Rollback → Retry-Philosophie wie der Kaffee-Maker – aber im Deckblatt-Typewriter.</p>
+</div>
+
+<!-- 07 -->
+<div class="sec">
+  <div class="sh"><span class="sn">07</span><span class="st">Dynamisches Favicon-System</span><div class="sl"></div></div>
+
+  <p>Das Favicon ändert sich mit jedem View-Modus. Kein externer Request. Das SVG wird zur Laufzeit als String gebaut, per <code>btoa(unescape(encodeURIComponent(svg)))</code> in Base64 enkodiert, und direkt als Data-URI gesetzt.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">getFaviconUri(mode) → 8 verschiedene SVGs</span></div>
+    <div class="term">
+<span class="g">deckblatt   →</span> <span class="b">JM</span>   <span class="g">design    →</span> <span class="b">HO</span>   <span class="g">onepage →</span> <span class="b">S1</span><br>
+<span class="g">ats         →</span> <span class="b">ATS</span>  <span class="g">profilplus→</span> <span class="b">PR</span>   <span class="g">anschreiben→</span> <span class="b">AN</span><br>
+<span class="g">komplett    →</span> <span class="b">KO</span>   <span class="g">drucken →</span> <span class="b">🖨️</span> <span class="m">(echter SVG-Pfad, kein Text)</span>
+    </div>
+  </div>
+
+  <p>Der Browser-Tab <em>lebt mit</em>. Niemand bemerkt es bewusst – aber der Tab ist nie statisch. Beim Druckdialog: echtes SVG-Drucker-Icon, gezeichnet als Pfade zur Laufzeit.</p>
+</div>
+
+<!-- 08 -->
+<div class="sec">
+  <div class="sh"><span class="sn">08</span><span class="st">DevTools-Erkennung – Dual-Methode</span><div class="sl"></div></div>
+
+  <p>Das Console Easter Egg triggert nur wenn DevTools wirklich offen sind. Zwei unabhängige Erkennungsmethoden, IIFE-gekapselt, einmaliger Trigger per <code>fired</code>-Flag.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">isDevtoolsLikelyOpen() – zwei Methoden</span></div>
+    <div class="term">
+<span class="m">// Methode 1: Fenstergröße (angedockte DevTools)</span><br>
+<span class="g">Math.abs(window.outerWidth - window.innerWidth) > 160</span><br>
+<span class="g">Math.abs(window.outerHeight - window.innerHeight) > 160</span><br><br>
+<span class="m">// Methode 2: debugger-Timing (undocked / floating)</span><br>
+<span class="g">t0 = performance.now(); debugger; dt = performance.now() - t0;</span><br>
+<span class="g">return dt > 120;</span>  <span class="m">← debugger wurde pausiert = DevTools aktiv</span>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-t">Was die Console zeigt</div>
+    <p><code>⚠️ ERROR 404: BUGS NOT FOUND</code> – roter Hintergrund, 18px, styled mit <code>%c</code>.</p>
+    <p><code>console.groupCollapsed("SYSTEM CHECK")</code> – aufklappbar. Inhalt: STATE → aktuell stabil · CONTEXT → browser runtime · SHIP → releasefähig.</p>
+    <p>Abschluss: direkte Ansprache + <code>Hint: try setMode('ats')</code>. Wer DevTools öffnet um Fehler zu suchen, findet: einen Entwickler der seine Besucher erwartet hat.</p>
+  </div>
+</div>
+
+<!-- 09 -->
+<div class="sec">
+  <div class="sh"><span class="sn">09</span><span class="st">Kiosk-Mode & Session-State</span><div class="sl"></div></div>
+
+  <p>Das CV versucht beim ersten User-Gesture (Klick oder Keydown, <code>{ once: true }</code>) in den Fullscreen-Modus zu wechseln. Der Installer kündigt es an: <em>"Kiosk mode aktiv – Klick oder Taste = Vollbild."</em></p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">tryFullscreen() + markKioskUsed()</span></div>
+    <div class="term">
+<span class="g">addEventListener("click", () => tryFullscreen(true), { once: true });</span><br>
+<span class="g">addEventListener("keydown", () => tryFullscreen(true), { once: true });</span><br><br>
+<span class="m">→ sessionStorage.setItem("kioskUsed", "1")</span><br>
+<span class="m">→ body.classList.add("kiosk-used")</span><br>
+<span class="m">→ .deckblatt-kiosk-hint: display none, dauerhaft</span>
+    </div>
+  </div>
+
+  <p><code>sessionStorage</code> merkt sich den Fullscreen-Hinweis für die Session. Einmal weggedrückt, erscheint er nicht mehr – auch nach Reload. Session-State ohne Backend, ohne Cookie.</p>
+</div>
+
+<!-- iPhone Zweig -->
+<div class="sec">
+  <div class="sh"><span class="sn">10</span><span class="st">iPhone-Zweig – 2.5_iphone/index.html</span><div class="sl"></div></div>
+
+  <p>Der iPhone-Zweig ist eine eigenständige Narrative-Ebene. Während Mac/Win/Linux einen Installer durchlaufen, erlebt das iPhone einen <strong>DFU-Recovery-Flow</strong> – komplett mit echten Apple-Dateiendungen, iOS-internen Paketen und einem inszenierten Systemcrash.</p>
+
+  <div class="term-wrap">
+    <div class="term-bar"><div class="dot d-r"></div><div class="dot d-y"></div><div class="dot d-g"></div><span class="title">iPhone Flow – 7 Phasen</span></div>
+    <div class="term">
+<span class="g">1. iphone-boot-intro</span>     <span class="m">→ Linux-Kernel (12 Zeilen), endet: Speicherfehler</span><br>
+<span class="g">2. iphone-systemfehler-phase</span><span class="m">→ Mac-Desktop erscheint (#1a1a1a BG, gecrasht)</span><br>
+<span class="g">3. systemfehler-overlay</span>  <span class="m">→ "DFU konnte nicht gestartet werden" / "Systemfehler" / "DFU erneut starten"</span><br>
+<span class="g">4. iphone-dfu-screen</span>     <span class="m">→ SVG Kabel+iPhone, "DFU gestartet. Wiederherstellung beginnen."</span><br>
+<span class="g">5. iphone-install-screen</span> <span class="m">→ MobileInstallation / SpringBoard / UIKit / .ipsw + coffee-maker.ipa</span><br>
+<span class="g">6. iphone-dfu-story</span>      <span class="m">→ Story-Text im DFU-Look</span><br>
+<span class="g">7. iphone-flow-prompt</span>    <span class="m">→ Flow-Modus, Touch-Buttons statt Keyboard</span>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-t">iOS-spezifische technische Details</div>
+    <p><code>ideviceinstaller -i jürgen-mann.ipa</code> – echtes Open-Source-CLI-Tool. <code>.ipsw</code> – echtes Apple System-Recovery-Format. <code>.ipa</code> für den Kaffee-Maker bewusst anders als die Skill-Pakete. Pakete sind iOS-Systemframeworks: MobileInstallation (interner Installer-Daemon), SpringBoard (Home-Screen-Prozess), KeychainServices, UIKit.</p>
+    <p>Die <code>iphone-systemfehler-phase</code>-CSS-Klasse schaltet <code>#mac-menu-bar</code>, <code>#desktop-icons</code> und <code>#os-dock-bar</code> auf <code>display: flex !important</code> – der Mac-Desktop bricht durch den schwarzen Screen, Hintergrund <code>#1a1a1a</code> statt Wallpaper. System gecrasht, Finder läuft noch.</p>
+  </div>
+
+  <div class="hl">Vier Betriebssysteme gleichzeitig: Linux (gecrasht) · Mac-Finder (noch aktiv) · iPhone (DFU-Modus) · Mac-Browser (betrachtet das Ganze). Das ist kein Designentscheidung – das ist eine technische Absurdität die trotzdem funktioniert.</div>
+</div>
+
+<!-- 11 -->
+<div class="sec">
+  <div class="sh"><span class="sn">11</span><span class="st">UX-Entscheidungen – Anti-Dark-Patterns</span><div class="sl"></div></div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="ct">Deckblatt: Navigation erst danach</div>
+      <p>Bottom-Nav und Hamburger erscheinen erst nach Ende des Typewriters (<code>deckblatt-typing-done</code>). Auf allen mobilen Views (Mac, Win, Linux, Android, iPhone) – Deckblatt bleibt ungestört.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Flow Mode [n]</div>
+      <p><code>"No problem – manchmal passt es nicht."</code> Kein confirm(). Kein Retry. ♪-Button bleibt still. Entscheidung respektiert, Tür bleibt offen.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Musik: 30% Lautstärke</div>
+      <p>Audio startet bei 30%, nicht 100%. Der Nutzer wird nicht erschreckt. Ergänzen, nicht überlagern.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Watermarks: aria-hidden</div>
+      <p>Alle <code>.watermark-code</code>-Elemente tragen <code>aria-hidden="true"</code>. Screenreader überspringen Dekorcode. Barrierefreiheit auch im Hintergrund.</p>
+    </div>
+    <div class="card">
+      <div class="ct">ATS-Mode: sauber</div>
+      <p>Keine Easter Eggs, keine Animationen, kein JavaScript im ATS-View. Reiner Text, semantisches HTML. ATS-Parser bekommen exakt was sie brauchen.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Wallpaper-Preload</div>
+      <p>Bild vorgeladen mit Timeout. Bei Fehler: Fallback auf Retro-Türkis (#008B8B). Kein broken image, kein FOUC.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Print-Dialog</div>
+      <p>Eigener Dialog: Wahl zwischen ATS und Design. Favicon wechselt auf Drucker-Icon. Nach Close: zurück zum vorherigen Modus.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 12 -->
+<div class="sec">
+  <div class="sh"><span class="sn">12</span><span class="st">Ehrliche Gap-Analyse</span><div class="sl"></div></div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="ct">Was technisch fehlt</div>
+      <p>TypeScript statt vanilla JS. CSS-Methodologie (BEM, Modules). Unit Tests. Automatisierter Build. Bundle-Optimierung. Keine i18n-Strategie.</p>
+    </div>
+    <div class="card">
+      <div class="ct">Warum das kein Problem ist</div>
+      <p>Das sind Entscheidungen, keine Defizite. Alles in einer Datei, kein Framework, zero-dependency: offline-fähig, maximal portabel, kein Build-Schritt nötig.</p>
+    </div>
+  </div>
+
+  <div class="hl">Wer diese Datei auf Framework-Standards bewertet hat den Kontext nicht verstanden. Die Architekturentscheidungen erfüllen die Anforderungen zu 100%.</div>
+</div>
+
+<!-- 13 -->
+<div class="sec">
+  <div class="sh"><span class="sn">13</span><span class="st">Einschätzung für Tech-Leads</span><div class="sl"></div></div>
+
+  <ul class="ul">
+    <li><strong>State Management verstanden:</strong> Kein Framework, trotzdem saubere Zustandsübergänge ohne Race Conditions.</li>
+    <li><strong>Async/await beherrscht:</strong> Die gesamte Installer-Phase ist eine choreografierte Promise-Kette ohne Callback-Hell.</li>
+    <li><strong>CSS-Kaskade gezielt eingesetzt:</strong> OS-Theming über Body-Klassen, kein JavaScript für visuelle Änderungen wo CSS reicht.</li>
+    <li><strong>Performance bedacht:</strong> Wallpaper-Preload mit Fallback, Favicon als Base64 ohne externen Request, <code>{ once: true }</code> für Event-Listener.</li>
+    <li><strong>Nutzer respektiert:</strong> <code>aria-hidden</code> auf Dekor-Elementen, ATS-Mode sauber, kein Dark-Pattern beim Flow-Mode.</li>
+    <li><strong>Systemdenken:</strong> Error → Rollback → Retry in Kaffee-Maker, Typo-Korrektur und Rollback-Mechanik. Dieselbe Philosophie, drei verschiedene Kontexte.</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-t">Das Fazit</div>
+    <p>Das ist kein Tutorial-Code. Kein Copy-Paste-Projekt. Tausende Zeilen pro Plattform die zeigen wie jemand denkt der versteht: Nutzerverhalten ist vorhersagbar, State ist verwaltbar, Humor und Architektur schließen sich nicht aus.</p>
+    <p><strong>Wer das gebaut hat kann in einem echten Team Code schreiben dem andere vertrauen.</strong></p>
+  </div>
+</div>
+
+<hr>
+
+<div class="verdict" style="margin-bottom:0;">
+  <strong>// state · context · ship</strong> — Pro Plattform eine index.html (~5.500 Zeilen). Null Dependencies. Sieben Modi. 27 dokumentierte Easter Eggs (vollständig in 04). Fünf OS-Themes. Läuft gerade.
+</div>
+
+<div class="foot" style="margin-top:24px;">Jürgen Mann · Gifhorn · März 2026 · // state · context · ship</div>
+</div>
+
+<script>
+(function(){
+  var G = 48;
+  var LEFT = -60;
+  var RIGHT = 2640;
+  var Y_MIN = 0;
+  var ROWS = 29;
+  var Y_MAX = (ROWS - 1) * G;
+
+  function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function nextY(y){
+    var choices = [y];
+    if (y - G >= Y_MIN) choices.push(y - G);
+    if (y + G <= Y_MAX) choices.push(y + G);
+    return pick(choices);
+  }
+
+  function yOptions(){
+    var o = [];
+    for (var yy = 0; yy <= Y_MAX; yy += G) o.push(yy);
+    return o;
+  }
+
+  /** Komplett zufällige Leiterbahn: nur Gitter (48px), links rein, rechts raus. forcedStartY = Startzeile dieses Punkts (über 29 Reihen verteilt). */
+  function buildRandomPath(forcedStartY){
+    var startY = forcedStartY != null ? forcedStartY : pick(yOptions());
+    var endY = pick(yOptions());
+    var pts = [];
+    pts.push({ x: LEFT, y: startY });
+    pts.push({ x: 0, y: startY });
+    var y = startY;
+    for (var x = G; x <= RIGHT; x += G) {
+      var yNext = nextY(y);
+      pts.push({ x: x, y: y });
+      if (yNext !== y) {
+        var step = yNext > y ? G : -G;
+        for (var yy = y + step; step > 0 ? yy <= yNext : yy >= yNext; yy += step) {
+          pts.push({ x: x, y: yy });
+        }
+        y = yNext;
+      } else {
+        y = yNext;
+      }
+    }
+    if (y !== endY) {
+      var step = endY > y ? G : -G;
+      for (var yy = y + step; step > 0 ? yy <= endY : yy >= endY; yy += step) {
+        pts.push({ x: RIGHT, y: yy });
+      }
+    }
+    return pts;
+  }
+
+  function runDot(dot){
+    var startY = dot.dataset.startY != null ? parseInt(dot.dataset.startY, 10) : null;
+    var pts = buildRandomPath(startY);
+    var keyframes = pts.map(function(p){
+      return { transform: 'translate(' + p.x + 'px, ' + p.y + 'px)' };
+    });
+    var duration = 45000 + Math.random() * 25000;
+    var anim = dot.animate(keyframes, {
+      duration: duration,
+      easing: 'linear',
+      fill: 'both',
+      iterations: 1
+    });
+    anim.onfinish = function(){ runDot(dot); };
+  }
+
+  function init(){
+    var container = document.getElementById('data-dots');
+    if (!container) return;
+    for (var i = 0; i < 10; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'data-dot';
+      var row = Math.round((i * (ROWS - 1)) / 9);
+      dot.dataset.startY = String(row * G);
+      container.appendChild(dot);
+      runDot(dot);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
