@@ -454,12 +454,10 @@ body.retro-bg {
 .prompt { color: #111827; font-weight: 600; }
 .response { color: #4b5563; font-style: italic; margin-top: 2px; }
 
-/* Easter Egg: Terminal-Optionen per Mausklick wählbar */
+/* Easter Egg: Terminal-Optionen per Mausklick wählbar – kein cursor: pointer, bleibt unauffällig */
 .terminal-choice {
-  cursor: pointer;
   margin-top: 2px;
 }
-.terminal-choice.chosen { cursor: default; }
 .story-text {
   color: #111827;
   text-shadow: 0 0 2px rgba(255, 255, 255, 0.7);

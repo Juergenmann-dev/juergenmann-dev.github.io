@@ -510,14 +510,19 @@
       line.appendChild(cmdSpan);
       output.appendChild(line);
 
+      var kioskLine = document.createElement("div");
+      kioskLine.className = "response";
+      kioskLine.textContent = "✓ Kiosk mode aktiv – Klick oder Taste = Vollbild.";
+      output.appendChild(kioskLine);
+
       var question = document.createElement("div");
       question.className = "response";
-      question.textContent = "Musik starten? [y/N]";
+      question.textContent = "Flow starten? [y/N]";
       output.appendChild(question);
 
       var optY = document.createElement("div");
       optY.className = "response terminal-choice";
-      optY.textContent = "  [y] – Musik an";
+      optY.textContent = "  [y] – Flow starten";
       output.appendChild(optY);
       var optN = document.createElement("div");
       optN.className = "response terminal-choice";
@@ -578,6 +583,7 @@
 
       function goToDeckblatt() {
         setTimeout(function () {
+          try { sessionStorage.setItem("kioskUsed", "1"); } catch (e) {}
           window.location.href = "../4_lebenslauf/index.html";
           resolve();
         }, 700);
@@ -585,6 +591,11 @@
 
       function doY() {
         askForTitleVariant().then(function () {
+          var flowOk = document.createElement("div");
+          flowOk.className = "response";
+          flowOk.textContent = "✓ Flow mode aktiviert. Viel Spaß.";
+          output.appendChild(flowOk);
+          output.scrollTop = output.scrollHeight;
           goToDeckblatt();
         });
       }
@@ -603,8 +614,6 @@
         output.removeEventListener("click", handleClick);
         optY.classList.add("chosen");
         optN.classList.add("chosen");
-        optY.style.cursor = "default";
-        optN.style.cursor = "default";
       }
 
       function handler(event) {
