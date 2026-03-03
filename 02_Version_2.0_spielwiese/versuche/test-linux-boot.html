@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linux LILO/Debian Boot – Test</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #050505;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #monitor {
+      width: 90vw;
+      height: 80vh;
+      background-color: #0a0a0a;
+      position: relative;
+      border: 20px solid #333;
+      border-radius: 20px;
+      box-shadow: 0 0 50px rgba(0, 255, 0, 0.1);
+      overflow: hidden;
+    }
+    #monitor::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 118, 0.06));
+      z-index: 2;
+      background-size: 100% 4px, 3px 100%;
+      pointer-events: none;
+    }
+    @keyframes flicker {
+      0% { opacity: 0.97; }
+      5% { opacity: 0.95; }
+      10% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+    #monitor {
+      animation: flicker 0.1s infinite;
+    }
+    #boot-container {
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: #00ff41;
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+      line-height: 1.2;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    #boot-container .line-error {
+      color: #ff4444;
+      text-shadow: 0 0 5px rgba(255, 68, 68, 0.6);
+    }
+    #boot-container::-webkit-scrollbar { width: 8px; }
+    #boot-container::-webkit-scrollbar-track { background: #0a0a0a; }
+    #boot-container::-webkit-scrollbar-thumb { background: #1a3a1a; border-radius: 4px; }
+    .restart-hint {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      font-size: 11px;
+      color: #2a4a2a;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div id="monitor">
+    <div id="boot-container"></div>
+  </div>
+  <div class="restart-hint">Seite neu laden = Boot wiederholen</div>
+
+  <script src="../story/content/boot-data.js"></script>
+  <script>
+    (function() {
+      var data = window.BOOT_DATA;
+      if (!data || !data.linuxBootSequence) {
+        document.getElementById("boot-container").textContent = "Fehler: boot-data.js nicht geladen oder linuxBootSequence fehlt.";
+        return;
+      }
+
+      var container = document.getElementById("boot-container");
+      var seq = data.linuxBootSequence;
+      var errorColor = (data.linuxBootHints && data.linuxBootHints.errorColor) ? data.linuxBootHints.errorColor : "#ff4444";
+
+      async function startBootProcess() {
+        for (var i = 0; i < seq.length; i++) {
+          var line = seq[i];
+          var div = document.createElement("div");
+          div.textContent = line.text;
+          if (line.error) div.className = "line-error";
+          container.appendChild(div);
+          container.scrollTop = container.scrollHeight;
+          await new Promise(function(r) { setTimeout(r, line.delay); });
+        }
+      }
+
+      startBootProcess();
+    })();
+  </script>
+</body>
+</html>

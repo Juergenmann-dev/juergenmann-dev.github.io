@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="version" content="1.0" />
+ <title>Bootvorgang – Jürgen Mann</title>
+ <style>
+#boot-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10010;
+  background: #000;
+  overflow: hidden;
+  font-family: "Monaco", "Courier New", "Consolas", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #39D353;
+}
+#boot-loading-output {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 12px;
+  bottom: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+#boot-loading-output::-webkit-scrollbar { display: none; }
+ </style>
+</head>
+<body>
+<div id="boot-loading-screen">
+ <div id="boot-loading-output"></div>
+</div>
+<script>
+(function() {
+  var ua = navigator.userAgent || "";
+  var origin = window.location.origin || (window.location.protocol + "//" + window.location.host);
+  if (ua.indexOf("Android") !== -1) {
+    window.location.replace(origin + "/2.4_android/");
+    return;
+  }
+  if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) {
+    window.location.replace(origin + "/2.5_iphone/");
+    return;
+  }
+})();
+var BOOT_LINES = [
+"[    0.000000] Linux version 6.1.0-25-generic",
+"[    0.000001] Command line: BOOT_IMAGE=/vmlinuz root=UUID=xxx ro quiet splash",
+"[    0.000002] x86/fpu: Supporting XSAVE feature 0x001",
+"[    0.001234] e820: BIOS-provided physical RAM map",
+"[    0.002345] ACPI: RSDP 0x00000000000F0000 000014 (v00 ALASKA)",
+"[    0.003456] ACPI: XSDT 0x000000007FFF0030 00005C (v01 ALASKA)",
+"[    0.004567] ACPI: FACP 0x000000007FFF0100 0000F4 (v04 ALASKA)",
+"[    0.005678] ACPI: DSDT 0x000000007FFF0200 001234 (v01 ALASKA)",
+"[    0.012345] Zone ranges:",
+"[    0.012346]   DMA      [mem 0x0000000000001000-0x000000007fffffff]",
+"[    0.012347]   DMA32    [mem 0x0000000080000000-0x00000000ffffffff]",
+"[    0.012348]   Normal   [mem 0x0000000100000000-0x000000037fffffff]",
+"[    0.023456] Initramfs unpacking: Done",
+"[    0.034567] Freeing initrd memory: 123456K",
+"[    0.045678] PCI: CLS 64 bytes, default 64",
+"[    0.056789] Unpacking initramfs...",
+"[    0.067890] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x1234",
+"[    0.078901] clocksource: Switched to clocksource tsc",
+"[    0.089012] pci_bus 0000:00: root bus resource [mem 0xf0000000-0xffffffff]",
+"[    0.090123] pci 0000:00:01.0: [8086:1234] type 00 class 0x060000",
+"[    0.101234] pci 0000:00:02.0: [8086:5678] type 00 class 0x030000",
+"[    0.112345] pci 0000:00:03.0: [8086:9abc] type 00 class 0x020000",
+"[    0.123456] iommu: Default domain type: Translated",
+"[    0.134567] SCSI subsystem initialized",
+"[    0.145678] libata version 3.00 loaded.",
+"[    0.156789] usbcore: registered new interface driver usbhid",
+"[    0.167890] usbhid: USB HID core driver",
+"[    0.178901] input: AT Translated Set 2 keyboard",
+"[    0.189012] input: SynPS/2 Synaptics TouchPad",
+"[    0.190123] sd 0:0:0:0: [sda] 500107862016 512-byte logical blocks",
+"[    0.201234] sd 0:0:0:0: [sda] Write Protect is off",
+"[    0.212345]  sda1 sda2 sda3",
+"[    0.223456] EXT4-fs (sda2): mounted filesystem",
+"[    0.234567] systemd[1]: systemd 252.5 running in system mode",
+"[    0.245678] systemd[1]: Detected architecture x86-64",
+"[    0.256789] systemd[1]: Running in initial RAM disk",
+"[    0.267890] systemd[1]: Set hostname to <host>",
+"[    0.278901] systemd[1]: Created slice Slice /system/getty",
+"[    0.289012] systemd[1]: Started Dispatch Password Requests",
+"[    0.290123] systemd[1]: Reached target Local File Systems",
+"[    0.301234] systemd[1]: Reached target Swap",
+"[    0.312345] systemd[1]: Started Load/Save Random Seed",
+"[    0.323456] systemd[1]: Started udev Kernel Device Manager",
+"[    0.334567] systemd[1]: Reached target Local Encrypted Volumes",
+"[    0.345678] systemd[1]: Reached target Paths",
+"[    0.356789] systemd[1]: Reached target Basic System",
+"[    0.367890] systemd[1]: Started Journal Service",
+"[    0.378901] systemd[1]: Started Create Static Device Nodes",
+"[    0.389012] systemd[1]: Reached target System Initialization",
+"[    0.390123] systemd[1]: Started Load Kernel Modules",
+"[    0.401234] systemd[1]: Started Apply Kernel Variables",
+"[    0.412345] systemd[1]: Reached target Local File Systems (Pre)",
+"[    0.423456] systemd[1]: Started udev Coldplug all Devices",
+"[    0.434567] systemd[1]: Started Load/Save Screen Backlight",
+"[    0.445678] systemd[1]: Reached target System Time Synchronized",
+"[    0.456789] systemd[1]: Reached target Network (Pre)",
+"[    0.467890] systemd[1]: Started Network Manager",
+"[    0.478901] systemd[1]: Reached target Network",
+"[    0.489012] systemd[1]: Started OpenSSH server daemon",
+"[    0.490123] systemd[1]: Reached target Multi-User System",
+"[    0.501234] systemd[1]: Reached target Graphical Interface",
+"[    0.512345] systemd[1]: Startup finished in 0.512s",
+"[    0.523456] audit: type=1400 audit(1234567890.123:1): apparmor=\"STATUS\"",
+"[    0.534567] audit: type=1400 audit(1234567890.234:2): apparmor=\"STATUS\"",
+"[    0.545678] Bluetooth: Core ver 2.22",
+"[    0.556789] NET: Registered PF_BLUETOOTH protocol family",
+"[    0.567890] Bluetooth: HCI device and connection manager initialized",
+"[    0.578901] Bluetooth: HCI socket layer initialized",
+"[    0.589012] Bluetooth: L2CAP socket layer initialized",
+"[    0.590123] Bluetooth: SCO socket layer initialized",
+"[    0.601234] cfg80211: Loading compiled-in X.509 certificates",
+"[    0.612345] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'",
+"[    0.623456] platform regulatory.0: Direct firmware load for regulatory.db",
+"[    0.634567] iwlwifi 0000:03:00.0: enabling device (0000 -> 0002)",
+"[    0.645678] iwlwifi 0000:03:00.0: Direct firmware load for iwlwifi-ty-a0-gf-a0-72.ucode",
+"[    0.656789] iwlwifi 0000:03:00.0: loaded firmware version 72.601fbb1e.0",
+"[    0.667890] iwlwifi 0000:03:00.0: Detected Intel(R) Wi-Fi 6 AX201 160MHz",
+"[    0.678901] iwlwifi 0000:03:00.0: base HW address: aa:bb:cc:dd:ee:ff",
+"[    0.689012] iwlwifi 0000:03:00.0 wlan0: renamed from wlan0",
+"[    0.690123] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready",
+"[    0.701234] wlp3s0: authenticate with aa:bb:cc:dd:ee:ff",
+"[    0.712345] wlp3s0: send auth to aa:bb:cc:dd:ee:ff (try 1/3)",
+"[    0.723456] wlp3s0: authenticated",
+"[    0.734567] wlp3s0: associate with aa:bb:cc:dd:ee:ff (try 1/3)",
+"[    0.745678] wlp3s0: RX AssocResp from aa:bb:cc:dd:ee:ff (capab=0x1411)",
+"[    0.756789] wlp3s0: associated",
+"[    0.767890] IPv6: ADDRCONF(NETDEV_CHANGE): wlp3s0: link becomes ready",
+"[    0.778901] audit: type=1130 audit(1234567890.345:3): pid=1 uid=0 auid=4294967295",
+"[    0.789012] random: crng init done",
+"[    0.790123] random: 7 urandom warning(s) missed due to ratelimiting",
+"[    0.801234] PM: hibernation: Image not found or resuming",
+"[    0.812345] Freeing unused kernel image (initmem) memory: 1234K",
+"[    0.823456] Write protecting the kernel read-only data: 20480k",
+"[    0.834567] Freeing unused kernel image (text/rodata gap) memory: 2048K",
+"[    0.845678] Freeing unused kernel image (rodata/data gap) memory: 512K",
+"[    0.856789] x86/mm: Checked W+X mappings: passed, no W+X pages found",
+"[    0.867890] Run /init as init process",
+"[    0.878901] Run /sbin/init as init process",
+"[    0.889012] Run /lib/systemd/systemd as init process",
+"[    0.890123] systemd[1]: Inserted module 'autofs4'",
+"[    0.901234] systemd[1]: Inserted module 'unix'",
+"[    0.912345] systemd[1]: Mounting cgroup2...",
+"[    0.923456] systemd[1]: Mounted cgroup2.",
+"[    0.934567] systemd[1]: Mounting sysfs...",
+"[    0.945678] systemd[1]: Mounted sysfs.",
+"[    0.956789] systemd[1]: Mounting proc...",
+"[    0.967890] systemd[1]: Mounted proc.",
+"[    0.978901] systemd[1]: Mounting dev...",
+"[    0.989012] systemd[1]: Mounted dev.",
+"[    0.990123] systemd[1]: Mounting run...",
+"[    1.001234] systemd[1]: Mounted run.",
+"[    1.012345] systemd[1]: Reached target Initrd Root File System",
+"[    1.023456] systemd[1]: Reached target Initrd File Systems",
+"[    1.034567] systemd[1]: Reached target Initrd Default Target",
+"[    1.045678] systemd[1]: Starting initrd.target...",
+"[    1.056789] systemd[1]: Reached target initrd.target.",
+"[    1.067890] systemd[1]: Detected virtualization none.",
+"[    1.078901] systemd[1]: Detected architecture x86-64.",
+"[    1.089012] systemd[1]: Hostname set to <host>.",
+"[    1.090123] systemd[1]: Queued start job for default target Graphical Interface.",
+"[    1.101234] systemd[1]: Created slice system-getty.slice.",
+"[    1.112345] systemd[1]: Created slice system-modprobe.slice.",
+"[    1.123456] systemd[1]: Created slice user.slice.",
+"[    1.134567] systemd[1]: Started Dispatch Password Requests to Console Directory.",
+"[    1.145678] systemd[1]: Started Forward Password Requests to Wall Directory.",
+"[    1.156789] systemd[1]: Set up automount Arbitrary Executable File Formats.",
+"[    1.167890] systemd[1]: Reached target Local Encrypted Volumes.",
+"[    1.178901] systemd[1]: Reached target Paths.",
+"[    1.189012] systemd[1]: Reached target Slices.",
+"[    1.190123] systemd[1]: Reached target Swap.",
+"[    1.201234] systemd[1]: Reached target Local File Systems (Pre).",
+"[    1.212345] systemd[1]: Reached target Local File Systems.",
+"[    1.223456] systemd[1]: Reached target Remote File Systems.",
+"[    1.234567] systemd[1]: Reached target System Time Set.",
+"[    1.245678] systemd[1]: Reached target System Time Synchronized.",
+"[    1.256789] systemd[1]: Reached target Timers.",
+"[    1.267890] systemd[1]: Reached target Socket Units.",
+"[    1.278901] systemd[1]: Reached target Basic System.",
+"[    1.289012] systemd[1]: Reached target System Initialization.",
+"[    1.290123] systemd[1]: Reached target Initialization Complete.",
+"[    1.301234] systemd[1]: Reached target Multi-User System.",
+"[    1.312345] systemd[1]: Reached target Graphical Interface.",
+"[    1.323456] systemd[1]: Startup finished in 1.323s (kernel) + 2.456s (initrd) + 3.789s (userspace) = 7.568s total."
+];
+
+async function run() {
+  var ua = navigator.userAgent || "";
+  if (ua.indexOf("Android") !== -1 || ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) return;
+  var screen = document.getElementById("boot-loading-screen");
+  var output = document.getElementById("boot-loading-output");
+  if (!screen || !output) return;
+  var lines = [];
+  var delay = 2;
+  for (var i = 0; i < BOOT_LINES.length; i++) {
+    lines.push(BOOT_LINES[i]);
+    output.textContent = lines.join("\n");
+    output.scrollTop = output.scrollHeight;
+    await new Promise(function(r) { setTimeout(r, delay); });
+  }
+  lines.push("");
+  var ua = navigator.userAgent || "";
+  var origin = window.location.origin;
+  var osLabel = "Unbekannt";
+  var next = origin + "/4_lebenslauf/";
+  if (ua.indexOf("Win") !== -1) {
+    osLabel = "Windows";
+    next = origin + "/2.1_win/";
+  } else if (ua.indexOf("Android") !== -1) {
+    osLabel = "Android";
+    next = origin + "/2.4_android/";
+  } else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) {
+    osLabel = "iOS";
+    next = origin + "/2.5_iphone/";
+  } else if (ua.indexOf("Mac") !== -1) {
+    osLabel = "macOS";
+    next = origin + "/2_mac/";
+  } else if (ua.indexOf("Linux") !== -1) {
+    osLabel = "Linux";
+    next = origin + "/2.3_linux/";
+  }
+  if (osLabel === "iOS") {
+    lines.push("iPhone erkannt");
+    output.textContent = lines.join("\n");
+    output.scrollTop = output.scrollHeight;
+    await new Promise(function(r) { setTimeout(r, 500); });
+    lines.push("Systemfehler: Bootsektoren nicht gefunden");
+    output.textContent = lines.join("\n");
+    output.scrollTop = output.scrollHeight;
+    await new Promise(function(r) { setTimeout(r, 700); });
+    lines.push("DFU wird gestartet");
+    output.textContent = lines.join("\n");
+    output.scrollTop = output.scrollHeight;
+    await new Promise(function(r) { setTimeout(r, 1200); });
+  } else {
+    lines.push("System wird analysiert – " + osLabel + " erkannt");
+    lines.push("Bootvorgang abgeschlossen.");
+    output.textContent = lines.join("\n");
+    output.scrollTop = output.scrollHeight;
+    await new Promise(function(r) { setTimeout(r, 1200); });
+  }
+  screen.style.transition = "opacity 0.4s ease";
+  screen.style.opacity = "0";
+  await new Promise(function(r) { setTimeout(r, 450); });
+  window.location.replace(next);
+}
+run();
+</script>
+</body>
+</html>

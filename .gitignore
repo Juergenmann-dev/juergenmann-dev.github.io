@@ -1,0 +1,6 @@
+# Cursor-Regeln nur lokal, nicht auf GitHub
+.cursor/
+# macOS
+.DS_Store
+# Nur lokal, nicht auf GitHub
+04_Psychologische_Summary.html

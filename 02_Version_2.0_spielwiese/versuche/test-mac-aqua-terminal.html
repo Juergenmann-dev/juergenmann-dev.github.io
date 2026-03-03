@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jürgen Mann – macOS Aqua Terminal</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #6d84b4 0%, #1a1a1a 55%, #000 100%);
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+
+    /* Das Fenster im Aqua-Stil */
+    #terminal-window.term-mac-aqua {
+      background: #ffffff;
+      /* feine Pinstripes */
+      background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      background-size: 100% 3px;
+
+      border: 1px solid #888;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      color: #000;
+      font-family: "Monaco", "Courier New", monospace;
+      font-size: 12px;
+      position: relative;
+      width: 640px;
+      max-width: 95vw;
+    }
+
+    /* optionale leichte CRT-Anmutung (sehr subtil) */
+    #terminal-window.term-mac-aqua::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+      mix-blend-mode: screen;
+      opacity: 0.7;
+      animation: aqua-flicker 1.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes aqua-flicker {
+      0% { opacity: 0.6; }
+      100% { opacity: 0.9; }
+    }
+
+    /* Die Titelleiste mit den Glas-Buttons */
+    .aqua-header {
+      height: 25px;
+      background: linear-gradient(to bottom, #e0e0e0, #b0b0b0);
+      border-bottom: 1px solid #888;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    /* Die glänzenden Glasperlen-Buttons */
+    .aqua-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
+      box-shadow:
+        inset 0 1px 3px rgba(255, 255, 255, 0.8),
+        0 1px 1px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-red {
+      background: radial-gradient(circle at 4px 4px, #ff8080, #cc0000);
+    }
+    .btn-yellow {
+      background: radial-gradient(circle at 4px 4px, #ffff80, #cccc00);
+    }
+    .btn-green {
+      background: radial-gradient(circle at 4px 4px, #80ff80, #00cc00);
+    }
+
+    /* Terminal-Inhalt */
+    #output {
+      padding: 10px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+
+    /* Der blinkende Block-Cursor (damals Standard) */
+    .aqua-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: #555;
+      vertical-align: middle;
+      animation: aqua-blink 1s step-end infinite;
+    }
+
+    @keyframes aqua-blink {
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="terminal-window" class="term-mac-aqua">
+    <div class="aqua-header">
+      <div class="aqua-btn btn-red"></div>
+      <div class="aqua-btn btn-yellow"></div>
+      <div class="aqua-btn btn-green"></div>
+      <div style="flex-grow: 1; text-align: center; color: #444; font-size: 11px;">
+        Terminal — tcsh — 80x24
+      </div>
+    </div>
+    <div id="output">
+Last login: Sat Mar 24 2001 on tty000
+Welcome to Darwin!
+[localhost:~] user% <span class="aqua-cursor"></span>
+    </div>
+  </div>
+
+</body>
+</html>
+
