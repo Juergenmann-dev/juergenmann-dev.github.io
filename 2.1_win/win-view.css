@@ -1,0 +1,340 @@
+/* Win V2: Struktur wie Mac/Linux. Windows-98-Look: harter 3D-Bevel (hell oben/links, dunkel unten/rechts), Fixedsys/MS Gothic. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Schrift: typischer DOS/Win98-Font – Fixedsys, MS Gothic, Fallback monospace */
+html, body {
+  height: 100%;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  background: #008080;
+  color: #c0c0c0;
+  overflow: hidden;
+}
+
+.win-desktop {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.win-main {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.shell {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== Boot: Win95 Vollbild ========== */
+.win-monitor {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: #000;
+  position: relative;
+  /* Bevel: Monitor-Rahmen (hell oben/links, dunkel unten/rechts) */
+  border-top: 20px solid #505050;
+  border-left: 20px solid #505050;
+  border-right: 20px solid #1a1a1a;
+  border-bottom: 20px solid #1a1a1a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#boot-container {
+  padding: 20px;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #c0c0c0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#boot-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  opacity: 0.6;
+}
+
+#boot-container::-webkit-scrollbar { width: 8px; }
+#boot-container::-webkit-scrollbar-track { background: #0a0a0a; }
+#boot-container::-webkit-scrollbar-thumb { background: #404040; border-radius: 4px; }
+
+.win-monitor.hidden {
+  display: none;
+}
+
+/* ========== CMD: Vollbild-Desktop ========== */
+#cmd-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #008080;
+}
+
+#cmd-stage.hidden {
+  display: none;
+}
+
+#cmd-stage.visible {
+  display: flex;
+}
+
+/* Hauptfenster: harter 3D-Bevel wie Win98 */
+.win95-window {
+  font-size: 13px;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  position: relative;
+  width: 80ch;
+  min-width: 80ch;
+  max-width: 80ch;
+  height: calc(18px + 22px + 16px + (1.4em * 18) + 14px);
+  min-height: calc(18px + 22px + 16px + (1.4em * 18) + 14px);
+  max-height: calc(18px + 22px + 16px + (1.4em * 18) + 14px);
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  box-shadow: 2px 2px 0 #000000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transform: scale(1.25);
+  transform-origin: center;
+}
+
+.win95-titlebar {
+  flex: 0 0 auto;
+  height: 14px;
+  background: #000080;
+  color: #fff;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+}
+
+/* Kleines DOS-Icon links in der Titelleiste (C:>) */
+.win95-titlebar-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 12px;
+  margin-right: 6px;
+  background: #c0c0c0;
+  color: #000;
+  font-size: 8px;
+  line-height: 12px;
+  text-align: center;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #404040;
+  border-bottom: 1px solid #404040;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.win95-titlebar #cmd-title {
+  flex: 1;
+  min-width: 0;
+  margin-left: 2px;
+}
+
+.win95-title-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+/* Titelleisten-Buttons: erhabener Bevel */
+.win95-btn {
+  width: 16px;
+  height: 12px;
+  background: #c0c0c0;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #404040;
+  border-bottom: 1px solid #404040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: #000;
+}
+
+/* Toolbar: 3D-Bevel (hell oben/links, dunkel unten/rechts) */
+.win95-toolbar {
+  flex: 0 0 auto;
+  background: #c0c0c0;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+}
+
+.win95-label { font-size: 11px; }
+
+/* Dropdown mit Pfeil (Schriftgröße) */
+.win95-select-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.win95-dropdown-arrow {
+  font-size: 9px;
+  color: #000;
+  line-height: 1;
+}
+
+/* Dropdown & Buttons: gleicher Bevel-Effekt */
+.win95-select {
+  font-size: 11px;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #404040;
+  border-bottom: 1px solid #404040;
+  background: #ffffff;
+  padding: 1px 4px;
+}
+
+.win95-button {
+  font-size: 11px;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  padding: 1px 6px;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #404040;
+  border-bottom: 1px solid #404040;
+  background: #c0c0c0;
+}
+
+/* Grauer Fensterrahmen um das schwarze Feld: 3D-Outset (plastisch aus dem Türkis hervorgehoben, wie Win95/98) */
+.win95-client {
+  flex: 0 0 auto;
+  margin: 4px;
+  background: #c0c0c0;
+  padding: 2px;
+  border-top: 2px solid #e8e8e8;
+  border-left: 2px solid #e8e8e8;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Schwarzer Konsolenbereich: Inset (eingelassen) – dunkel oben/links, hell unten/rechts = typischer 90er-Hollow */
+.win95-output-wrap {
+  flex: 0 0 auto;
+  height: calc(1.4em * 18);
+  min-height: 0;
+  margin: 0;
+  background: #000;
+  padding: 6px 6px 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-top: 2px solid #404040;
+  border-left: 2px solid #404040;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+#console-output.win95-content,
+.win95-content {
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #c0c0c0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+/* Blinkender Unterstrich wie in echter DOS-Box (~1x pro Sekunde) */
+.win95-cursor {
+  display: inline-block;
+  color: #c0c0c0;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  font-size: 13px;
+  vertical-align: baseline;
+  margin-left: 0;
+  animation: win-cursor-blink 1s steps(1, end) infinite;
+}
+
+@keyframes win-cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Easter Egg: Optionen klickbar, kein cursor: pointer */
+.win95-choice {
+  color: #c0c0c0;
+  cursor: default;
+}
+
+.win95-choice:hover {
+  color: #e0e0e0;
+}
+
+/* Installer-Zeilen / Fehler */
+#console-output .install-line {
+  color: #c0c0c0;
+  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  margin: 2px 0;
+}
+
+.install-line-error {
+  color: #ff8080;
+}
+
+/* Aqua-Highlight (Mac-Anspielung) für Status: 200 OK */
+.win95-aqua {
+  color: #00b4d8;
+  font-weight: bold;
+}
