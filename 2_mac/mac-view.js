@@ -535,16 +535,6 @@
     });
   }
 
-  function getOSLabel() {
-    var ua = navigator.userAgent || "";
-    if (ua.indexOf("Android") !== -1) return "Android";
-    if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) return "iOS";
-    if (ua.indexOf("Win") !== -1) return "Windows";
-    if (ua.indexOf("Mac") !== -1) return "macOS";
-    if (ua.indexOf("Linux") !== -1) return "Linux";
-    return "Unbekannt";
-  }
-
   function addBootLine(text, delay) {
     return new Promise(function (resolve) {
       setTimeout(function () {
@@ -559,7 +549,7 @@
 
   function playBoot() {
     var perLine = 45;
-    var osLabel = getOSLabel();
+    var osLabel = (window.DETECTION && window.DETECTION.osLabel) || "Unbekannt";
     if (bootContainer) bootContainer.scrollTop = 0;
     return addBootLine("Systemstatus wird abgefragt", 400)
       .then(function () { return addBootLine("OS erkannt – " + osLabel, 500); })
@@ -601,6 +591,7 @@
           })(i);
         }
       }
+      if (window.DETECTION && window.DETECTION.runConsoleSequence) window.DETECTION.runConsoleSequence();
       return sleep(500);
     }).then(function () {
       if (goDropdown) {

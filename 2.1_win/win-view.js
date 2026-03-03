@@ -202,7 +202,7 @@
     var seq = winBootSequence;
     var p = Promise.resolve()
       .then(function () { return addBootSequenceLine({ text: "Systemstatus wird abgefragt" }, 400); })
-      .then(function () { return addBootSequenceLine({ text: "OS erkannt – Windows" }, 500); })
+      .then(function () { return addBootSequenceLine({ text: "OS erkannt – " + (window.DETECTION && window.DETECTION.osLabel ? window.DETECTION.osLabel : "Windows") }, 500); })
       .then(function () { return addBootSequenceLine({ text: "Bereite Bootvorgang vor" }, 500); })
       .then(function () { return addBootSequenceLine({ text: "" }, 350); })
       .then(function () { return sleep(400); })
@@ -225,6 +225,7 @@
           cmdStage.classList.remove("hidden");
           cmdStage.classList.add("visible");
         }
+        if (window.DETECTION && window.DETECTION.runConsoleSequence) window.DETECTION.runConsoleSequence();
         return sleep(400);
       });
   }

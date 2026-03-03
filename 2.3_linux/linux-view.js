@@ -187,7 +187,7 @@
     var seq = linuxBootSequence;
     var p = Promise.resolve()
       .then(function () { return addBootSequenceLine({ text: "Systemstatus wird abgefragt" }, 400); })
-      .then(function () { return addBootSequenceLine({ text: "OS erkannt – Linux" }, 500); })
+      .then(function () { return addBootSequenceLine({ text: "OS erkannt – " + (window.DETECTION && window.DETECTION.osLabel ? window.DETECTION.osLabel : "Linux") }, 500); })
       .then(function () { return addBootSequenceLine({ text: "Bereite Bootvorgang vor" }, 500); })
       .then(function () { return addBootSequenceLine({ text: "" }, 350); })
       .then(function () { return sleep(400); })
@@ -210,6 +210,7 @@
           terminalStage.classList.remove("hidden");
           terminalStage.classList.add("visible");
         }
+        if (window.DETECTION && window.DETECTION.runConsoleSequence) window.DETECTION.runConsoleSequence();
         return sleep(400);
       });
   }
