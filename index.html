@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jürgen Mann – Lebenslauf (V2)</title>
+  <meta name="version" content="2.0" />
+  <meta http-equiv="refresh" content="0;url=2_mac/">
+  <script>
+    (function() {
+      var ua = navigator.userAgent || "";
+      var base = window.location.pathname.replace(/\/?index\.html$/, "").replace(/\/?$/, "") + "/";
+      if (ua.indexOf("Android") !== -1) {
+        window.location.replace(base + "2_mac/");
+        return;
+      }
+      if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) {
+        window.location.replace(base + "2_mac/");
+        return;
+      }
+      if (ua.indexOf("Win") !== -1) {
+        window.location.replace(base + "2_mac/");
+        return;
+      }
+      if (ua.indexOf("Mac") !== -1) {
+        window.location.replace(base + "2_mac/");
+        return;
+      }
+      if (ua.indexOf("Linux") !== -1) {
+        window.location.replace(base + "2_mac/");
+        return;
+      }
+      window.location.replace(base + "2_mac/");
+    })();
+  </script>
+</head>
+<body>
+  <p>Systemstatus wird abgefragt … <a href="2_mac/">Zum Lebenslauf</a></p>
+</body>
+</html>

@@ -354,8 +354,13 @@ body.retro-bg {
 .icon-label { margin-top: 1px; }
 .desktop-icon-volume { opacity: 0; transition: opacity 0.5s ease-out; }
 
-/* ========== Boot-Container (Verbose-Log) ========== */
+/* ========== Boot-Container (Verbose-Log) – feste Größe ========== */
 #boot-container {
+  width: 80ch;
+  min-width: 80ch;
+  height: 480px;
+  min-height: 480px;
+  max-height: 480px;
   background: #000;
   color: #e5e5ea;
   font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
@@ -364,11 +369,16 @@ body.retro-bg {
   padding: 18px 20px;
   border-radius: 12px;
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.9);
-  max-height: 480px;
-  overflow-y: auto;
+  overflow: auto;
   position: relative;
+  box-sizing: border-box;
 }
-#boot-log { white-space: pre-wrap; }
+#boot-log {
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-height: 100%;
+  box-sizing: border-box;
+}
 #boot-container::after {
   content: "";
   position: absolute;

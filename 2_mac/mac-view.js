@@ -326,9 +326,39 @@
     });
   }
 
+  function getOSLabel() {
+    var ua = navigator.userAgent || "";
+    if (ua.indexOf("Android") !== -1) return "Android";
+    if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) return "iOS";
+    if (ua.indexOf("Win") !== -1) return "Windows";
+    if (ua.indexOf("Mac") !== -1) return "macOS";
+    if (ua.indexOf("Linux") !== -1) return "Linux";
+    return "Unbekannt";
+  }
+
+  function addBootLine(text, delay) {
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        var div = document.createElement("div");
+        div.textContent = text;
+        bootLog.appendChild(div);
+        bootContainer.scrollTop = bootContainer.scrollHeight;
+        resolve();
+      }, delay || 350);
+    });
+  }
+
   function playBoot() {
     var perLine = 45;
-    return bootLines.reduce(function (prev, line) {
+    var osLabel = getOSLabel();
+    return addBootLine("Systemstatus wird abgefragt", 400)
+      .then(function () { return addBootLine("OS erkannt – " + osLabel, 500); })
+      .then(function () { return addBootLine("Bereite Bootvorgang vor", 500); })
+      .then(function () { return addBootLine("", 350); })
+      .then(function () { return sleep(400); })
+      .then(function () { return addBootLine("", 200); })
+      .then(function () {
+        return bootLines.reduce(function (prev, line) {
       return prev.then(function () {
         var div = document.createElement("div");
         div.textContent = line;
@@ -409,6 +439,7 @@
       aquaStage.style.display = "flex";
       return sleep(500);
     });
+  });
   }
 
   function playMacStory() {
