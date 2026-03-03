@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jürgen Mann – Linux</title>
+  <!-- Linux V2: Boot (LILO/Debian) → Konsole (xterm) → Flow → Deckblatt. CSS/JS ausgelagert, Struktur wie Mac. -->
+  <link rel="stylesheet" href="linux-view.css">
+</head>
+<body>
+
+  <div class="linux-desktop">
+    <div class="linux-main">
+      <!-- Boot: Monitor + LILO/Debian-Sequenz (BOOT_DATA.linuxBootSequence) -->
+      <div class="shell">
+        <div id="monitor">
+          <div id="boot-container"></div>
+        </div>
+        <!-- Konsole: xterm Hacker-Glow (LINUX_TERMINAL_DATA) -->
+        <div id="terminal-stage" class="hidden">
+          <div id="terminal-window" class="linux-terminal">
+            <div class="linux-titlebar">
+              <div class="linux-titlebar-left">
+                <div class="linux-dot"></div>
+                <span id="term-title-left">jm@debian:~  -  xterm</span>
+              </div>
+              <span class="linux-titlebar-right" id="term-title-right">[UTF-8]  80x18</span>
+            </div>
+            <div class="linux-output-wrap">
+              <div id="console-output" class="linux-output"></div>
+              <span class="linux-cursor" id="linux-cursor"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../story/content/boot-data.js"></script>
+  <script src="content/linux_terminal_data.js"></script>
+  <script src="content/linux_story_script-data.js"></script>
+  <script src="linux-view.js"></script>
+</body>
+</html>
