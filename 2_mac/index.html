@@ -39,6 +39,11 @@
     </div>
 
     <div class="desktop-main">
+      <div class="widget-toggle-wrap" id="widget-toggle-wrap">
+        <span class="widget-toggle-label">Widget:</span>
+        <button type="button" class="widget-toggle-btn" id="widget-toggle-alt" aria-pressed="true">Alt</button>
+        <button type="button" class="widget-toggle-btn" id="widget-toggle-neu" aria-pressed="false">Neu</button>
+      </div>
       <div class="retro-widget-panel" id="retro-widget-panel">
         <div class="retro-widget-row">
           <div class="retro-widget-card">
@@ -63,6 +68,44 @@
             <span id="battery-label-mac">Mac —</span>
             <span id="battery-label-keyboard">Tastatur —</span>
             <span id="battery-label-mouse">Apple Mouse —</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modernes Widget (V1-Struktur): Glas, Kalender-Grid, Wetter, Akku-Ringe -->
+      <div class="modern-widget-panel" id="modern-widget-panel" aria-hidden="true">
+        <div class="mac-widget mac-widget-calendar">
+          <div class="mac-widget-title">März</div>
+          <div class="calendar-days">M D M D F S S</div>
+          <div class="calendar-grid">
+            <span>1</span><span>2</span><span class="today">3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+            <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+            <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+            <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+            <span>29</span><span>30</span><span>31</span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="mac-widget mac-widget-weather">
+          <div class="weather-location">Gifhorn</div>
+          <div class="weather-temp">14°</div>
+          <div class="weather-condition">☀️ Meist sonnig</div>
+          <div class="weather-hl">H:14° L:4°</div>
+        </div>
+        <div class="mac-widget mac-widget-battery">
+          <div class="mac-widget-title">Akku</div>
+          <div class="battery-devices">
+            <div class="battery-device">
+              <div class="battery-ring"><span class="battery-device-icon">💻</span><span class="battery-fill" id="modern-battery-fill-mac"></span></div>
+              <span class="battery-pct" id="modern-battery-pct-mac">—</span>
+            </div>
+            <div class="battery-device">
+              <div class="battery-ring"><span class="battery-device-icon">🖱️</span><span class="battery-fill" id="modern-battery-fill-keyboard"></span></div>
+              <span class="battery-pct" id="modern-battery-pct-keyboard">—</span>
+            </div>
+            <div class="battery-device">
+              <div class="battery-ring"><span class="battery-device-icon">⌨️</span><span class="battery-fill" id="modern-battery-fill-mouse"></span></div>
+              <span class="battery-pct" id="modern-battery-pct-mouse">—</span>
+            </div>
           </div>
         </div>
       </div>
@@ -98,13 +141,19 @@
         </div>
         <div id="aqua-stage">
           <div id="terminal-window" class="term-mac-aqua">
-            <div class="aqua-header">
+            <div class="aqua-header" id="terminal-drag-handle">
               <div class="aqua-btn btn-red"></div>
-              <div class="aqua-btn btn-yellow"></div>
+              <div class="aqua-btn btn-yellow" id="terminal-btn-yellow" title="Minimieren"></div>
               <div class="aqua-btn btn-green"></div>
               <div class="aqua-header-title">Terminal — tcsh — 80x18</div>
             </div>
-            <div id="output"></div>
+            <div class="terminal-body-wrap">
+              <div id="output"></div>
+              <div class="terminal-command-line">
+                <span class="terminal-prompt">MacBook-Air:~ jm$ </span>
+                <input type="text" id="terminal-cmd-input" class="terminal-cmd-input" autocomplete="off" spellcheck="false" aria-label="Befehl eingeben" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -112,7 +161,7 @@
 
     <div class="mac-dock" id="mac-dock">
       <div class="dock-item" id="dock-item-finder">Finder</div>
-      <div class="dock-item">Terminal</div>
+      <div class="dock-item" id="dock-item-terminal">Terminal</div>
       <div class="dock-item">CV</div>
       <div class="dock-item">Music</div>
       <div class="dock-item">Notes</div>

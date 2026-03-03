@@ -236,7 +236,25 @@
     var pkg = cfg.packages || [];
     var coffeeLabel = cfg.coffeeLabel || "  kaffeemaschine-integration";
     var errAt = cfg.coffeeErrorAt != null ? cfg.coffeeErrorAt : 72;
-    var errors = cfg.coffeeErrors || [];
+    var classics = (cfg.coffeeErrors || []).slice();
+    if (classics.length < 2) classics = classics.concat(["  FEHLER: Wassertank leer", "  FEHLER: Kaffee vergessen", "  FEHLER: Maschine war aus."]);
+    var gags = (cfg.coffeeGags || []).slice();
+    var stromkabel = gags.filter(function (m) { return m.indexOf("Stromkabel") !== -1 || m.indexOf("ausgesteckt") !== -1; })[0];
+    var otherGags = stromkabel ? gags.filter(function (m) { return m !== stromkabel; }) : [];
+    var errors = (function pickTwoThenStromkabel() {
+      var firstTwo = [];
+      var useOneGag = otherGags.length > 0 && Math.random() < 0.5;
+      if (useOneGag) {
+        firstTwo.push(classics[Math.floor(Math.random() * classics.length)]);
+        firstTwo.push(otherGags[Math.floor(Math.random() * otherGags.length)]);
+        if (Math.random() < 0.5) firstTwo.reverse();
+      } else {
+        var c = classics.slice();
+        for (var i = c.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = c[i]; c[i] = c[j]; c[j] = t; }
+        firstTwo = c.slice(0, 2);
+      }
+      return firstTwo.concat(stromkabel || classics[classics.length - 1]);
+    })();
 
     var p = Promise.resolve()
       .then(function () { return addTermLine("", 400); })
@@ -257,17 +275,17 @@
       .then(function () {
         return animateProgressBarWin(out, 60, 80, coffeeLabel, errAt, cfg).then(function (r) {
           if (r === "error") {
-            return addTermLineError(errors[0], 600)
+            return sleep(800).then(function () { return addTermLineError(errors[0], 400); })
               .then(function () { return addTermLine("", 300); })
               .then(function () { return animateRollbackWin(out, errAt, 60, cfg); })
               .then(function () { return addTermLine("", 400); })
               .then(function () { return animateProgressBarWin(out, 60, 80, coffeeLabel, errAt, cfg); })
-              .then(function () { return addTermLineError(errors[1], 700); })
+              .then(function () { return sleep(800).then(function () { return addTermLineError(errors[1], 400); }); })
               .then(function () { return addTermLine("", 300); })
               .then(function () { return animateRollbackWin(out, errAt, 60, cfg); })
               .then(function () { return addTermLine("", 400); })
               .then(function () { return animateProgressBarWin(out, 60, 80, coffeeLabel, errAt, cfg); })
-              .then(function () { return addTermLineError(errors[2], 700); })
+              .then(function () { return sleep(800).then(function () { return addTermLineError(errors[2], 400); }); })
               .then(function () { return addTermLine("", 300); })
               .then(function () { return animateRollbackWin(out, errAt, 60, cfg); })
               .then(function () { return addTermLine("", 400); });

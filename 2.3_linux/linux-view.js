@@ -8,7 +8,6 @@
 
   var bootData = window.BOOT_DATA || {};
   var linuxBootSequence = bootData.linuxBootSequence || [];
-  var terminalScript = (bootData.terminalScripts && bootData.terminalScripts.linux) || [];
   var linuxData = window.LINUX_TERMINAL_DATA || {};
   var storyScript = window.LINUX_STORY_SCRIPT || [];
   var installerCfg = (linuxData.installer) || {};
@@ -62,6 +61,32 @@
         scrollConsole();
         resolve();
       }, delay || 80);
+    });
+  }
+
+  /** Typewriter: Zeichen für Zeichen wie in V1 (nur für Story/Response). */
+  function addTermLineTypewriter(text, charDelayMs, delayAfterMs) {
+    var wrap = document.createElement("div");
+    wrap.className = "story-line";
+    var span = document.createElement("span");
+    wrap.appendChild(span);
+    consoleOutput.appendChild(wrap);
+    var i = 0;
+    var str = String(text || "");
+    return new Promise(function (resolve) {
+      function tick() {
+        if (i < str.length) {
+          span.textContent += str.charAt(i++);
+          scrollConsole();
+          setTimeout(tick, charDelayMs);
+        } else {
+          var nl = document.createTextNode("\n");
+          wrap.appendChild(nl);
+          scrollConsole();
+          setTimeout(resolve, delayAfterMs || 400);
+        }
+      }
+      tick();
     });
   }
 
@@ -196,7 +221,25 @@
     var pkg = cfg.packages || ["✓ ui-ux-modul", "✓ xcode-toolchain", "✓ firebase-sdk", "✓ android-sdk"];
     var coffeeLabel = cfg.coffeeLabel || "⟳ kaffeemaschine-integration";
     var errAt = cfg.coffeeErrorAt != null ? cfg.coffeeErrorAt : 72;
-    var errors = cfg.coffeeErrors || ["✗ FEHLER: Wassertank leer", "✗ FEHLER: Kaffee vergessen", "✗ FEHLER: Maschine war aus."];
+    var classics = (cfg.coffeeErrors || []).slice();
+    if (classics.length < 2) classics = classics.concat(["✗ FEHLER: Wassertank leer", "✗ FEHLER: Kaffee vergessen", "✗ FEHLER: Maschine war aus."]);
+    var gags = (cfg.coffeeGags || []).slice();
+    var stromkabel = gags.filter(function (m) { return m.indexOf("Stromkabel") !== -1 || m.indexOf("ausgesteckt") !== -1; })[0];
+    var otherGags = stromkabel ? gags.filter(function (m) { return m !== stromkabel; }) : [];
+    var errors = (function pickTwoThenStromkabel() {
+      var firstTwo = [];
+      var useOneGag = otherGags.length > 0 && Math.random() < 0.5;
+      if (useOneGag) {
+        firstTwo.push(classics[Math.floor(Math.random() * classics.length)]);
+        firstTwo.push(otherGags[Math.floor(Math.random() * otherGags.length)]);
+        if (Math.random() < 0.5) firstTwo.reverse();
+      } else {
+        var c = classics.slice();
+        for (var i = c.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = c[i]; c[i] = c[j]; c[j] = t; }
+        firstTwo = c.slice(0, 2);
+      }
+      return firstTwo.concat(stromkabel || classics[classics.length - 1]);
+    })();
 
     var aptIntro = (cfg.aptIntro || []);
     var p = Promise.resolve()
@@ -217,17 +260,17 @@
       .then(function () {
         return animateProgressBarLinux(out, 60, 80, coffeeLabel, errAt, cfg).then(function (r) {
           if (r === "error") {
-            return addTermLineError(errors[0], 600)
+            return sleep(800).then(function () { return addTermLineError(errors[0], 400); })
               .then(function () { return addTermLine("", 300); })
               .then(function () { return animateRollbackLinux(out, errAt, 60, cfg); })
               .then(function () { return addTermLine("", 400); })
               .then(function () { return animateProgressBarLinux(out, 60, 80, coffeeLabel, errAt, cfg); })
-              .then(function () { return addTermLineError(errors[1], 700); })
+              .then(function () { return sleep(800).then(function () { return addTermLineError(errors[1], 400); }); })
               .then(function () { return addTermLine("", 300); })
               .then(function () { return animateRollbackLinux(out, errAt, 60, cfg); })
               .then(function () { return addTermLine("", 400); })
               .then(function () { return animateProgressBarLinux(out, 60, 80, coffeeLabel, errAt, cfg); })
-              .then(function () { return addTermLineError(errors[2], 700); })
+              .then(function () { return sleep(800).then(function () { return addTermLineError(errors[2], 400); }); })
               .then(function () { return addTermLine("", 300); })
               .then(function () { return animateRollbackLinux(out, errAt, 60, cfg); })
               .then(function () { return addTermLine("", 400); });
@@ -263,7 +306,8 @@
       }
       var step = storyScript[i++];
       if (step.type === "response" || step.type === "story") {
-        return addTermLine(step.text, step.delayAfterMs || 400).then(next);
+        var charDelay = step.delayPerCharMs || 35;
+        return addTermLineTypewriter(step.text, charDelay, step.delayAfterMs || 400).then(next);
       }
       if (step.type === "input") {
         var line = (step.prompt || promptStr) + (step.cmd || "");
@@ -286,18 +330,11 @@
     return next();
   }
 
-  /** Konsole: Prompt (eingeloggt) → terminalScript (Access granted, clear, …) → Story → Installation → Flow. */
+  /** Konsole: Start direkt mit Story (cat story_start.txt), ohne Vorlauf. */
   function playTerminal() {
-    var p = Promise.resolve()
+    return Promise.resolve()
       .then(function () { return sleep(500); })
-      .then(function () { return addTermLine(promptStr + " ", 600); })
-      .then(function () { return addTermLine("", 350); });
-    terminalScript.forEach(function (step) {
-      var lineText = (step.text || "").replace(/user@debian:~\$?/g, promptStr.replace(/\s*$/, ""));
-      var lineDelay = step.delay || 300;
-      p = p.then(function (t, d) { return function () { return addTermLine(t, d); }; }.bind(null, lineText, lineDelay)());
-    });
-    return p.then(playLinuxStory);
+      .then(playLinuxStory);
   }
 
   function askForFlow() {

@@ -24,6 +24,152 @@
   var menuTriggerGo = document.getElementById("menu-trigger-go");
   var finderIconTerminal = document.getElementById("finder-icon-terminal");
   var retroWidgetPanel = document.getElementById("retro-widget-panel");
+  var widgetToggleWrap = document.getElementById("widget-toggle-wrap");
+  var widgetToggleAlt = document.getElementById("widget-toggle-alt");
+  var widgetToggleNeu = document.getElementById("widget-toggle-neu");
+
+  /** Widget Alt/Neu: Persistenz + Toggle (nur V2, unabhängig von V1). */
+  function initWidgetToggle() {
+    try {
+      var v = sessionStorage.getItem("macWidgetVariant");
+      if (v === "neu") {
+        document.body.classList.add("widget-modern");
+        if (widgetToggleAlt) widgetToggleAlt.setAttribute("aria-pressed", "false");
+        if (widgetToggleNeu) widgetToggleNeu.setAttribute("aria-pressed", "true");
+      } else {
+        document.body.classList.remove("widget-modern");
+        if (widgetToggleAlt) widgetToggleAlt.setAttribute("aria-pressed", "true");
+        if (widgetToggleNeu) widgetToggleNeu.setAttribute("aria-pressed", "false");
+      }
+    } catch (e) {}
+    if (widgetToggleAlt) {
+      widgetToggleAlt.addEventListener("click", function () {
+        document.body.classList.remove("widget-modern");
+        if (widgetToggleAlt) widgetToggleAlt.setAttribute("aria-pressed", "true");
+        if (widgetToggleNeu) widgetToggleNeu.setAttribute("aria-pressed", "false");
+        try { sessionStorage.setItem("macWidgetVariant", "alt"); } catch (e) {}
+      });
+    }
+    if (widgetToggleNeu) {
+      widgetToggleNeu.addEventListener("click", function () {
+        document.body.classList.add("widget-modern");
+        if (widgetToggleAlt) widgetToggleAlt.setAttribute("aria-pressed", "false");
+        if (widgetToggleNeu) widgetToggleNeu.setAttribute("aria-pressed", "true");
+        try { sessionStorage.setItem("macWidgetVariant", "neu"); } catch (e) {}
+      });
+    }
+  }
+  initWidgetToggle();
+
+  /** Terminal-Easter-Eggs: theme --dark / theme --light / coffee (Eingabezeile). */
+  function initTerminalEasterEggs() {
+    var cmdInput = document.getElementById("terminal-cmd-input");
+    if (!cmdInput || !output) return;
+    var promptStr = "MacBook-Air:~ jm$ ";
+
+    function appendLine(text, className) {
+      var div = document.createElement("div");
+      if (className) div.className = className;
+      div.textContent = text;
+      output.appendChild(div);
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function handleCommand(cmd) {
+      var c = (cmd || "").trim().toLowerCase();
+      if (c === "theme --dark") {
+        document.body.classList.add("desktop-dark");
+        return "Desktop auf Dark Mode gestellt.";
+      }
+      if (c === "theme --light") {
+        document.body.classList.remove("desktop-dark");
+        return "Desktop wieder hell.";
+      }
+      if (c === "coffee" || c === "kaffee") {
+        return "☕ Kaffee-Modul bereits installiert. Genieß deinen Kaffee!";
+      }
+      if (c === "help" || c === "hilfe") {
+        return "Easter Eggs: theme --dark, theme --light, coffee";
+      }
+      return "Befehl nicht gefunden: " + (cmd || "(leer)").trim();
+    }
+
+    cmdInput.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") return;
+      var cmd = cmdInput.value;
+      cmdInput.value = "";
+      appendLine(promptStr + cmd, "line");
+      var result = handleCommand(cmd);
+      appendLine(result, "response");
+    });
+  }
+  initTerminalEasterEggs();
+
+  /** Terminal-Fenster per Titelleiste verschiebbar. */
+  function initTerminalDrag() {
+    var handle = document.getElementById("terminal-drag-handle");
+    if (!handle || !terminalWindow) return;
+    var drag = { active: false, startX: 0, startY: 0, startTx: 0, startTy: 0 };
+    terminalWindow.style.cursor = "default";
+    handle.style.cursor = "move";
+
+    handle.addEventListener("mousedown", function (e) {
+      if (e.button !== 0) return;
+      drag.active = true;
+      drag.startX = e.clientX;
+      drag.startY = e.clientY;
+      var t = terminalWindow.style.transform || "";
+      var m = t.match(/translate\(([-\d.]+)px,\s*([-\d.]+)px\)/);
+      drag.startTx = m ? parseFloat(m[1]) : 0;
+      drag.startTy = m ? parseFloat(m[2]) : 0;
+    });
+
+    window.addEventListener("mousemove", function (e) {
+      if (!drag.active) return;
+      var dx = e.clientX - drag.startX;
+      var dy = e.clientY - drag.startY;
+      terminalWindow.style.transform = "translate(" + (drag.startTx + dx) + "px, " + (drag.startTy + dy) + "px)";
+    });
+
+    window.addEventListener("mouseup", function () {
+      drag.active = false;
+    });
+  }
+  initTerminalDrag();
+
+  /** Genie-Effekt: Gelb minimiert ins Dock, Klick auf Dock-Terminal stellt wieder her. */
+  function initTerminalGenie() {
+    var btnYellow = document.getElementById("terminal-btn-yellow");
+    var dockTerminal = document.getElementById("dock-item-terminal");
+    if (!btnYellow || !dockTerminal || !terminalWindow) return;
+
+    btnYellow.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (terminalWindow.classList.contains("terminal-minimized")) return;
+      terminalWindow.classList.remove("terminal-genie-restoring");
+      terminalWindow.classList.add("terminal-genie-minimizing");
+      setTimeout(function () {
+        terminalWindow.classList.remove("terminal-genie-minimizing");
+        terminalWindow.classList.add("terminal-minimized");
+        dockTerminal.classList.add("has-window");
+        document.body.classList.add("terminal-is-minimized");
+      }, 500);
+    });
+
+    dockTerminal.addEventListener("click", function (e) {
+      if (!terminalWindow.classList.contains("terminal-minimized")) return;
+      e.preventDefault();
+      e.stopPropagation();
+      dockTerminal.classList.remove("has-window");
+      document.body.classList.remove("terminal-is-minimized");
+      terminalWindow.classList.remove("terminal-minimized");
+      terminalWindow.classList.add("terminal-genie-restoring");
+      setTimeout(function () {
+        terminalWindow.classList.remove("terminal-genie-restoring");
+      }, 500);
+    });
+  }
+  initTerminalGenie();
 
   if (terminalWindow && aquaMeta) {
     terminalWindow.style.width = (aquaMeta.cols || 80) + "ch";
@@ -55,7 +201,7 @@
     if (dockFinder && macUI.finder) dockFinder.textContent = macUI.finder;
   }
 
-  /** Echte Systemzeit, Datum und Akku (soweit vom Browser bereitgestellt). */
+  /** Echte Systemzeit, Datum und Akku (soweit vom Browser bereitgestellt). Beide Widget-Ansichten (Retro + Modern) nutzen dieselben Werte. */
   function initLiveData() {
     var menuTime = document.getElementById("mac-menu-time");
     var widgetMonth = document.getElementById("widget-month");
@@ -67,6 +213,12 @@
     var batteryLabelKeyboard = document.getElementById("battery-label-keyboard");
     var batteryFillMouse = document.getElementById("battery-fill-mouse");
     var batteryLabelMouse = document.getElementById("battery-label-mouse");
+    var modernPctMac = document.getElementById("modern-battery-pct-mac");
+    var modernFillMac = document.getElementById("modern-battery-fill-mac");
+    var modernPctKeyboard = document.getElementById("modern-battery-pct-keyboard");
+    var modernFillKeyboard = document.getElementById("modern-battery-fill-keyboard");
+    var modernPctMouse = document.getElementById("modern-battery-pct-mouse");
+    var modernFillMouse = document.getElementById("modern-battery-fill-mouse");
 
     var monthNames = ["JANUAR", "FEBRUAR", "MÄRZ", "APRIL", "MAI", "JUNI", "JULI", "AUGUST", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DEZEMBER"];
     var weekdayShort = ["SO", "MO", "DI", "MI", "DO", "FR", "SA"];
@@ -96,25 +248,64 @@
       else el.classList.add("battery-low");
     }
 
+    function setModernBatteryRing(fillEl, pct) {
+      if (!fillEl) return;
+      if (pct == null || typeof pct !== "number" || isNaN(pct)) {
+        fillEl.className = "battery-fill";
+        fillEl.style.background = "transparent";
+        return;
+      }
+      var val = Math.max(0, Math.min(100, pct));
+      fillEl.className = "battery-fill";
+      if (val <= 0) {
+        fillEl.style.background = "transparent";
+      } else {
+        var angle = (val / 100) * 360;
+        fillEl.style.background =
+          "conic-gradient(rgba(255, 255, 255, 0.85) 0deg " +
+          angle +
+          "deg, transparent " +
+          angle +
+          "deg 360deg)";
+      }
+    }
+
+    function setModernBatteryPct(pctEl, pct) {
+      if (!pctEl) return;
+      pctEl.textContent = (pct != null && pct >= 0) ? pct + " %" : "—";
+    }
+
+    function applyModernBattery(macPct, kbPct, mousePct) {
+      setModernBatteryRing(modernFillMac, macPct);
+      setModernBatteryPct(modernPctMac, macPct);
+      setModernBatteryRing(modernFillKeyboard, kbPct);
+      setModernBatteryPct(modernPctKeyboard, kbPct);
+      setModernBatteryRing(modernFillMouse, mousePct);
+      setModernBatteryPct(modernPctMouse, mousePct);
+    }
+
     updateTime();
     updateDate();
     if (menuTime) setInterval(updateTime, 60000);
 
-    /* Tastatur und Maus: Browser liefert keine Bluetooth-Akkus → immer Fallback 50–70% (random), nie leer */
-    function setKeyboardMouseFallback() {
-      var kb = 50 + Math.floor(Math.random() * 21);
-      var mouse = 50 + Math.floor(Math.random() * 21);
-      setBatteryFill(batteryFillKeyboard, kb);
-      if (batteryLabelKeyboard) batteryLabelKeyboard.textContent = "Tastatur " + kb + "%";
-      setBatteryFill(batteryFillMouse, mouse);
-      if (batteryLabelMouse) batteryLabelMouse.textContent = "Apple Mouse " + mouse + "%";
-    }
-    setKeyboardMouseFallback();
+    /* Tastatur und Maus: einheitliche Fallback-Werte für beide Widgets (50–70%) */
+    var keyboardPct = 50 + Math.floor(Math.random() * 21);
+    var mousePct = 50 + Math.floor(Math.random() * 21);
+    setBatteryFill(batteryFillKeyboard, keyboardPct);
+    if (batteryLabelKeyboard) batteryLabelKeyboard.textContent = "Tastatur " + keyboardPct + "%";
+    setBatteryFill(batteryFillMouse, mousePct);
+    if (batteryLabelMouse) batteryLabelMouse.textContent = "Apple Mouse " + mousePct + "%";
+    applyModernBattery(undefined, keyboardPct, mousePct);
 
-    /* Mac: echte Abfrage wenn möglich, sonst Fallback 80% */
+    /* Mac: echte Abfrage wenn möglich, sonst Fallback 80%. Danach Modern-Widget mit allen drei Werten aktualisieren. */
+    function syncModernBattery(macPct) {
+      applyModernBattery(macPct, keyboardPct, mousePct);
+    }
+
     function setMacFallback() {
       setBatteryFill(batteryFillMac, 80);
       if (batteryLabelMac) batteryLabelMac.textContent = "Mac 80%";
+      syncModernBattery(80);
     }
 
     if (navigator.getBattery) {
@@ -123,6 +314,7 @@
           var pct = Math.round(b.level * 100);
           setBatteryFill(batteryFillMac, pct);
           if (batteryLabelMac) batteryLabelMac.textContent = "Mac " + pct + "%";
+          syncModernBattery(pct);
         }
         updateMacBattery();
         b.addEventListener("levelchange", updateMacBattery);
@@ -132,7 +324,6 @@
     } else {
       setMacFallback();
     }
-
   }
 
   function sleep(ms) {
@@ -271,20 +462,38 @@
     }).then(function () {
       var coffeeLabel = cfg.coffeeLabel || "⟳ kaffeemaschine-integration";
       var errAt = cfg.coffeeErrorAt != null ? cfg.coffeeErrorAt : 72;
-      var errors = cfg.coffeeErrors || ["✗ FEHLER: Wassertank leer", "✗ FEHLER: Kaffee vergessen", "✗ FEHLER: Maschine war aus."];
+      var classics = (cfg.coffeeErrors || []).slice();
+      if (classics.length < 2) classics = classics.concat(["✗ FEHLER: Wassertank leer", "✗ FEHLER: Kaffee vergessen", "✗ FEHLER: Maschine war aus."]);
+      var gags = (cfg.coffeeGags || []).slice();
+      var stromkabel = gags.filter(function (m) { return m.indexOf("Stromkabel") !== -1 || m.indexOf("ausgesteckt") !== -1; })[0];
+      var otherGags = stromkabel ? gags.filter(function (m) { return m !== stromkabel; }) : [];
+      var errors = (function pickTwoThenStromkabel() {
+        var firstTwo = [];
+        var useOneGag = otherGags.length > 0 && Math.random() < 0.5;
+        if (useOneGag) {
+          firstTwo.push(classics[Math.floor(Math.random() * classics.length)]);
+          firstTwo.push(otherGags[Math.floor(Math.random() * otherGags.length)]);
+          if (Math.random() < 0.5) firstTwo.reverse();
+        } else {
+          var c = classics.slice();
+          for (var i = c.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = c[i]; c[i] = c[j]; c[j] = t; }
+          firstTwo = c.slice(0, 2);
+        }
+        return firstTwo.concat(stromkabel || classics[classics.length - 1]);
+      })();
       return animateProgressBar(output, 60, 80, coffeeLabel, errAt, cfg).then(function (r) {
         if (r === "error") {
-          return addLine(output, errors[0], 600, "error")
+          return sleep(800).then(function () { return addLine(output, errors[0], 400, "error"); })
             .then(function () { return addLine(output, "", 300); })
             .then(function () { return animateRollback(output, errAt, 60, cfg); })
             .then(function () { return addLine(output, "", 400); })
             .then(function () { return animateProgressBar(output, 60, 80, coffeeLabel, errAt, cfg); })
-            .then(function () { return addLine(output, errors[1], 700, "error"); })
+            .then(function () { return sleep(800).then(function () { return addLine(output, errors[1], 400, "error"); }); })
             .then(function () { return addLine(output, "", 300); })
             .then(function () { return animateRollback(output, errAt, 60, cfg); })
             .then(function () { return addLine(output, "", 400); })
             .then(function () { return animateProgressBar(output, 60, 80, coffeeLabel, errAt, cfg); })
-            .then(function () { return addLine(output, errors[2], 700, "error"); })
+            .then(function () { return sleep(800).then(function () { return addLine(output, errors[2], 400, "error"); }); })
             .then(function () { return addLine(output, "", 300); })
             .then(function () { return animateRollback(output, errAt, 60, cfg); })
             .then(function () { return addLine(output, "", 400); });
@@ -342,7 +551,7 @@
         var div = document.createElement("div");
         div.textContent = text;
         bootLog.appendChild(div);
-        bootContainer.scrollTop = bootContainer.scrollHeight;
+        if (bootContainer) bootContainer.scrollTop = bootContainer.scrollHeight;
         resolve();
       }, delay || 350);
     });
@@ -351,6 +560,7 @@
   function playBoot() {
     var perLine = 45;
     var osLabel = getOSLabel();
+    if (bootContainer) bootContainer.scrollTop = 0;
     return addBootLine("Systemstatus wird abgefragt", 400)
       .then(function () { return addBootLine("OS erkannt – " + osLabel, 500); })
       .then(function () { return addBootLine("Bereite Bootvorgang vor", 500); })
@@ -358,12 +568,12 @@
       .then(function () { return sleep(400); })
       .then(function () { return addBootLine("", 200); })
       .then(function () {
-        return bootLines.reduce(function (prev, line) {
+    return bootLines.reduce(function (prev, line) {
       return prev.then(function () {
         var div = document.createElement("div");
         div.textContent = line;
         bootLog.appendChild(div);
-        bootContainer.scrollTop = bootContainer.scrollHeight;
+        if (bootContainer) bootContainer.scrollTop = bootContainer.scrollHeight;
         return sleep(perLine);
       });
     }, Promise.resolve()).then(function () {
@@ -379,6 +589,7 @@
       if (macMenuBar) macMenuBar.style.visibility = "visible";
       if (macDock) macDock.style.visibility = "visible";
       if (retroWidgetPanel) retroWidgetPanel.style.visibility = "visible";
+      if (widgetToggleWrap) widgetToggleWrap.style.visibility = "visible";
       if (desktopIcons) {
         desktopIcons.style.visibility = "visible";
         var volumeIcons = desktopIcons.querySelectorAll(".desktop-icon-volume");
@@ -487,10 +698,19 @@
       if (step.type === "response") {
         var div = document.createElement("div");
         div.className = "response";
-        div.textContent = step.text;
         output.appendChild(div);
-        output.scrollTop = output.scrollHeight;
-        return sleep(step.delayAfterMs || 400).then(next);
+        var text = (step.text || "");
+        var j = 0;
+        var charDelay = step.delayPerCharMs || 35;
+        function typeResponse() {
+          if (j >= text.length) {
+            return sleep(step.delayAfterMs || 400).then(next);
+          }
+          div.textContent += text[j++];
+          output.scrollTop = output.scrollHeight;
+          return sleep(charDelay).then(typeResponse);
+        }
+        return typeResponse();
       }
       if (step.type === "glitch") {
         terminalWindow.classList.add("mac-glitch");

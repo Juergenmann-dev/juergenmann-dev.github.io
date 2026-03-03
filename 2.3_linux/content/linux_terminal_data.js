@@ -108,12 +108,13 @@
       cursorClass: "linux-cursor"
     },
 
-    /** Retro-Installer: Pakete (ui-ux, xcode, firebase, android) + Kaffee mit Rollback, wie Mac. Sprache/Befehle passend zu Debian/apt der Ära. */
+    /** Retro-Installer: dpkg (historisch, ~2000), nicht apt-get. Pakete + Kaffee mit Rollback, wie Mac. */
     installer: {
-      firstLine: "jm@debian:~$ sudo apt-get install -y jürgen-mann.deb",
+      firstLine: "jm@debian:~$ sudo dpkg -i jürgen-mann.deb",
       aptIntro: [
-        "Reading package lists... Done",
-        "Building dependency tree... Done"
+        "Vorbereiten zum Entpacken von jürgen-mann.deb ...",
+        "Entpacken von jürgen-mann (2.0-1) ...",
+        "Richte jürgen-mann (2.0-1) ein ..."
       ],
       progressFill: "*",   /* Linux: Sternchen; Mac hat Balken */
       progressEmpty: ".",
@@ -131,6 +132,14 @@
         "✗ FEHLER: Wassertank leer",
         "✗ FEHLER: Kaffee vergessen",
         "✗ FEHLER: Maschine war aus."
+      ],
+      coffeeGags: [
+        "✗ FEHLER: Fehler konnte bei Beobachtung nicht reproduziert werden. Quantenstatus instabil.",
+        "✗ Empfehlung: Systemneustart durchführen. Haben Sie das Stromkabel bereits einmal ein- und ausgesteckt?",
+        "✗ WARNUNG: Entfernen des Kommentars in Zeile 42 führt zu instabiler Architektur. Bitte hängen Sie das Poster wieder auf.",
+        "✗ Status: Installation auf Entwickler-Rechner erfolgreich. Lokale Realität weicht von Server-Umgebung ab.",
+        "✗ Lade Modul: Salami-Interoperabilität... FEHLER: Käserand fehlt. Installation pausiert bis zum Eintreffen des Lieferdienstes.",
+        "✗ Status: Warte auf Bestätigung der Gummiente... Ente sagt: 'Quak'. Fortfahren."
       ],
       coffeeSuccess: "✓ kaffeemaschine (HTML aktivieren)",
       coffeeReady: "✓ Kaffee ist fertig.",

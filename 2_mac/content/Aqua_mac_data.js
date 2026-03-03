@@ -122,6 +122,14 @@
         "✗ FEHLER: Kaffee vergessen",
         "✗ FEHLER: Maschine war aus."
       ],
+      coffeeGags: [
+        "✗ FEHLER: Fehler konnte bei Beobachtung nicht reproduziert werden. Quantenstatus instabil.",
+        "✗ Empfehlung: Systemneustart durchführen. Haben Sie das Stromkabel bereits einmal ein- und ausgesteckt?",
+        "✗ WARNUNG: Entfernen des Kommentars in Zeile 42 führt zu instabiler Architektur. Bitte hängen Sie das Poster wieder auf.",
+        "✗ Status: Installation auf Entwickler-Rechner erfolgreich. Lokale Realität weicht von Server-Umgebung ab.",
+        "✗ Lade Modul: Salami-Interoperabilität... FEHLER: Käserand fehlt. Installation pausiert bis zum Eintreffen des Lieferdienstes.",
+        "✗ Status: Warte auf Bestätigung der Gummiente... Ente sagt: 'Quak'. Fortfahren."
+      ],
       coffeeSuccess: "✓ kaffeemaschine (HTML aktivieren)",
       coffeeReady: "✓ Kaffee ist fertig.",
       kioskLabel: "✓ kiosk-mode",
