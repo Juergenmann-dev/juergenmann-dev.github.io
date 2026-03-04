@@ -2755,13 +2755,29 @@
   flex-direction: column;
   justify-content: center;
   padding: 24px;
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
+  box-sizing: border-box;
   font-family: "Menlo", "Monaco", "Courier New", monospace;
   font-size: 14px;
   line-height: 1.6;
   color: #39D353;
+  overflow-x: hidden;
+ }
+ #iphone-dfu-story-lines {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
  }
  body.os-iphone #iphone-dfu-story.active { display: flex; }
- #iphone-dfu-story .dfu-story-line { opacity: 0; }
+ #iphone-dfu-story .dfu-story-line {
+  opacity: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+ }
  #iphone-dfu-story .dfu-story-line.visible { opacity: 1; transition: opacity 0.2s ease; }
  #iphone-install-screen {
   position: fixed;
