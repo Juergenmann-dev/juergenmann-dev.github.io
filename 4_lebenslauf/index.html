@@ -2259,7 +2259,11 @@ body.kiosk-used .deckblatt-kiosk-hint { display: none !important; }
  body.os-android #story-screen,
  body.os-android #loading-overlay { display: none !important; }
 
- /* ========== Mac Statusleiste + Dock (1:1 aus 2_mac), durchgängig auf Deckblatt/Lebenslauf ========== */
+ /* ========== Mac Statusleiste + Dock (1:1 aus 2_mac) – nur auf Mac anzeigen, nicht auf Win/Linux ========== */
+ body:not(.os-mac) #cv-mac-menu-bar,
+ body:not(.os-mac) #cv-mac-dock,
+ body:not(.os-mac) .cv-terminal-stage { display: none !important; }
+ body:not(.os-mac) .cv-main-with-bars { padding-top: 0; padding-bottom: 0; }
  #cv-mac-menu-bar {
   position: fixed;
   top: 0;
