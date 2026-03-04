@@ -57,8 +57,8 @@ Struktur und Code sind angeglichen, nur **Aussehen** und **Sprache** sind plattf
 | Kontext | Mac | Linux |
 |---------|-----|--------|
 | **Prompt** | `[localhost:~] user%` | `jm@debian:~$` |
-| **Install-Befehl** | (über Story/Installer-UI) | `sudo apt-get install -y jürgen-mann.deb` |
-| **Vor Paketen** | — | „Reading package lists... Done“, „Building dependency tree... Done“ (apt-typisch) |
+| **Install-Befehl** | (über Story/Installer-UI) | `sudo dpkg -i jürgen-mann.deb` (historisch ~2000, kein apt-get) |
+| **Vor Paketen** | — | „Vorbereiten zum Entpacken von …“, „Entpacken von jürgen-mann (2.0-1) …“, „Richte jürgen-mann … ein“ (dpkg-typisch) |
 | **Installer-Labels** | gleiche inhaltliche Texte (Pakete, Kaffee, Kiosk, Warnung) | dieselben inhaltlichen Texte, ggf. apt-Englisch für Systemzeilen |
 | **Story** | Aus `mac_story_script-data.js` (de) | Aus `linux_story_script-data.js` (de, gleiche Story-Inhalte) |
 
@@ -69,6 +69,6 @@ Struktur und Code sind angeglichen, nur **Aussehen** und **Sprache** sind plattf
 - **Struktur:** Gleiche Datei-/Ordnerstruktur, gleicher Ablauf (Boot → Terminal → Story → Installation → Flow → Deckblatt).
 - **Code:** Gleiche Logik, gleiche Delays und gleiche Installer-Schritte; nur Ausgabe (addLine vs addTermLine, Balken vs ASCII) und Datenquellen (AQUA_MAC_DATA vs LINUX_TERMINAL_DATA) sind plattformspezifisch.
 - **Aussehen:** Mac = Aqua, Linux = xterm-Grün auf Marieneblau.
-- **Sprache:** Mac = tcsh/Deutsch, Linux = bash/apt (jm@debian, sudo, apt-get), Story weiterhin deutsch.
+- **Sprache:** Mac = tcsh/Deutsch, Linux = bash/dpkg (jm@debian, sudo dpkg -i), Story weiterhin deutsch.
 
 Damit ist die Linux-View **kohärent** zur Mac-View: gleicher Aufbau und gleiches Verhalten, nur anderes Look & Feel und plattformtypische Sprache/Befehle.

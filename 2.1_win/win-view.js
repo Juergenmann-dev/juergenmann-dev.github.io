@@ -36,8 +36,9 @@
       setTimeout(function () {
         if (!bootContainer) { resolve(); return; }
         var div = document.createElement("div");
-        div.textContent = line.text || line;
-        if (line.error) div.className = "line-error";
+        var txt = (typeof line === "object") ? (line.text != null ? line.text : "") : line;
+        div.textContent = txt;
+        if (typeof line === "object" && line.error) div.className = "line-error";
         bootContainer.appendChild(div);
         bootContainer.scrollTop = bootContainer.scrollHeight;
         resolve();

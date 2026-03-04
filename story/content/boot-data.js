@@ -819,6 +819,26 @@
 
     /** 1_bootvorgang: Windows 95 Boot (AMIBIOS, HIMEM, VXD) – ~7 s max */
     winBootSequence: [
+      // Kleines C64-/386-Flashback vor dem eigentlichen Win95-Boot
+      { text: "*** COMMODORE 64 BASIC V2 ***", delay: 420 },
+      { text: "64K RAM SYSTEM  38911 BASIC BYTES FREE", delay: 360 },
+      { text: "READY.", delay: 480 },
+      { text: "", delay: 300 },
+      { text: "Award Modular BIOS v4.51PG, An Energy Star Ally", delay: 420 },
+      { text: "CPU: Intel 80386DX at 33MHz", delay: 260 },
+      { text: "Memory Test: 4096K OK", delay: 380 },
+      { text: "", delay: 260 },
+      { text: "Detecting HDD Primary Master ... FOUND", delay: 420 },
+      { text: "", delay: 260 },
+      { text: "?SYNTAX ERROR", delay: 520 },
+      { text: "READY.", delay: 380 },
+      { text: "", delay: 320 },
+      { text: "(Press F1 to resume or wait for Windows 95...)", delay: 900 },
+      { text: "", delay: 420 },
+      { text: "", delay: 200 },
+      { text: "Falsches System geladen – lade Windows 95...", delay: 720, error: true },
+      { text: "", delay: 380 },
+      // Ab hier: ursprünglicher Win95-Boot
       { text: "AMIBIOS (C)1992 American Megatrends Inc.,", delay: 35 },
       { text: "06/12/95-I430FX-2A59CF09C-00", delay: 18 },
       { text: "Processor: Intel Pentium(R) 133 MHz", delay: 18 },

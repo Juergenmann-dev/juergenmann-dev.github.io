@@ -13,7 +13,7 @@
       os: "Windows 95",
       cols: 80,
       rows: 18,
-      promptExample: "C:\\>",
+      promptExample: "JM:\\>",
       language: "de"
     },
 
@@ -22,7 +22,7 @@
     },
 
     /** CMD-Prompt */
-    prompt: "C:\\>",
+    prompt: "JM:\\>",
 
     /** Retro-Installer: zuerst C: versuchen (schlägt fehl), dann jm lebenslauf.html anlegen, Daten kopieren, am Ende dir-Prüfung. Gleiche logische Schritte wie Mac/Linux (Pakete, Kaffee, Kiosk). */
     installer: {

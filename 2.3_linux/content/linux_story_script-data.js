@@ -17,6 +17,8 @@
     { type: "response", text: "------------------------------------------------------------", delayAfterMs: 200 },
     /* Story: Zeile für Zeile mit 200ms Verzögerung (System „liest“ die Datei) */
     { type: "story", text: "Moin.", delayAfterMs: 200 },
+    { type: "story", text: "Erinnerst du dich? Hier hat alles angefangen.", delayAfterMs: 400 },
+    { type: "story", text: "Bevor die Welt kompliziert wurde, war sie grün auf schwarz.", delayAfterMs: 500 },
     { type: "story", text: "Ich möchte dich auf eine kleine Reise mitnehmen.", delayAfterMs: 200 },
     { type: "story", text: "In eine Welt, die auf den ersten Blick nicht das ist, was sie vorgibt zu sein.", delayAfterMs: 200 },
     { type: "story", text: "Aber eigentlich von einem Menschen erzählt, der ein Projekt mit Substanz gebaut hat.", delayAfterMs: 200 },

@@ -11,15 +11,17 @@
       var ua = navigator.userAgent || "";
       var base = window.location.pathname.replace(/\/?index\.html$/, "").replace(/\/?$/, "") + "/";
       if (ua.indexOf("Android") !== -1) {
-        window.location.replace(base + "2_mac/");
+        // Android → eigene V2-Ansicht
+        window.location.replace(base + "2.4_android/");
         return;
       }
       if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) {
-        window.location.replace(base + "2_mac/");
+        // iPhone/iPad → iPhone-Spielwiese (Mix-Version)
+        window.location.replace(base + "02_Version_2.0_spielwiese/2.5_iphone/");
         return;
       }
       if (ua.indexOf("Win") !== -1) {
-        window.location.replace(base + "2_mac/");
+        window.location.replace(base + "2.1_win/");
         return;
       }
       if (ua.indexOf("Mac") !== -1) {

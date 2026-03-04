@@ -1235,6 +1235,7 @@
   await wait(400);
 
   await addBubble('Moin. 👋', 'received', 900);
+  await addBubble('Wenn du hier gelandet bist, hat ein Link seinen Job gemacht.', 'received', 1200);
   await addBubble('Ich möchte dich auf eine kleine Reise mitnehmen.', 'received', 1400);
   await addBubble('In eine Welt, die auf den ersten Blick nicht das ist, was sie vorgibt zu sein.', 'received', 1800);
   await addBubble('aber eigentlich von einem Menschen erzählt, der ein wunderbares Projekt gebaut hat.', 'received', 1600);

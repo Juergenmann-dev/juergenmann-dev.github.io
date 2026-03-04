@@ -48,6 +48,11 @@
     },
     {
       type: "story",
+      text: "Und genau da, wo du sonst Xcode, Terminal und Browser offen hast, landet jetzt für einen Moment nur dieses eine Projekt.",
+      delayAfterMs: 1000
+    },
+    {
+      type: "story",
       text: "Nicht alles erklärt sich sofort.",
       delayAfterMs: 800
     },
@@ -106,6 +111,24 @@
     {
       type: "story",
       text: "Installation beginnt.",
+      delayAfterMs: 900
+    },
+    {
+      type: "pause",
+      timeMs: 500
+    },
+    {
+      type: "glitch",
+      timeMs: 220
+    },
+    {
+      type: "story",
+      text: "Bin ich Linux? Bin ich Windows? Bin ich iOS?",
+      delayAfterMs: 900
+    },
+    {
+      type: "story",
+      text: "Mein System weiß es gerade selbst nicht mehr.",
       delayAfterMs: 900
     },
     {

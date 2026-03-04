@@ -2,10 +2,10 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* Schrift: typischer DOS/Win98-Font – Fixedsys, MS Gothic, Fallback monospace */
+/* Schrift: typischer DOS/Win98-Font – Fixedsys / Code Page 437-ähnlich */
 html, body {
   height: 100%;
-  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  font-family: "Fixedsys", "Lucida Console", "Consolas", monospace;
   background: #008080;
   color: #c0c0c0;
   overflow: hidden;
@@ -60,7 +60,7 @@ html, body {
 
 #boot-container {
   padding: 20px;
-  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  font-family: "Fixedsys", "Lucida Console", "Consolas", monospace;
   font-size: 14px;
   line-height: 1.35;
   color: #c0c0c0;
@@ -117,7 +117,7 @@ html, body {
 /* Hauptfenster: harter 3D-Bevel wie Win98 */
 .win95-window {
   font-size: 13px;
-  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  font-family: "Fixedsys", "Lucida Console", "Consolas", monospace;
   position: relative;
   width: 80ch;
   min-width: 80ch;
@@ -287,7 +287,7 @@ html, body {
 
 #console-output.win95-content,
 .win95-content {
-  font-family: "Fixedsys", "MS Gothic", "Lucida Console", "Consolas", monospace;
+  font-family: "Fixedsys", "Lucida Console", "Consolas", monospace;
   font-size: 13px;
   line-height: 1.4;
   color: #c0c0c0;
@@ -320,6 +320,12 @@ html, body {
 
 .win95-choice:hover {
   color: #e0e0e0;
+}
+
+/* Boot-Sequenz: Fehlerzeilen (z.B. falsches System) */
+#boot-container .line-error {
+  color: #ff4444 !important;
+  font-weight: bold;
 }
 
 /* Installer-Zeilen / Fehler */
