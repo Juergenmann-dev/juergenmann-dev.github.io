@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jürgen Mann – Mac</title>
+  <!-- Mac V2: Boot → Menü → Terminal → Story → Installer → Musik/Titel → Deckblatt. CSS/JS ausgelagert. -->
+  <link rel="stylesheet" href="mac-view.css?v=20260304">
+</head>
+<body>
+
+  <div class="mac-desktop">
+    <div class="mac-menu-bar" id="mac-menu-bar">
+      <div class="mac-menu-left">
+        <span class="menu-trigger">&#63743;</span>
+        <div class="menu-item-wrap">
+          <span class="menu-trigger" id="menu-trigger-finder">Finder</span>
+        </div>
+        <span class="menu-trigger" id="menu-trigger-file">File</span>
+        <span class="menu-trigger" id="menu-trigger-edit">Edit</span>
+        <span class="menu-trigger" id="menu-trigger-view">View</span>
+        <div class="menu-item-wrap" id="go-menu-wrap">
+          <span class="menu-trigger" id="menu-trigger-go">Go</span>
+          <div class="menu-dropdown" id="go-dropdown">
+            <div class="menu-row" id="go-row-applications">Applications</div>
+            <div class="menu-row" id="go-menu-utilities">Utilities</div>
+            <div class="menu-row" id="go-row-home">Home</div>
+            <div class="menu-row" id="go-row-computer">Computer</div>
+          </div>
+        </div>
+        <span class="menu-trigger" id="menu-trigger-window">Window</span>
+        <span class="menu-trigger" id="menu-trigger-help">Help</span>
+      </div>
+      <div class="mac-menu-right">
+        <span id="mac-menu-time">--:--</span>
+        <span>|</span>
+        <span>Finder</span>
+      </div>
+    </div>
+
+    <div class="desktop-main">
+      <div class="widget-toggle-wrap" id="widget-toggle-wrap">
+        <span class="widget-toggle-label">Widget:</span>
+        <button type="button" class="widget-toggle-btn" id="widget-toggle-alt" aria-pressed="true">Alt</button>
+        <button type="button" class="widget-toggle-btn" id="widget-toggle-neu" aria-pressed="false">Neu</button>
+      </div>
+      <div class="retro-widget-panel" id="retro-widget-panel">
+        <div class="retro-widget-row">
+          <div class="retro-widget-card">
+            <div class="retro-widget-title" id="widget-month">MÄRZ</div>
+            <div class="retro-widget-main" id="widget-day">03</div>
+            <div class="retro-widget-sub" id="widget-weekday-year">DI · 2025</div>
+          </div>
+          <div class="retro-widget-card">
+            <div class="retro-widget-title">GIFHORN</div>
+            <div class="retro-widget-main">14°</div>
+            <div class="retro-widget-sub">Meist sonnig</div>
+          </div>
+        </div>
+        <div class="retro-widget-card">
+          <div class="retro-widget-title">AKKU</div>
+          <div class="retro-battery-row">
+            <div class="retro-battery"><div class="retro-battery-fill" id="battery-fill-mac"></div></div>
+            <div class="retro-battery"><div class="retro-battery-fill" id="battery-fill-keyboard"></div></div>
+            <div class="retro-battery"><div class="retro-battery-fill" id="battery-fill-mouse"></div></div>
+          </div>
+          <div class="retro-battery-row retro-battery-label">
+            <span id="battery-label-mac">Mac —</span>
+            <span id="battery-label-keyboard">Tastatur —</span>
+            <span id="battery-label-mouse">Apple Mouse —</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modernes Widget (V1-Struktur): Glas, Kalender-Grid, Wetter, Akku-Ringe -->
+      <div class="modern-widget-panel" id="modern-widget-panel" aria-hidden="true">
+        <div class="mac-widget mac-widget-calendar">
+          <div class="mac-widget-title">März</div>
+          <div class="calendar-days">M D M D F S S</div>
+          <div class="calendar-grid">
+            <span>1</span><span>2</span><span class="today">3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+            <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+            <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+            <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+            <span>29</span><span>30</span><span>31</span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="mac-widget mac-widget-weather">
+          <div class="weather-location">Gifhorn</div>
+          <div class="weather-temp">14°</div>
+          <div class="weather-condition">☀️ Meist sonnig</div>
+          <div class="weather-hl">H:14° L:4°</div>
+        </div>
+        <div class="mac-widget mac-widget-battery">
+          <div class="mac-widget-title">Akku</div>
+          <div class="battery-devices">
+            <div class="battery-device">
+              <div class="battery-ring"><span class="battery-device-icon">💻</span><span class="battery-fill" id="modern-battery-fill-mac"></span></div>
+              <span class="battery-pct" id="modern-battery-pct-mac">—</span>
+            </div>
+            <div class="battery-device">
+              <div class="battery-ring"><span class="battery-device-icon">🖱️</span><span class="battery-fill" id="modern-battery-fill-keyboard"></span></div>
+              <span class="battery-pct" id="modern-battery-pct-keyboard">—</span>
+            </div>
+            <div class="battery-device">
+              <div class="battery-ring"><span class="battery-device-icon">⌨️</span><span class="battery-fill" id="modern-battery-fill-mouse"></span></div>
+              <span class="battery-pct" id="modern-battery-pct-mouse">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="finder-utilities">
+        <div class="finder-titlebar">
+          <span id="finder-utilities-title">Utilities</span>
+          <span>⌘⇧U</span>
+        </div>
+        <div class="finder-body">
+          <div class="finder-icons">
+            <div class="finder-icon"><div class="finder-icon-box">🧮</div><div>Calculator</div></div>
+            <div class="finder-icon"><div class="finder-icon-box">🧲</div><div>Disk Utility</div></div>
+            <div class="finder-icon" id="finder-icon-terminal"><div class="finder-icon-box">&#8984;&gt;_</div><div>Terminal</div></div>
+          </div>
+          <div class="finder-hint" id="finder-utilities-hint"></div>
+        </div>
+      </div>
+
+      <div id="desktop-icons">
+        <div class="desktop-icon desktop-icon-folder"><span class="icon-folder">&#128193;</span><span class="icon-label">Neuer Ordner 2</span></div>
+        <div class="desktop-icon desktop-icon-folder"><span class="icon-folder">&#128196;</span><span class="icon-label">Dokumente</span></div>
+        <div class="desktop-icon desktop-icon-folder"><span class="icon-folder">&#128247;</span><span class="icon-label">Bildschirmfotos</span></div>
+        <div class="desktop-icon desktop-icon-volume"><span class="icon-disk"></span><span class="icon-label">Cloud_6Tb_USB</span></div>
+        <div class="desktop-icon desktop-icon-volume"><span class="icon-disk"></span><span class="icon-label">Familie</span></div>
+        <div class="desktop-icon desktop-icon-volume"><span class="icon-disk"></span><span class="icon-label">TimeMachineBackup</span></div>
+        <div class="desktop-icon desktop-icon-volume"><span class="icon-disk"></span><span class="icon-label">webdav.hidrive.strato.com</span></div>
+      </div>
+
+      <div class="shell">
+        <div id="boot-container">
+          <div id="boot-log"></div>
+        </div>
+        <div id="aqua-stage">
+          <div id="terminal-window" class="term-mac-aqua">
+            <div class="aqua-header" id="terminal-drag-handle">
+              <div class="aqua-btn btn-red"></div>
+              <div class="aqua-btn btn-yellow" id="terminal-btn-yellow" title="Minimieren"></div>
+              <div class="aqua-btn btn-green"></div>
+              <div class="aqua-header-title">Terminal — tcsh — 80x18</div>
+            </div>
+            <div class="terminal-body-wrap">
+              <div id="output"></div>
+              <div class="terminal-command-line">
+                <span class="terminal-prompt">MacBook-Air:~ jm$ </span>
+                <input type="text" id="terminal-cmd-input" class="terminal-cmd-input" autocomplete="off" spellcheck="false" aria-label="Befehl eingeben" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mac-dock" id="mac-dock">
+      <div class="dock-item" id="dock-item-finder">Finder</div>
+      <div class="dock-item" id="dock-item-terminal">Terminal</div>
+      <div class="dock-item">CV</div>
+      <div class="dock-item">Music</div>
+      <div class="dock-item">Notes</div>
+      <div class="dock-item">Mail</div>
+      <div class="dock-item">Prefs</div>
+      <div class="dock-item">Trash</div>
+    </div>
+  </div>
+
+  <audio id="flow-track" src="../musik/zen_wind.mp3?v=20260304"></audio>
+
+  <script src="../story/content/detection.js?v=20260304"></script>
+  <script src="../story/content/boot-data.js?v=20260304"></script>
+  <script src="content/Aqua_mac_data.js?v=20260304"></script>
+  <script src="content/mac_story_script-data.js?v=20260304"></script>
+  <script src="mac-view.js?v=20260304"></script>
+</body>
+</html>

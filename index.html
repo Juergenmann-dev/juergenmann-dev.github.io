@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <title>Jürgen Mann – Lebenslauf (V2)</title>
+  <meta name="version" content="2.0" />
+  <!-- Fallback 1s, damit detection.js + Script zuerst die richtige OS-Seite laden -->
+  <meta http-equiv="refresh" content="1;url=https://juergenmann-dev.github.io/2_mac/">
+  <script src="story/content/detection.js"></script>
+  <script>
+    (function() {
+      var origin = window.location.origin || "https://juergenmann-dev.github.io";
+      var base = "/";
+      var target = base + "2_mac/";
+      var ua = typeof navigator !== "undefined" ? (navigator.userAgent || "") : "";
+      var plat = typeof navigator !== "undefined" ? (navigator.platform || "") : "";
+      var isIOS = /iPhone|iPad|iPod/i.test(ua) || /iPhone|iPad|iPod/i.test(plat);
+
+      if (isIOS) {
+        window.location.replace(origin + base + "2.5_iphone/");
+        return;
+      }
+      var osKey = (window.DETECTION && window.DETECTION.osKey) ? window.DETECTION.osKey : "default";
+      if (osKey === "default" && ua) {
+        if (ua.indexOf("Android") !== -1) osKey = "android";
+        else if (ua.indexOf("Win") !== -1) osKey = "win";
+        else if (ua.indexOf("Mac") !== -1) osKey = "mac";
+        else if (ua.indexOf("Linux") !== -1) osKey = "linux";
+      }
+      if (osKey === "android") target = base + "2.4_android/";
+      else if (osKey === "win") target = base + "2.1_win/";
+      else if (osKey === "mac") target = base + "2_mac/";
+      else if (osKey === "linux") target = base + "2.3_linux/";
+      window.location.replace(origin + target);
+    })();
+  </script>
+</head>
+<body>
+  <p>Systemstatus wird abgefragt … <a href="https://juergenmann-dev.github.io/2_mac/">Zum Lebenslauf</a></p>
+</body>
+</html>
