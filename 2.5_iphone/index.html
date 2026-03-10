@@ -2710,6 +2710,14 @@
   color: #39D353;
  }
  body.os-iphone #iphone-boot-intro.active { display: flex; }
+ /* iPhone Mix: macOS Recovery Flash (wie iphone-andere-version) nach Kernel Panic */
+ #iphone-mac-flash {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: #fff; display: none; z-index: 10019;
+  justify-content: center; align-items: center;
+  font-size: 24px; font-weight: bold; color: #000; font-family: -apple-system, sans-serif;
+ }
+ body.os-iphone #iphone-mac-flash.active { display: flex; }
  /* iPhone: Zwischen Speicherfehler und DFU – Finder-Desktop sichtbar, Systemfehler + DFU wird gestartet */
  body.os-iphone.iphone-systemfehler-phase #mac-menu-bar,
  body.os-iphone.iphone-systemfehler-phase #desktop-icons,
@@ -2747,13 +2755,29 @@
   flex-direction: column;
   justify-content: center;
   padding: 24px;
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
+  box-sizing: border-box;
   font-family: "Menlo", "Monaco", "Courier New", monospace;
   font-size: 14px;
   line-height: 1.6;
   color: #39D353;
+  overflow-x: hidden;
+ }
+ #iphone-dfu-story-lines {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
  }
  body.os-iphone #iphone-dfu-story.active { display: flex; }
- #iphone-dfu-story .dfu-story-line { opacity: 0; }
+ #iphone-dfu-story .dfu-story-line {
+  opacity: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+ }
  #iphone-dfu-story .dfu-story-line.visible { opacity: 1; transition: opacity 0.2s ease; }
  #iphone-install-screen {
   position: fixed;
@@ -2788,9 +2812,15 @@
  #iphone-install-lines .dfu-install-line { opacity: 0; }
  #iphone-install-lines .dfu-install-line.visible { opacity: 1; transition: opacity 0.2s ease; }
  #iphone-install-lines .dfu-install-line.dfu-install-line-error { color: #ff6b6b; }
- .iphone-install-bar { width: 220px; height: 4px; background: #333; border-radius: 2px; overflow: hidden; margin-bottom: 12px; }
+ .iphone-install-heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+ }
+ .iphone-install-bar { width: 220px; height: 4px; background: #333; border-radius: 2px; overflow: hidden; margin: 12px 0; }
  .iphone-install-fill { height: 100%; background: #007aff; width: 0%; transition: width 0.15s linear; }
- .iphone-install-text { font-size: 13px; color: #999; }
+ .iphone-install-text { font-size: 13px; color: #999; text-align: center; }
  #iphone-flow-prompt {
   position: fixed;
   inset: 0;
@@ -2891,6 +2921,14 @@
   <div id="iphone-boot-lines"></div>
  </div>
 
+ <!-- ══ iPhone Mix: macOS/Linux Recovery Flash (nach Kernel Panic) ══ -->
+ <div id="iphone-mac-flash" aria-hidden="true">
+  <div style="text-align:center;line-height:1.6;">
+   <div>macOS Recovery Service</div>
+   <div style="font-size:18px;margin-top:6px;">🐧 Linux Kernel Panic</div>
+  </div>
+ </div>
+
  <!-- ══ iPhone: Systemfehler auf Finder-Desktop (zwischen Speicherfehler und DFU-Screen) ══ -->
  <div id="iphone-systemfehler-overlay" aria-hidden="true">
   <div class="iphone-systemfehler-line">DFU konnte nicht gestartet werden</div>
@@ -2917,11 +2955,12 @@
   <div class="iphone-dfu-sub" id="iphone-dfu-sub">Wiederherstellung beginnen.</div>
  </div>
 
- <!-- ══ iPhone: DFU-Install (Verify/Extract/Install – kein Terminal) ══ -->
+ <!-- ══ iPhone: DFU-Install (Verify/Extract/Install – Mix: Headline + Log) ══ -->
  <div id="iphone-install-screen" aria-hidden="true">
-  <div id="iphone-install-lines"></div>
-  <div class="iphone-install-bar"><div class="iphone-install-fill" id="iphone-install-fill"></div></div>
+  <div class="iphone-install-heading">Device Firmware Update (DFU)</div>
   <div class="iphone-install-text" id="iphone-install-text"></div>
+  <div class="iphone-install-bar"><div class="iphone-install-fill" id="iphone-install-fill"></div></div>
+  <div id="iphone-install-lines"></div>
  </div>
 
  <!-- ══ iPhone: Flow-Modus / Musik (nach Story) ══ -->
@@ -3634,6 +3673,7 @@
   var installText = document.getElementById("iphone-install-text");
   if (!bootIntro || !bootLines) return;
 
+  /* Mix: Boot-Log aus iphone-andere-version (Linux + iOS Boot-Chain + Kernel Panic) */
   var bootLinesArr = [
    { text: "[    0.000000] Linux version 6.1.0-25-generic", cls: "" },
    { text: "[    0.000001] Command line: BOOT_IMAGE=/vmlinuz root=UUID=xxx ro quiet splash", cls: "" },
@@ -3643,11 +3683,11 @@
    { text: "[    0.045678] PCI: CLS 64 bytes, default 64", cls: "" },
    { text: "[    0.123456] iommu: Default domain type: Translated", cls: "" },
    { text: "[    0.234567] systemd[1]: systemd 252.5 running in system mode", cls: "" },
-   { text: "[    0.267890] systemd[1]: Set hostname to <host>", cls: "" },
-   { text: "[    0.389012] systemd[1]: Reached target System Initialization", cls: "" },
-   { text: "23 Easter Eggs gefunden.", cls: "" },
-   { text: "Speicherfehler", cls: "error" },
-   { text: "Starte DFU-Modus...", cls: "" }
+   { text: "[    0.267890] Detecting iOS Boot-Chain...", cls: "" },
+   { text: "Signature mismatch in Kernel-Image", cls: "" },
+   { text: "Attempting to bypass NAND-Write-Protection...", cls: "" },
+   { text: "Injecting kaffeemaschine.ipa into Boot-Layer...", cls: "" },
+   { text: "CRITICAL: KERNEL PANIC - Memory Corruption at 0xCAFFEE", cls: "error" }
   ];
 
   function addInstallLine(container, text, isError) {
@@ -3679,8 +3719,15 @@
     requestAnimationFrame(function(e) { return function() { e.classList.add("visible"); }; }(el));
     await wait(bootLinesArr[i].cls === "error" ? 950 : 380);
    }
-   await wait(1200);
+   await wait(400);
    bootIntro.classList.remove("active");
+
+  // 1b. macOS Recovery Flash (Mix aus iphone-andere-version, leicht verlängert)
+   var macFlash = document.getElementById("iphone-mac-flash");
+   if (macFlash) { macFlash.classList.add("active"); }
+  await wait(480);
+   if (macFlash) { macFlash.classList.remove("active"); }
+  await wait(260);
 
    // 2. Systemfehler auf Finder-Desktop (Speicherfehler → Systemfehler, DFU wird gestartet)
    var systemfehlerOverlay = document.getElementById("iphone-systemfehler-overlay");
@@ -3699,22 +3746,32 @@
    await wait(2200);
    if (dfuScreen) dfuScreen.classList.remove("active");
 
-   // 4. DFU-Install (gleiche Pakete wie Mac/Win/Linux, als .ipa + Kaffee-Gag)
+   // 4. DFU-Install (Mix: Steps aus iphone-andere-version + V1-Kaffee-Gag mit Bugs)
    if (installScreen) installScreen.classList.add("active");
-   addInstallLine(installLines, "Wiederherstellung wird vorbereitet...", false);
-   await wait(450);
-   setBar(8);
-   addInstallLine(installLines, "✓ ui-ux-module.ipsw installing", false);
-   await wait(480);
-   setBar(22);
-   addInstallLine(installLines, "✓ xcode-toolchain.ipsw installing", false);
-   await wait(480);
-   setBar(38);
-   addInstallLine(installLines, "✓ firebase-sdk.ipsw installing", false);
-   await wait(480);
-   setBar(52);
-   addInstallLine(installLines, "✓ android-sdk.ipsw installing", false);
+   addInstallLine(installLines, "Restoring from system_arch.ipsw...", false);
+   await wait(400);
+   setBar(10);
+   addInstallLine(installLines, "Extracting system_architecture.ipsw...", false);
    await wait(500);
+   setBar(25);
+   addInstallLine(installLines, "Overriding Security-Policy for kaffeemaschine.ipa...", false);
+   await wait(500);
+   setBar(15);
+   addInstallLine(installLines, "✓ ui-ux-modul.ipsw installing", false);
+   await wait(380);
+   addInstallLine(installLines, "✓ xcode-toolchain.ipsw installing", false);
+   await wait(380);
+   setBar(30);
+   addInstallLine(installLines, "✓ firebase-sdk.ipsw installing", false);
+   await wait(380);
+   addInstallLine(installLines, "✓ android-sdk.ipsw installing", false);
+   await wait(400);
+   setBar(45);
+   addInstallLine(installLines, "Force-Injecting Coffee-Modules...", false);
+   await wait(500);
+   setBar(55);
+   addInstallLine(installLines, "Finalizing Deep-Work-OS...", false);
+   await wait(450);
    setBar(60);
    addInstallLine(installLines, "⟳ coffee-maker.ipa installing", false);
    await wait(600);
@@ -3742,7 +3799,7 @@
    addInstallLine(installLines, "Kurze Kontrolle...", false);
    await wait(400);
    setBar(100);
-   if (installText) installText.textContent = "Install complete.";
+   if (installText) installText.textContent = "Installation Successful. Rebooting...";
    await wait(900);
    if (installScreen) installScreen.classList.remove("active");
    runIPhoneStory();
@@ -3756,10 +3813,14 @@
   var storyLinesArr = [
    "Moin.",
    "",
+   "Bin ich Linux? Bin ich Windows? Bin ich iOS?",
+   "Mein System weiß es gerade selbst nicht mehr.",
+   "",
    "Ich möchte dich auf eine kleine Reise mitnehmen.",
    "",
    "In eine Welt,",
-   "die auf den ersten Blick nicht das ist, was sie vorgibt zu sein.",
+   "die auf den ersten Blick nicht das ist,",
+   "was sie vorgibt zu sein.",
    "aber eigentlich von einem Menschen erzählt,",
    "der ein wunderbares Projekt gebaut hat.",
    "",
@@ -3768,8 +3829,8 @@
    "Manches öffnet sich erst,",
    "wenn du genauer hinschaust.",
    "",
-   "Und wenn du denkst – wow. Oder holy shit –",
-   "schließ die Augen.",
+   "Und wenn du denkst – wow.",
+   "Oder holy shit – schließ die Augen.",
    "Und lausch der Musik.",
    "",
    "Willkommen.",
@@ -3889,10 +3950,12 @@
   if (path.indexOf("2.4_android") !== -1) {
    document.body.classList.add("os-android");
    document.body.classList.remove("os-mac", "os-win", "os-linux");
-  } else if (ua.indexOf("Win") !== -1) document.body.classList.add("os-win");
-  else if (ua.indexOf("Mac") !== -1 || ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) document.body.classList.add("os-mac");
-  else if (ua.indexOf("Android") !== -1) document.body.classList.add("os-android");
-  else if (ua.indexOf("Linux") !== -1) document.body.classList.add("os-linux");
+  } else if (path.indexOf("2.5_iphone") === -1) {
+   if (ua.indexOf("Win") !== -1) document.body.classList.add("os-win");
+   else if (ua.indexOf("Mac") !== -1 || ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) document.body.classList.add("os-mac");
+   else if (ua.indexOf("Android") !== -1) document.body.classList.add("os-android");
+   else if (ua.indexOf("Linux") !== -1) document.body.classList.add("os-linux");
+  }
 
   if (document.body.classList.contains("os-iphone")) {
    document.body.classList.remove("boot-phase");
@@ -4093,15 +4156,13 @@
   var msg = document.getElementById("preload-msg");
   var bar = document.getElementById("preload-bar");
 
-  // OS sofort erkennen und Body-Klasse setzen
-  if (ua.indexOf("Win") !== -1) {
-   document.body.classList.add("os-win");
-  } else if (ua.indexOf("Mac") !== -1 || ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) {
-   document.body.classList.add("os-mac");
-  } else if (ua.indexOf("Android") !== -1) {
-   document.body.classList.add("os-android");
-  } else if (ua.indexOf("Linux") !== -1) {
-   document.body.classList.add("os-linux");
+  // OS setzen – auf 2.5_iphone nie os-mac (nur iPhone-Flow)
+  var path = window.location.pathname || "";
+  if (path.indexOf("2.5_iphone") === -1) {
+   if (ua.indexOf("Win") !== -1) document.body.classList.add("os-win");
+   else if (ua.indexOf("Mac") !== -1 || ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) document.body.classList.add("os-mac");
+   else if (ua.indexOf("Android") !== -1) document.body.classList.add("os-android");
+   else if (ua.indexOf("Linux") !== -1) document.body.classList.add("os-linux");
   }
   // Schritt 1 – Hintergrund laden (bei Fehler: Fallback Retrotürkis #008B8B)
   msg.textContent = "Hintergrund wird geladen...";
@@ -4229,8 +4290,11 @@
   var termOs = document.getElementById("term-os");
   var termTitle = document.getElementById("term-win-title");
   if (termOs) termOs.textContent = osName.split("–")[0].trim();
+  var path = window.location.pathname || "";
   if (termTitle) {
-   if (ua.indexOf("Win") !== -1) {
+   if (path.indexOf("2.5_iphone") !== -1) {
+    termTitle.textContent = "lebenslauf.html — -zsh — 120x30";
+   } else if (ua.indexOf("Win") !== -1) {
     termTitle.textContent = "cmd.exe";
     document.body.classList.add("os-win");
    } else if (ua.indexOf("Mac") !== -1 || ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) {
@@ -5157,23 +5221,11 @@ func exportAlsCSV() -> String {
  </ul>
  </div>
  </section>
-<section class="section">
-<h2 class="section-title">Projekte – Auswahl</h2>
-<div class="entry">
-<div class="entry-header">
-<div class="entry-title">Kaily – Android App (Jetpack Compose · geschlossene Beta eingereicht)</div>
-<div class="entry-meta">2026</div>
-</div>
-<div class="entry-sub">Schwerpunkt: Android-Version der Kaily-App · <strong class="launch-highlight">Geschlossene Beta bei Google Play eingereicht (03/2026)</strong> · plattformübergreifend mit iOS</div>
-<ul class="bullets">
-<li>Android-App mit Jetpack Compose; Architekturkonzepte plattformübergreifend (SwiftUI → Compose)</li>
-<li>Geschlossene Beta bei Google Play eingereicht; gleicher Use-Case wie iOS (Familien-App, Echtzeit-Daten)</li>
-</ul>
-<p class="mini"><span class="launch-highlight">Geschlossene Beta eingereicht – Veröffentlichung in Vorbereitung.</span></p>
-</div>
-<div class="entry">
-<div class="entry-header">
-<div class="entry-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</div>
+ <section class="section">
+ <h2 class="section-title">Projekte – Auswahl</h2>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</div>
  <div class="entry-meta">2026</div>
  </div>
  <div class="entry-sub">6 adaptive Views (Handoff, ATS, Druck, 1-Seite, …), ATS-optimiert, Easter Egg</div>
@@ -5185,7 +5237,7 @@ func exportAlsCSV() -> String {
  </div>
  <div class="entry">
  <div class="entry-header">
- <div class="entry-title"><a class="link-green" href="https://github.com/Juergenmann-dev/backup-nas-timemachine" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS Automatisierung (zsh · SMB)</div>
+ <div class="entry-title"><a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS Automatisierung (zsh · SMB)</div>
  <div class="entry-meta">2026</div>
  </div>
  <div class="entry-sub">Schwerpunkt: Automatisierung und Betriebssicherheit</div>
@@ -5225,13 +5277,13 @@ func exportAlsCSV() -> String {
  <li>Fokus auf Wartbarkeit und modulare Struktur</li>
  </ul>
  <p class="mini"><span class="launch-highlight">Repository derzeit privat aufgrund laufender Pre-Launch-Phase (App-Store-Veröffentlichung 2026 geplant); Zugriff auf Anfrage möglich.</span></p>
-</div>
-<div class="entry">
-<div class="entry-header">
-<div class="entry-title">SmartCity Gifhorn – Stadtentwicklung in einer App</div>
-<div class="entry-meta">2025 – lfd.</div>
-</div>
-<div class="entry-sub">Schwerpunkt: Lokale Vernetzung, nutzerorientierte Struktur · <strong class="launch-highlight">Launch 2026 geplant</strong></div>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">SmartCity Gifhorn – Stadtentwicklung in einer App</div>
+ <div class="entry-meta">2025 – lfd.</div>
+ </div>
+ <div class="entry-sub">Schwerpunkt: Lokale Vernetzung, nutzerorientierte Struktur · <strong class="launch-highlight">Launch 2026 geplant</strong></div>
  <ul class="bullets">
  <li>Alle Bausteine der Stadtentwicklung (solidarisch, lokal) in einer App</li>
  <li>Mitentwicklung im Rahmen der Qualifizierung; Übertragung von Architekturkonzepten (SwiftUI → Jetpack Compose)</li>
@@ -5348,12 +5400,8 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <li>iOS App Development: 780 UE (100% Anwesenheit)</li>
  <li>Android App Development: 770 UE (laufend)</li>
  </ul>
-<h2 class="ats-h2">Projekte (Auswahl)</h2>
-<div class="ats-line" style="margin-top:6px;"><strong>Kaily – Android App (Jetpack Compose, geschlossene Beta eingereicht)</strong> (2026)</div>
-<ul class="ats-ul ats-line">
-<li>Geschlossene Beta bei Google Play eingereicht (03/2026). Plattformübergreifend mit iOS-Version (Familien-App).</li>
-</ul>
-<div class="ats-line"><strong><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</strong> (2026)</div>
+ <h2 class="ats-h2">Projekte (Auswahl)</h2>
+ <div class="ats-line"><strong><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</strong> (2026)</div>
  <ul class="ats-ul ats-line">
  <li>6 adaptive Views (Handoff, ATS, Druck, 1-Seite), ATS-optimiert, Easter Egg</li>
  <li>Link: auf den Namen klicken – Sie lesen es gerade.</li>
@@ -5362,7 +5410,7 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <div class="ats-line" style="margin-top:6px;"><strong>timemachine-nas-backup – macOS Automatisierung (zsh, SMB)</strong> (2026)</div>
  <ul class="ats-ul ats-line">
  <li>Retry/Timeout-Watchdog, LaunchAgent, Logging; <span class="launch-highlight">läuft bereits privat im Einsatz</span></li>
- <li>Repo: <a class="link-green" href="https://github.com/Juergenmann-dev/backup-nas-timemachine" target="_blank" rel="noreferrer">github.com/Juergenmann-dev/backup-nas-timemachine</a></li>
+ <li>Repo: <a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">github.com/Juergenmann-dev/timemachine-nas-backup</a></li>
  </ul>
  <div class="ats-line" style="margin-top:6px;"><strong>UX Case Study – Zustandskommunikation im Kassensystem</strong> (02/2026)</div>
  <ul class="ats-ul ats-line">
@@ -5373,10 +5421,10 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <ul class="ats-ul ats-line">
  <li>Architektur für Echtzeit-Datenstabilität und Skalierbarkeit (u. a. Nutzung im Familienumfeld); reaktive UI, Cloud-Sync, Offline-Persistence</li>
  <li>Modulare Struktur (SPM); <span class="launch-highlight">Repository derzeit privat aufgrund laufender Pre-Launch-Phase (App-Store-Veröffentlichung 2026 geplant); Zugriff auf Anfrage möglich.</span></li>
-</ul>
-<div class="ats-line" style="margin-top:6px;"><strong>SmartCity Gifhorn – Stadtentwicklung in einer App</strong> (2025 – lfd., <span class="launch-highlight">Launch 2026 geplant</span>)</div>
-<ul class="ats-ul ats-line">
-<li>Lokale Vernetzung, Stadtentwicklung; Übertragung Architekturkonzepte (SwiftUI → Jetpack Compose)</li>
+ </ul>
+ <div class="ats-line" style="margin-top:6px;"><strong>SmartCity Gifhorn – Stadtentwicklung in einer App</strong> (2025 – lfd., <span class="launch-highlight">Launch 2026 geplant</span>)</div>
+ <ul class="ats-ul ats-line">
+ <li>Lokale Vernetzung, Stadtentwicklung; Übertragung Architekturkonzepte (SwiftUI → Jetpack Compose)</li>
  <li><span class="launch-highlight">Repo: privat (s.o.) – auf Anfrage</span></li>
  </ul>
  <div class="ats-line" style="margin-top:6px;"><strong>Minimodularsystem – modulares iOS Framework (SPM)</strong> (2025)</div>
@@ -5437,18 +5485,16 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <h2>Profil</h2>
  <p class="op-profile profile-statement">Junior-Entwickler mit Fokus auf modulare Architektur, Zustandslogik und wartbare Systeme; strukturierte Umsetzung, saubere modulare Ergebnisse.</p>
  <p class="op-profile">App-Entwickler (iOS/Android), Qualifizierung IT-Fachkraft. Einstieg in Entwicklungsteams – Produkt-Apps, interne Tools. Praxis: SwiftUI, Jetpack Compose, Firebase, SPM. Stärken: Codequalität, Systemzustände, UX-nahe Analyse. Branchenerfahrung: Koordination, Qualität, Prozesse.</p>
-<h2>Projekte</h2>
-<div class="op-row"><span class="op-title">Kaily – Android App</span><span class="op-meta">2026</span></div>
-<ul><li>Geschlossene Beta bei Google Play eingereicht. Jetpack Compose, plattformübergreifend mit iOS.</li></ul>
-<div class="op-row"><span class="op-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</span><span class="op-meta">2026</span></div>
+ <h2>Projekte</h2>
+ <div class="op-row"><span class="op-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</span><span class="op-meta">2026</span></div>
  <ul><li>6 adaptive Views, ATS-optimiert. Schwerpunkt: iOS/Android.</li></ul>
- <div class="op-row"><span class="op-title"><a class="link-green" href="https://github.com/Juergenmann-dev/backup-nas-timemachine" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS</span><span class="op-meta">2026</span></div>
+ <div class="op-row"><span class="op-title"><a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS</span><span class="op-meta">2026</span></div>
  <ul><li>Time Machine über SMB, Retry-Watchdog, LaunchAgent. <span class="launch-highlight">Läuft privat im Einsatz.</span></li></ul>
  <div class="op-row"><span class="op-title">UX Case Study – Kassensystem</span><span class="op-meta">02/2026</span></div>
  <ul><li>Systemanalyse, Personas, Mockups; <a class="link-green" href="https://www.linkedin.com/feed/update/urn:li:activity:7432396925536006144/" target="_blank" rel="noreferrer">LinkedIn</a></li></ul>
-<div class="op-row"><span class="op-title">Kaily – iOS App (SwiftUI · Firebase)</span><span class="op-meta">Launch 2026</span></div>
-<ul><li>Echtzeit-Datenstabilität, Cloud-Sync, WatchKit. <span class="launch-highlight">Repo auf Anfrage.</span></li></ul>
-<div class="op-row"><span class="op-title">CO2 Tracker – iOS (Mitentwicklung)</span><span class="op-meta">2025</span></div>
+ <div class="op-row"><span class="op-title">Kaily – iOS App (SwiftUI · Firebase)</span><span class="op-meta">Launch 2026</span></div>
+ <ul><li>Echtzeit-Datenstabilität, Cloud-Sync, WatchKit. <span class="launch-highlight">Repo auf Anfrage.</span></li></ul>
+ <div class="op-row"><span class="op-title">CO2 Tracker – iOS (Mitentwicklung)</span><span class="op-meta">2025</span></div>
  <ul><li>KMSA beigesteuert; Fehleranalyse, Debugging.</li></ul>
  <h2>Berufserfahrung</h2>
  <div class="op-row"><span class="op-title">Firma Obst – Glasreinigung</span><span class="op-meta">09/2023 – 01/2025</span></div>
