@@ -60,13 +60,6 @@
  min-height: 100vh;
  overflow-y: auto;
  }
-
- /* Wenn nur das Deckblatt im eingebetteten Kontext (z.B. Mac-Safari-Fenster) gezeigt wird,
-    soll der verfügbare Viewport möglichst vollständig genutzt werden. */
- body.mode-deckblatt #projekt-2-modern,
- body.mode-deckblatt .deckblatt-page {
-  min-height: 100vh;
- }
  /* Toggle – Segment Control, dunkles Theme passend zum Layout */
   /* ── Mac Aqua Theme ── */
  body.os-mac .boot-window,
@@ -1502,22 +1495,21 @@
  body.deckblatt-typing-done .deckblatt-page .deckblatt-inner .deckblatt-hint {
  animation: deckblatt-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
  }
-.deckblatt-page .deckblatt-kiosk-hint {
+ .deckblatt-page .deckblatt-kiosk-hint {
  font-size: 14px;
  color: #d1d5db;
  margin-top: 8px;
  margin-bottom: 24px;
  opacity: 0;
  visibility: hidden;
- display: none !important; /* Hinweis wird im Retro-Installer erklärt, nicht noch einmal am Deckblatt. */
  transition: opacity 0.5s ease, visibility 0.3s ease;
-}
-body.deckblatt-typing-done .deckblatt-page .deckblatt-kiosk-hint {
- animation: none;
- opacity: 0;
- visibility: hidden;
-}
-body.kiosk-used .deckblatt-kiosk-hint { display: none !important; }
+ }
+ body.deckblatt-typing-done .deckblatt-page .deckblatt-kiosk-hint {
+ animation: deckblatt-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+ opacity: 1;
+ visibility: visible;
+ }
+ body.kiosk-used .deckblatt-kiosk-hint { display: none !important; }
  .deckblatt-bubbles {
  display: flex;
  flex-wrap: wrap;
@@ -2259,329 +2251,11 @@ body.kiosk-used .deckblatt-kiosk-hint { display: none !important; }
  body.os-android #story-screen,
  body.os-android #loading-overlay { display: none !important; }
 
- /* ========== Mac Statusleiste + Dock (1:1 aus 2_mac) – nur auf Mac anzeigen, nicht auf Win/Linux ========== */
- body:not(.os-mac) #cv-mac-menu-bar,
- body:not(.os-mac) #cv-mac-dock,
- body:not(.os-mac) .cv-terminal-stage { display: none !important; }
- body:not(.os-mac) .cv-main-with-bars { padding-top: 0; padding-bottom: 0; }
- #cv-mac-menu-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 20px;
-  background: linear-gradient(to bottom, #e8e8e8, #c4c4c4);
-  border-bottom: 1px solid #9a9a9a;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 8px;
-  font-size: 11px;
-  color: #000;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-  z-index: 9999;
-  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
- }
- #cv-mac-menu-bar .mac-menu-left {
-  display: flex;
-  align-items: center;
- }
- #cv-mac-menu-bar .menu-trigger {
-  padding: 2px 8px;
-  cursor: default;
-  border-radius: 2px;
-  font-size: 11px;
-  color: #000;
- }
- #cv-mac-menu-bar .menu-trigger:first-child { font-weight: 700; }
- #cv-mac-menu-bar .mac-menu-right {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
- }
- #cv-mac-dock {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 10px;
-  height: 26px;
-  background: #c0c0d0;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #808080;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 4px;
-  padding: 2px 6px;
-  z-index: 9999;
-  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
- }
- #cv-mac-dock .dock-item {
-  min-width: 36px;
-  height: 18px;
-  padding: 0 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #c0c0c0;
-  border: 1px solid;
-  border-color: #fff #404040 #404040 #fff;
-  font-size: 10px;
-  color: #000;
-  white-space: nowrap;
-  cursor: default;
- }
- #cv-mac-dock .dock-item:hover {
-  transform: scale(1.2) translateY(-4px);
- }
- #cv-mac-dock .dock-item.has-window {
-  position: relative;
-  cursor: pointer;
- }
- #cv-mac-dock .dock-item.has-window::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #333;
- }
- .cv-terminal-stage {
-  position: fixed;
-  top: 20px;
-  left: 0;
-  right: 0;
-  bottom: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  z-index: 9000;
- }
- /* Terminal-Fenster 1:1 wie 2_mac #terminal-window.term-mac-aqua */
- #cv-terminal-window {
-  pointer-events: auto;
-  background: #fff;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-  background-size: 100% 3px;
-  border: 1px solid #888;
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: #000;
-  font-family: "Monaco", "Courier New", monospace;
-  font-size: 12px;
-  position: relative;
-  overflow: hidden;
-  animation: cv-mac-subtle-flicker 6s ease-in-out infinite;
-  display: flex;
-  flex-direction: column;
-  width: 80ch;
-  min-width: 80ch;
-  max-width: 80ch;
-  transform-origin: 50% 100%;
- }
- #cv-terminal-window::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.15), transparent 60%);
-  mix-blend-mode: screen;
-  opacity: 0.6;
- }
- @keyframes cv-mac-subtle-flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.995; }
- }
- .cv-terminal-stage .aqua-header {
-  height: 25px;
-  background: linear-gradient(to bottom, #e0e0e0, #b0b0b0);
-  border-bottom: 1px solid #888;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  border-radius: 8px 8px 0 0;
- }
- .cv-terminal-stage .aqua-btn {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 8px;
-  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 1px 1px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.2);
- }
- .cv-terminal-stage .btn-red { background: radial-gradient(circle at 4px 4px, #ff8080, #cc0000); }
- .cv-terminal-stage .btn-yellow {
-  background: radial-gradient(circle at 4px 4px, #ffff80, #cccc00);
-  cursor: pointer;
- }
- .cv-terminal-stage .btn-green { background: radial-gradient(circle at 4px 4px, #80ff80, #00cc00); }
- .cv-terminal-stage .aqua-header-title {
-  flex-grow: 1;
-  text-align: center;
-  color: #444;
-  font-size: 11px;
- }
- .cv-terminal-stage .terminal-body-wrap {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
- }
- .cv-terminal-stage #cv-terminal-output {
-  padding: 10px;
-  line-height: 1.4;
-  white-space: pre-wrap;
-  overflow-y: auto;
-  max-height: calc(1.4em * 18);
-  flex: none;
- }
- .cv-terminal-stage .terminal-command-line {
-  display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-top: 1px solid #e0e0e0;
-  background: rgba(0, 0, 0, 0.02);
- }
- .cv-terminal-stage .terminal-prompt {
-  color: #111827;
-  font-weight: 600;
-  flex-shrink: 0;
- }
- .cv-terminal-stage .terminal-cmd-input {
-  flex: 1;
-  min-width: 0;
-  margin-left: 4px;
-  padding: 2px 4px;
-  font-family: "Monaco", "Courier New", monospace;
-  font-size: 12px;
-  color: #000;
-  background: transparent;
-  border: none;
-  outline: none;
- }
- .cv-terminal-stage .terminal-cmd-input::placeholder {
-  color: #999;
- }
- .cv-terminal-stage #cv-terminal-output .line { color: #111827; }
- .cv-terminal-stage #cv-terminal-output .response { color: #4b5563; font-style: italic; margin-top: 2px; }
- #cv-terminal-window.terminal-minimized {
-  visibility: hidden;
-  pointer-events: none;
-  opacity: 0;
-  transform: scaleY(0.02) scaleX(0.15) translateY(60vh);
- }
- #cv-terminal-window.terminal-genie-minimizing {
-  animation: cv-genie-min 0.5s ease-in forwards;
-  pointer-events: none;
- }
- #cv-terminal-window.terminal-genie-restoring {
-  visibility: visible;
-  opacity: 1;
-  animation: cv-genie-out 0.5s ease-out forwards;
- }
- @keyframes cv-genie-min {
-  0% { transform: scaleY(1) scaleX(1) translateY(0); opacity: 1; }
-  100% { transform: scaleY(0.02) scaleX(0.15) translateY(60vh); opacity: 0.9; }
- }
- @keyframes cv-genie-out {
-  0% { transform: scaleY(0.02) scaleX(0.15) translateY(60vh); opacity: 0.9; }
-  100% { transform: scaleY(1) scaleX(1) translateY(0); opacity: 1; }
- }
- body.desktop-dark { background: #0a0a0f !important; background-image: none !important; }
- body.desktop-dark #cv-mac-menu-bar {
-  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
-  color: #e0e0e0;
- }
- body.desktop-dark #cv-mac-menu-bar .menu-trigger { color: #e0e0e0; }
- body.desktop-dark #cv-mac-dock { background: #1a1a1a; }
- .cv-main-with-bars {
-  padding-top: 20px;
-  padding-bottom: 56px;
-  min-height: 100vh;
-  box-sizing: border-box;
- }
- @media print {
-  #cv-mac-menu-bar, #cv-mac-dock, .cv-terminal-stage { display: none !important; }
-  .cv-main-with-bars { padding-top: 0; padding-bottom: 0; }
- }
-
 </style>
 </head>
 <body class="mode-deckblatt">
-<script>
-(function(){
-  var ua=navigator.userAgent||"";
-  if(ua.indexOf("Android")!==-1){document.body.classList.add("os-android");}
-  else if(ua.indexOf("Win")!==-1){document.body.classList.add("os-win");}
-  else if(ua.indexOf("Linux")!==-1){document.body.classList.add("os-linux");}
-  else{document.body.classList.add("os-mac");}
-  var cvTime = document.getElementById("cv-mac-menu-time");
-  if (cvTime) {
-    function setCvMacTime() { cvTime.textContent = new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }); }
-    setCvMacTime();
-    setInterval(setCvMacTime, 60000);
-  }
-})();
-</script>
-<!-- Mac Statusleiste oben (1:1 aus 2_mac) -->
-<div class="mac-menu-bar cv-mac-bar" id="cv-mac-menu-bar">
-  <div class="mac-menu-left">
-    <span class="menu-trigger">&#63743;</span>
-    <div class="menu-item-wrap">
-      <span class="menu-trigger">Finder</span>
-    </div>
-    <span class="menu-trigger">Ablage</span>
-    <span class="menu-trigger">Bearbeiten</span>
-    <span class="menu-trigger">Ansicht</span>
-    <div class="menu-item-wrap">
-      <span class="menu-trigger">Gehe zu</span>
-    </div>
-    <span class="menu-trigger">Fenster</span>
-    <span class="menu-trigger">Hilfe</span>
-  </div>
-  <div class="mac-menu-right">
-    <span id="cv-mac-menu-time">--:--</span>
-    <span>|</span>
-    <span>Finder</span>
-  </div>
-</div>
-<!-- Mac Dock unten (1:1 aus 2_mac) -->
-<div class="mac-dock cv-mac-bar" id="cv-mac-dock">
-  <div class="dock-item">Finder</div>
-  <div class="dock-item has-window" id="cv-dock-item-terminal">Terminal</div>
-  <div class="dock-item">Safari</div>
-  <div class="dock-item">CV</div>
-  <div class="dock-item">Music</div>
-  <div class="dock-item">Notes</div>
-  <div class="dock-item">Mail</div>
-  <div class="dock-item">Prefs</div>
-  <div class="dock-item">Trash</div>
-</div>
-<!-- Terminal-Fenster (wie auf dem Schreibtisch: geöffnet, per Dock minimieren/wiederherstellen, Easter Eggs) -->
-<div class="cv-terminal-stage" id="cv-terminal-stage">
-  <div id="cv-terminal-window" class="cv-term-mac-aqua terminal-minimized">
-    <div class="aqua-header" id="cv-terminal-drag-handle">
-      <div class="aqua-btn btn-red"></div>
-      <div class="aqua-btn btn-yellow" id="cv-terminal-btn-yellow" title="Minimieren"></div>
-      <div class="aqua-btn btn-green"></div>
-      <div class="aqua-header-title">Terminal — tcsh — 80x18</div>
-    </div>
-    <div class="terminal-body-wrap">
-      <div id="cv-terminal-output" class="cv-terminal-output"></div>
-      <div class="terminal-command-line">
-        <span class="terminal-prompt">MacBook-Air:~ jm$ </span>
-        <input type="text" id="cv-terminal-cmd-input" class="terminal-cmd-input" autocomplete="off" spellcheck="false" aria-label="Befehl eingeben" />
-      </div>
-    </div>
-  </div>
-</div>
- <div id="projekt-2-modern" class="cv-main-with-bars">
+<script>(function(){var ua=navigator.userAgent||"";if(ua.indexOf("Android")!==-1){document.body.classList.add("os-android");}else if(ua.indexOf("Win")!==-1){document.body.classList.add("os-win");}else if(ua.indexOf("Linux")!==-1){document.body.classList.add("os-linux");}else{document.body.classList.add("os-mac");}})();</script>
+ <div id="projekt-2-modern">
  <div class="toggle-container">
  <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Menü öffnen" onclick="toggleHamburger()">☰</button>
  <div class="toggle-switch" role="group" aria-label="Ansicht">
@@ -2970,11 +2644,23 @@ func exportAlsCSV() -> String {
  </ul>
  </div>
  </section>
- <section class="section">
- <h2 class="section-title">Projekte – Auswahl</h2>
- <div class="entry">
- <div class="entry-header">
- <div class="entry-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</div>
+<section class="section">
+<h2 class="section-title">Projekte – Auswahl</h2>
+<div class="entry">
+<div class="entry-header">
+<div class="entry-title">Kaily – Android App (Jetpack Compose · geschlossene Beta eingereicht)</div>
+<div class="entry-meta">2026</div>
+</div>
+<div class="entry-sub">Schwerpunkt: Android-Version der Kaily-App · <strong class="launch-highlight">Geschlossene Beta bei Google Play eingereicht (03/2026)</strong> · plattformübergreifend mit iOS</div>
+<ul class="bullets">
+<li>Android-App mit Jetpack Compose; Architekturkonzepte plattformübergreifend (SwiftUI → Compose)</li>
+<li>Geschlossene Beta bei Google Play eingereicht; gleicher Use-Case wie iOS (Familien-App, Echtzeit-Daten)</li>
+</ul>
+<p class="mini"><span class="launch-highlight">Geschlossene Beta eingereicht – Veröffentlichung in Vorbereitung.</span></p>
+</div>
+<div class="entry">
+<div class="entry-header">
+<div class="entry-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</div>
  <div class="entry-meta">2026</div>
  </div>
  <div class="entry-sub">6 adaptive Views (Handoff, ATS, Druck, 1-Seite, …), ATS-optimiert, Easter Egg</div>
@@ -2986,7 +2672,7 @@ func exportAlsCSV() -> String {
  </div>
  <div class="entry">
  <div class="entry-header">
- <div class="entry-title"><a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS Automatisierung (zsh · SMB)</div>
+ <div class="entry-title"><a class="link-green" href="https://github.com/Juergenmann-dev/backup-nas-timemachine" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS Automatisierung (zsh · SMB)</div>
  <div class="entry-meta">2026</div>
  </div>
  <div class="entry-sub">Schwerpunkt: Automatisierung und Betriebssicherheit</div>
@@ -3026,13 +2712,13 @@ func exportAlsCSV() -> String {
  <li>Fokus auf Wartbarkeit und modulare Struktur</li>
  </ul>
  <p class="mini"><span class="launch-highlight">Repository derzeit privat aufgrund laufender Pre-Launch-Phase (App-Store-Veröffentlichung 2026 geplant); Zugriff auf Anfrage möglich.</span></p>
- </div>
- <div class="entry">
- <div class="entry-header">
- <div class="entry-title">SmartCity Gifhorn – Stadtentwicklung in einer App</div>
- <div class="entry-meta">2025 – lfd.</div>
- </div>
- <div class="entry-sub">Schwerpunkt: Lokale Vernetzung, nutzerorientierte Struktur · <strong class="launch-highlight">Launch 2026 geplant</strong></div>
+</div>
+<div class="entry">
+<div class="entry-header">
+<div class="entry-title">SmartCity Gifhorn – Stadtentwicklung in einer App</div>
+<div class="entry-meta">2025 – lfd.</div>
+</div>
+<div class="entry-sub">Schwerpunkt: Lokale Vernetzung, nutzerorientierte Struktur · <strong class="launch-highlight">Launch 2026 geplant</strong></div>
  <ul class="bullets">
  <li>Alle Bausteine der Stadtentwicklung (solidarisch, lokal) in einer App</li>
  <li>Mitentwicklung im Rahmen der Qualifizierung; Übertragung von Architekturkonzepten (SwiftUI → Jetpack Compose)</li>
@@ -3149,8 +2835,12 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <li>iOS App Development: 780 UE (100% Anwesenheit)</li>
  <li>Android App Development: 770 UE (laufend)</li>
  </ul>
- <h2 class="ats-h2">Projekte (Auswahl)</h2>
- <div class="ats-line"><strong><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</strong> (2026)</div>
+<h2 class="ats-h2">Projekte (Auswahl)</h2>
+<div class="ats-line" style="margin-top:6px;"><strong>Kaily – Android App (Jetpack Compose, geschlossene Beta eingereicht)</strong> (2026)</div>
+<ul class="ats-ul ats-line">
+<li>Geschlossene Beta bei Google Play eingereicht (03/2026). Plattformübergreifend mit iOS-Version (Familien-App).</li>
+</ul>
+<div class="ats-line"><strong><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</strong> (2026)</div>
  <ul class="ats-ul ats-line">
  <li>6 adaptive Views (Handoff, ATS, Druck, 1-Seite), ATS-optimiert, Easter Egg</li>
  <li>Link: auf den Namen klicken – Sie lesen es gerade.</li>
@@ -3159,7 +2849,7 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <div class="ats-line" style="margin-top:6px;"><strong>timemachine-nas-backup – macOS Automatisierung (zsh, SMB)</strong> (2026)</div>
  <ul class="ats-ul ats-line">
  <li>Retry/Timeout-Watchdog, LaunchAgent, Logging; <span class="launch-highlight">läuft bereits privat im Einsatz</span></li>
- <li>Repo: <a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">github.com/Juergenmann-dev/timemachine-nas-backup</a></li>
+ <li>Repo: <a class="link-green" href="https://github.com/Juergenmann-dev/backup-nas-timemachine" target="_blank" rel="noreferrer">github.com/Juergenmann-dev/backup-nas-timemachine</a></li>
  </ul>
  <div class="ats-line" style="margin-top:6px;"><strong>UX Case Study – Zustandskommunikation im Kassensystem</strong> (02/2026)</div>
  <ul class="ats-ul ats-line">
@@ -3170,10 +2860,10 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <ul class="ats-ul ats-line">
  <li>Architektur für Echtzeit-Datenstabilität und Skalierbarkeit (u. a. Nutzung im Familienumfeld); reaktive UI, Cloud-Sync, Offline-Persistence</li>
  <li>Modulare Struktur (SPM); <span class="launch-highlight">Repository derzeit privat aufgrund laufender Pre-Launch-Phase (App-Store-Veröffentlichung 2026 geplant); Zugriff auf Anfrage möglich.</span></li>
- </ul>
- <div class="ats-line" style="margin-top:6px;"><strong>SmartCity Gifhorn – Stadtentwicklung in einer App</strong> (2025 – lfd., <span class="launch-highlight">Launch 2026 geplant</span>)</div>
- <ul class="ats-ul ats-line">
- <li>Lokale Vernetzung, Stadtentwicklung; Übertragung Architekturkonzepte (SwiftUI → Jetpack Compose)</li>
+</ul>
+<div class="ats-line" style="margin-top:6px;"><strong>SmartCity Gifhorn – Stadtentwicklung in einer App</strong> (2025 – lfd., <span class="launch-highlight">Launch 2026 geplant</span>)</div>
+<ul class="ats-ul ats-line">
+<li>Lokale Vernetzung, Stadtentwicklung; Übertragung Architekturkonzepte (SwiftUI → Jetpack Compose)</li>
  <li><span class="launch-highlight">Repo: privat (s.o.) – auf Anfrage</span></li>
  </ul>
  <div class="ats-line" style="margin-top:6px;"><strong>Minimodularsystem – modulares iOS Framework (SPM)</strong> (2025)</div>
@@ -3234,16 +2924,18 @@ E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
  <h2>Profil</h2>
  <p class="op-profile profile-statement">Junior-Entwickler mit Fokus auf modulare Architektur, Zustandslogik und wartbare Systeme; strukturierte Umsetzung, saubere modulare Ergebnisse.</p>
  <p class="op-profile">App-Entwickler (iOS/Android), Qualifizierung IT-Fachkraft. Einstieg in Entwicklungsteams – Produkt-Apps, interne Tools. Praxis: SwiftUI, Jetpack Compose, Firebase, SPM. Stärken: Codequalität, Systemzustände, UX-nahe Analyse. Branchenerfahrung: Koordination, Qualität, Prozesse.</p>
- <h2>Projekte</h2>
- <div class="op-row"><span class="op-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</span><span class="op-meta">2026</span></div>
+<h2>Projekte</h2>
+<div class="op-row"><span class="op-title">Kaily – Android App</span><span class="op-meta">2026</span></div>
+<ul><li>Geschlossene Beta bei Google Play eingereicht. Jetpack Compose, plattformübergreifend mit iOS.</li></ul>
+<div class="op-row"><span class="op-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</span><span class="op-meta">2026</span></div>
  <ul><li>6 adaptive Views, ATS-optimiert. Schwerpunkt: iOS/Android.</li></ul>
- <div class="op-row"><span class="op-title"><a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS</span><span class="op-meta">2026</span></div>
+ <div class="op-row"><span class="op-title"><a class="link-green" href="https://github.com/Juergenmann-dev/backup-nas-timemachine" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS</span><span class="op-meta">2026</span></div>
  <ul><li>Time Machine über SMB, Retry-Watchdog, LaunchAgent. <span class="launch-highlight">Läuft privat im Einsatz.</span></li></ul>
  <div class="op-row"><span class="op-title">UX Case Study – Kassensystem</span><span class="op-meta">02/2026</span></div>
  <ul><li>Systemanalyse, Personas, Mockups; <a class="link-green" href="https://www.linkedin.com/feed/update/urn:li:activity:7432396925536006144/" target="_blank" rel="noreferrer">LinkedIn</a></li></ul>
- <div class="op-row"><span class="op-title">Kaily – iOS App (SwiftUI · Firebase)</span><span class="op-meta">Launch 2026</span></div>
- <ul><li>Echtzeit-Datenstabilität, Cloud-Sync, WatchKit. <span class="launch-highlight">Repo auf Anfrage.</span></li></ul>
- <div class="op-row"><span class="op-title">CO2 Tracker – iOS (Mitentwicklung)</span><span class="op-meta">2025</span></div>
+<div class="op-row"><span class="op-title">Kaily – iOS App (SwiftUI · Firebase)</span><span class="op-meta">Launch 2026</span></div>
+<ul><li>Echtzeit-Datenstabilität, Cloud-Sync, WatchKit. <span class="launch-highlight">Repo auf Anfrage.</span></li></ul>
+<div class="op-row"><span class="op-title">CO2 Tracker – iOS (Mitentwicklung)</span><span class="op-meta">2025</span></div>
  <ul><li>KMSA beigesteuert; Fehleranalyse, Debugging.</li></ul>
  <h2>Berufserfahrung</h2>
  <div class="op-row"><span class="op-title">Firma Obst – Glasreinigung</span><span class="op-meta">09/2023 – 01/2025</span></div>
@@ -3757,118 +3449,10 @@ section.querySelectorAll(".techstack-item").forEach(function(btn) {
  }
  typeNext(0);
  }
- function initCvTerminal() {
-  var win = document.getElementById("cv-terminal-window");
-  var output = document.getElementById("cv-terminal-output");
-  var input = document.getElementById("cv-terminal-cmd-input");
-  var dockTerminal = document.getElementById("cv-dock-item-terminal");
-  var btnYellow = document.getElementById("cv-terminal-btn-yellow");
-  var handle = document.getElementById("cv-terminal-drag-handle");
-  if (!win || !output || !dockTerminal) return;
-  document.body.classList.add("terminal-is-minimized");
-  var promptStr = "MacBook-Air:~ jm$ ";
-  function appendLine(text, className) {
-   var div = document.createElement("div");
-   if (className) div.className = className;
-   div.textContent = text;
-   output.appendChild(div);
-   output.scrollTop = output.scrollHeight;
-  }
-  function handleCommand(cmd) {
-   var c = (cmd || "").trim().toLowerCase();
-   if (c === "theme --dark") {
-    document.body.classList.add("desktop-dark");
-    return "Desktop auf Dark Mode gestellt.";
-   }
-   if (c === "theme --light") {
-    document.body.classList.remove("desktop-dark");
-    return "Desktop wieder hell.";
-   }
-   if (c === "coffee" || c === "kaffee") {
-    return "☕ Kaffee-Modul bereits installiert. Genieß deinen Kaffee!";
-   }
-   if (c === "help" || c === "hilfe") {
-    return "Easter Eggs: theme --dark, theme --light, coffee";
-   }
-   return "Befehl nicht gefunden: " + (cmd || "(leer)").trim();
-  }
-  if (input) {
-   input.addEventListener("keydown", function(e) {
-    if (e.key !== "Enter") return;
-    var cmd = input.value;
-    input.value = "";
-    appendLine(promptStr + cmd, "line");
-    appendLine(handleCommand(cmd), "response");
-   });
-  }
-  if (btnYellow) {
-   btnYellow.addEventListener("click", function(e) {
-    e.stopPropagation();
-    if (win.classList.contains("terminal-minimized")) return;
-    win.classList.remove("terminal-genie-restoring");
-    win.classList.add("terminal-genie-minimizing");
-    setTimeout(function() {
-     win.classList.remove("terminal-genie-minimizing");
-     win.classList.add("terminal-minimized");
-     document.body.classList.add("terminal-is-minimized");
-    }, 500);
-   });
-  }
-  // Drag-Verhalten 1:1 wie initTerminalDrag in 2_mac
-  if (handle) {
-   var drag = { active: false, startX: 0, startY: 0, startTx: 0, startTy: 0 };
-   win.style.cursor = "default";
-   handle.style.cursor = "move";
-
-   handle.addEventListener("mousedown", function(e) {
-    if (e.button !== 0) return;
-    drag.active = true;
-    drag.startX = e.clientX;
-    drag.startY = e.clientY;
-    var t = win.style.transform || "";
-    var m = t.match(/translate\\(([-\\d.]+)px,\\s*([-\\d.]+)px\\)/);
-    drag.startTx = m ? parseFloat(m[1]) : 0;
-    drag.startTy = m ? parseFloat(m[2]) : 0;
-   });
-
-   window.addEventListener("mousemove", function(e) {
-    if (!drag.active) return;
-    var dx = e.clientX - drag.startX;
-    var dy = e.clientY - drag.startY;
-    win.style.transform = "translate(" + (drag.startTx + dx) + "px, " + (drag.startTy + dy) + "px)";
-   });
-
-   window.addEventListener("mouseup", function() {
-    drag.active = false;
-   });
-  }
-  dockTerminal.addEventListener("click", function(e) {
-   if (!win.classList.contains("terminal-minimized")) return;
-   e.preventDefault();
-   e.stopPropagation();
-   document.body.classList.remove("terminal-is-minimized");
-   win.classList.remove("terminal-minimized");
-   win.classList.add("terminal-genie-restoring");
-   setTimeout(function() { win.classList.remove("terminal-genie-restoring"); }, 500);
-   if (input) input.focus();
-  });
- }
  document.addEventListener("DOMContentLoaded", function() {
  updateToggleActive("deckblatt");
  updateFavicon("deckblatt");
  if (sessionStorage.getItem("kioskUsed")) { document.body.classList.add("kiosk-used"); }
- initCvTerminal();
- var flowTrack = window === window.top && sessionStorage.getItem("flowMusicContinue");
-if (flowTrack === "zen" || flowTrack === "birds") {
-  try { sessionStorage.removeItem("flowMusicContinue"); } catch (e) {}
-  var src = flowTrack === "zen" ? "../musik/zen_wind.mp3" : "../musik/birds_piano.mp3";
-  var audio = new Audio(src);
-  audio.loop = true;
-  audio.volume = 0.3;
-  audio.play().catch(function() {});
-  window._flowAudio = audio;
-  if (typeof showMusicBtn === "function") showMusicBtn();
- }
  initHandoffTechstack();
  runDeckblattTypewriter();
  });

@@ -1,44 +1,29 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <title>Jürgen Mann – Lebenslauf (V2)</title>
-  <meta name="version" content="2.0" />
-  <!-- Fallback 1s, damit detection.js + Script zuerst die richtige OS-Seite laden -->
-  <meta http-equiv="refresh" content="1;url=https://juergenmann-dev.github.io/2_mac/">
-  <script src="story/content/detection.js"></script>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMTQxNDE0Ii8+PHRleHQgeD0iMzIiIHk9IjQ0IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzOUQzNTMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpNPC90ZXh0Pjwvc3ZnPg==" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://juergenmann-dev.github.io/" />
+  <meta property="og:title" content="Jürgen Mann – Lebenslauf" />
+  <meta property="og:description" content="App-Entwickler (iOS/Android) – Architektur · Zustandslogik · UX-nahe Produktentwicklung" />
+  <meta property="og:image" content="https://juergenmann-dev.github.io/preview.png" />
+  <meta property="og:locale" content="de_DE" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Jürgen Mann – Lebenslauf" />
+  <meta name="twitter:description" content="App-Entwickler (iOS/Android) – Architektur · Zustandslogik · UX-nahe Produktentwicklung" />
+  <meta name="twitter:image" content="https://juergenmann-dev.github.io/preview.png" />
+ <title>Jürgen Mann – Lebenslauf</title>
+  <meta name="version" content="1.0" />
+  <meta http-equiv="refresh" content="0;url=1_bootvorgang/" />
   <script>
     (function() {
-      var origin = window.location.origin || "https://juergenmann-dev.github.io";
-      var base = "/";
-      var target = base + "2_mac/";
-      var ua = typeof navigator !== "undefined" ? (navigator.userAgent || "") : "";
-      var plat = typeof navigator !== "undefined" ? (navigator.platform || "") : "";
-      var isIOS = /iPhone|iPad|iPod/i.test(ua) || /iPhone|iPad|iPod/i.test(plat);
-
-      if (isIOS) {
-        window.location.replace(origin + base + "2.5_iphone/");
-        return;
-      }
-      var osKey = (window.DETECTION && window.DETECTION.osKey) ? window.DETECTION.osKey : "default";
-      if (osKey === "default" && ua) {
-        if (ua.indexOf("Android") !== -1) osKey = "android";
-        else if (ua.indexOf("Win") !== -1) osKey = "win";
-        else if (ua.indexOf("Mac") !== -1) osKey = "mac";
-        else if (ua.indexOf("Linux") !== -1) osKey = "linux";
-      }
-      if (osKey === "android") target = base + "2.4_android/";
-      else if (osKey === "win") target = base + "2.1_win/";
-      else if (osKey === "mac") target = base + "2_mac/";
-      else if (osKey === "linux") target = base + "2.3_linux/";
-      window.location.replace(origin + target);
+      window.location.replace('1_bootvorgang/');
     })();
   </script>
 </head>
 <body>
-  <p>Systemstatus wird abgefragt … <a href="https://juergenmann-dev.github.io/2_mac/">Zum Lebenslauf</a></p>
+  <p>Weiterleitung … <a href="1_bootvorgang/">Zum Lebenslauf</a></p>
 </body>
 </html>
