@@ -70,8 +70,21 @@ Retro-Lebenslauf als Web-App mit OS-spezifischen Flows (Boot, Terminal/DFU, Stor
 ## Branches
 
 - **main** – aktuelle Version (live auf GitHub Pages).
-- **v1-archive** – Archiv Version 1.
-- **v2-archive** – Archiv Version 2 (Stand vor main/v3).
+- **v1-archive**, **v2-archive**, **v3-archive**, … – ältere Versionen nur noch als Archiv.
+
+### Neue Version veröffentlichen
+
+1. **Aktuellen main als Archiv sichern** (z. B. bevor du die nächste Version machst):
+   ```bash
+   git fetch origin
+   git push origin main:v3-archive    # aktueller main → v3-archive (nächstes Mal: v4-archive, …)
+   ```
+2. **Änderungen auf main** (wie gewohnt commiten und pushen):
+   ```bash
+   git add -A && git commit -m "v4: …" && git push origin main
+   ```
+
+Damit bleibt **main** immer die live-Version; was veraltet ist, liegt in **v3-archive**, **v4-archive** usw.
 
 ## Technik
 
