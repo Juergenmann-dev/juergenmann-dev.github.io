@@ -67,6 +67,12 @@ Retro-Lebenslauf als Web-App mit OS-spezifischen Flows (Boot, Terminal/DFU, Stor
 2. **OS-Seite** → Boot/Terminal/DFU, Story, Installation (ui-ux-modul, xcode-toolchain, firebase-sdk, android-sdk + Gags), optional Flow-Modus (Musik).
 3. **Abschluss** → `4_lebenslauf/` (Deckblatt, Lebenslauf).
 
+## Branches
+
+- **main** – aktuelle Version (live auf GitHub Pages).
+- **v1-archive** – Archiv Version 1.
+- **v2-archive** – Archiv Version 2 (Stand vor main/v3).
+
 ## Technik
 
 - Statisches HTML/CSS/JS, keine Build-Schritte.
