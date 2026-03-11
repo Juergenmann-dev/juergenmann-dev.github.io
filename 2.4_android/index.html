@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+ <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMTQxNDE0Ii8+PHRleHQgeD0iMzIiIHk9IjQ0IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzOUQzNTMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpNPC90ZXh0Pjwvc3ZnPg==" />
+ <link rel="apple-touch-icon" id="apple-touch-favicon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMTQxNDE0Ii8+PHRleHQgeD0iMzIiIHk9IjQ0IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzOUQzNTMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpNPC90ZXh0Pjwvc3ZnPg==" />
+ <meta property="og:type" content="website" />
+ <meta property="og:url" content="https://juergenmann-dev.github.io/" />
+ <meta property="og:title" content="Jürgen Mann – Lebenslauf" />
+ <meta property="og:description" content="App-Entwickler (iOS/Android) – Architektur · Zustandslogik · UX-nahe Produktentwicklung" />
+ <meta property="og:image" content="https://juergenmann-dev.github.io/preview.png" />
+ <meta property="og:locale" content="de_DE" />
+ <meta name="twitter:card" content="summary_large_image" />
+ <meta name="twitter:title" content="Jürgen Mann – Lebenslauf" />
+ <meta name="twitter:description" content="App-Entwickler (iOS/Android) – Architektur · Zustandslogik · UX-nahe Produktentwicklung" />
+ <meta name="twitter:image" content="https://juergenmann-dev.github.io/preview.png" />
+ <title>Jürgen Mann – Lebenslauf (Android)</title>
+ <link rel="stylesheet" href="android-view.css?v=20260304">
+</head>
+<body class="mode-deckblatt retro-active">
+
+ <!-- ══ ANDROID: Statusbar ══ -->
+ <div id="android-statusbar">
+  <span id="android-time"></span>
+  <div style="display:flex;gap:6px;align-items:center;">
+   <span>▲▲▲</span>
+   <span>WiFi</span>
+   <span id="android-battery">87%🔋</span>
+  </div>
+ </div>
+
+ <!-- ══ ANDROID: Home Screen (Kacheln) ══ -->
+ <div id="android-homescreen">
+  <div class="android-app-grid">
+   <div class="android-app-tile"><div class="android-app-tile-icon">📞</div><span class="android-app-tile-label">Telefon</span></div>
+   <div class="android-app-tile"><div class="android-app-tile-icon">💬</div><span class="android-app-tile-label">Nachrichten</span></div>
+   <div class="android-app-tile"><div class="android-app-tile-icon">🌐</div><span class="android-app-tile-label">Chrome</span></div>
+   <div class="android-app-tile"><div class="android-app-tile-icon">📧</div><span class="android-app-tile-label">Gmail</span></div>
+   <div class="android-app-tile"><div class="android-app-tile-icon">📅</div><span class="android-app-tile-label">Kalender</span></div>
+   <div class="android-app-tile"><div class="android-app-tile-icon">📷</div><span class="android-app-tile-label">Fotos</span></div>
+   <div class="android-app-tile"><div class="android-app-tile-icon">🗺️</div><span class="android-app-tile-label">Maps</span></div>
+   <div class="android-app-tile"><div class="android-app-tile-icon">⚙️</div><span class="android-app-tile-label">Einstellungen</span></div>
+  </div>
+ </div>
+
+ <!-- ══ ANDROID: Notification "Neue Nachricht" ══ -->
+ <div id="android-notification" role="button" tabindex="0" aria-label="Neue Nachricht – Tippen zum Öffnen">
+  <div class="android-notification-icon">💬</div>
+  <div class="android-notification-content">
+   <div class="android-notification-app">Nachrichten</div>
+   <div class="android-notification-title">Neue Nachricht</div>
+   <div class="android-notification-preview">Jürgen Mann – Moin. 👋</div>
+  </div>
+  <span class="android-notification-hint">Tippen</span>
+ </div>
+
+ <!-- ══ ANDROID: Chat Story Screen (Reise) ══ -->
+ <div id="android-story">
+  <div class="android-chat-header">
+   <div class="android-chat-avatar">👨‍💻</div>
+   <div class="android-chat-info">
+    <div class="android-chat-name">Jürgen Mann</div>
+    <div class="android-chat-status" id="android-chat-status">tippt...</div>
+   </div>
+  </div>
+  <div class="android-chat-messages" id="android-chat-messages">
+   <div class="chat-typing" id="chat-typing">
+    <div class="chat-dot"></div>
+    <div class="chat-dot"></div>
+    <div class="chat-dot"></div>
+   </div>
+  </div>
+  <button class="android-chat-install-btn" id="android-chat-install-btn" onclick="startAndroidInstall()">
+   📦 Lebenslauf installieren
+  </button>
+ </div>
+
+ <!-- ══ ANDROID: Package Installer ══ -->
+ <div id="android-installer" style="display:none;">
+  <div style="width:min(400px,92vw);display:flex;flex-direction:column;align-items:center;margin-bottom:12px;">
+   <div style="font-size:11px;color:#3ddc84;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Paketinstallation</div>
+  </div>
+  <div class="apk-card">
+   <div class="apk-header">
+    <div class="apk-icon">👨‍💻</div>
+    <div class="apk-meta">
+     <div class="apk-name">Jürgen Mann</div>
+     <div class="apk-publisher">juergenmann-dev.github.io</div>
+     <div class="apk-version">v2.0.2026 · 4.2 MB</div>
+    </div>
+   </div>
+   <div class="apk-permissions">
+    <div class="apk-perm-title">Benötigte Berechtigungen</div>
+    <div class="apk-perm-item" id="perm-1">
+     <div class="apk-ring-wrap"><svg class="apk-ring-svg" viewBox="0 0 40 40"><circle class="apk-ring-bg" cx="20" cy="20" r="16"/><circle class="apk-ring-fill" id="ring-fill-1" cx="20" cy="20" r="16"/></svg><div class="apk-ring-icon">🧠</div></div>
+     <div style="flex:1;min-width:0;"><div class="apk-perm-text">Systemarchitektur</div><div class="apk-perm-sub">iOS &amp; Android, modular</div></div>
+     <div class="apk-perm-detail" id="detail-1"><div class="apk-perm-detail-inner"><span>KMSA</span> · Modulares System, dynamisches Laden, Rollback.<br><span>SPM</span> · Swift Package Manager, saubere Deps.<br><span>Clean Architecture</span> · Testbar, wartbar, skalierbar.</div></div>
+    </div>
+    <div class="apk-perm-item" id="perm-2">
+     <div class="apk-ring-wrap"><svg class="apk-ring-svg" viewBox="0 0 40 40"><circle class="apk-ring-bg" cx="20" cy="20" r="16"/><circle class="apk-ring-fill" id="ring-fill-2" cx="20" cy="20" r="16"/></svg><div class="apk-ring-icon">⚡</div></div>
+     <div style="flex:1;min-width:0;"><div class="apk-perm-text">Deep Work Mode</div><div class="apk-perm-sub">Async, output-basiert, selbstständig</div></div>
+     <div class="apk-perm-detail" id="detail-2"><div class="apk-perm-detail-inner"><span>95–100%</span> Anwesenheit · Qualifizierung AZAV Vollzeit.<br><span>Flow-Arbeit</span> · Morgens &amp; abends, Ergebnis zählt.<br><span>Remote-ready</span> · Async, eigenverantwortlich.</div></div>
+    </div>
+    <div class="apk-perm-item" id="perm-3">
+     <div class="apk-ring-wrap"><svg class="apk-ring-svg" viewBox="0 0 40 40"><circle class="apk-ring-bg" cx="20" cy="20" r="16"/><circle class="apk-ring-fill" id="ring-fill-3" cx="20" cy="20" r="16"/></svg><div class="apk-ring-icon">🔥</div></div>
+     <div style="flex:1;min-width:0;"><div class="apk-perm-text">Firebase &amp; SwiftUI</div><div class="apk-perm-sub">Realtime, Cloud-Sync, WatchKit</div></div>
+     <div class="apk-perm-detail" id="detail-3"><div class="apk-perm-detail-inner"><span>Kaily App</span> · Firebase Realtime, Auth, Firestore.<br><span>WatchKit</span> · Apple Watch Integration.<br><span>Jetpack Compose</span> · Android State &amp; Navigation.</div></div>
+    </div>
+    <div class="apk-perm-item" id="perm-4">
+     <div class="apk-ring-wrap"><svg class="apk-ring-svg" viewBox="0 0 40 40"><circle class="apk-ring-bg" cx="20" cy="20" r="16"/><circle class="apk-ring-fill" id="ring-fill-4" cx="20" cy="20" r="16"/></svg><div class="apk-ring-icon">☕</div></div>
+     <div style="flex:1;min-width:0;"><div class="apk-perm-text">Kaffee-Integration</div><div class="apk-perm-sub">Kritische Abhängigkeit. Immer.</div></div>
+     <div class="apk-perm-detail" id="detail-4"><div class="apk-perm-detail-inner"><span>3 Versuche</span> · Wassertank leer → Kaffee vergessen → nicht angeschaltet.<br><span>Status</span> · Läuft. Endlich. ☕</div></div>
+    </div>
+   </div>
+   <div class="apk-overall-bar" id="apk-overall-bar">
+    <div class="apk-overall-label"><span id="apk-overall-status">Installiere...</span><span id="apk-overall-pct">0%</span></div>
+    <div class="apk-overall-track"><div class="apk-overall-fill" id="apk-overall-fill"></div></div>
+   </div>
+  </div>
+  <div style="font-size:11px;color:#3ddc84;margin-top:16px;text-align:center;padding:0 24px;">
+   ⚠️ Diese App enthält 13 Easter Eggs (nur Android) und nachgewiesene Kaffee-Abhängigkeiten.
+  </div>
+ </div>
+
+ <!-- ========== PROJEKT 1 (Retro): Spotlight → Preload → Story → Console/Install (Boot nur in 1_bootvorgang) ========== -->
+ <div id="spotlight-screen">
+  <div class="spotlight-shortcut spotlight-hidden" id="spotlight-shortcut">
+   <span class="spotlight-shortcut-mac"><kbd>⌘</kbd> + <kbd>Leertaste</kbd></span>
+   <span class="spotlight-shortcut-win" style="display:none;"><kbd>Win</kbd> + <kbd>R</kbd></span>
+  </div>
+  <div class="spotlight-enter spotlight-hidden" id="spotlight-enter">
+   <kbd>Enter</kbd>
+  </div>
+  <div class="spotlight-bar spotlight-overlay spotlight-hidden" id="spotlight-bar">
+   <div class="spotlight-search-row">
+    <span class="spotlight-icon-search" aria-hidden="true">🔍</span>
+    <span class="spotlight-input-wrap" id="spotlight-input-wrap">
+     <span id="spotlight-text"></span><span class="spotlight-cursor" id="spotlight-cursor"></span><span class="spotlight-placeholder" id="spotlight-placeholder">Spotlight-Suche</span>
+    </span>
+    <button type="button" class="spotlight-btn-open spotlight-hidden" id="spotlight-btn-open">Öffnen</button>
+    <button type="button" class="spotlight-btn-close" aria-label="Schließen">✕</button>
+   </div>
+   <div class="spotlight-categories spotlight-hidden" id="spotlight-categories">
+    <span class="spotlight-pill">WhatsApp</span>
+    <span class="spotlight-pill">Ordner</span>
+    <span class="spotlight-pill">TV</span>
+    <span class="spotlight-pill">Editor</span>
+    <span class="spotlight-pill">Kurzbefehle</span>
+    <span class="spotlight-pill">Pages</span>
+    <span class="spotlight-pill">Xcode</span>
+   </div>
+   <div class="spotlight-results spotlight-hidden" id="spotlight-results">
+    <div class="spotlight-result spotlight-result-highlight" data-app="Terminal">
+     <span class="spotlight-result-icon spotlight-result-icon-terminal">&gt;_</span>
+     <span class="spotlight-result-label">Terminal</span>
+     <span class="spotlight-result-type">APP</span>
+    </div>
+    <div class="spotlight-result" data-app="TextEdit">
+     <span class="spotlight-result-icon">📝</span>
+     <span class="spotlight-result-label">TextEdit</span>
+     <span class="spotlight-result-type">APP</span>
+    </div>
+    <div class="spotlight-result" data-app="Telefon">
+     <span class="spotlight-result-icon">📞</span>
+     <span class="spotlight-result-label">Telefon</span>
+     <span class="spotlight-result-type">APP</span>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div id="preload-screen" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10003;font-family:'Monaco','Courier New',monospace;font-size:13px;color:#e6edf3;">
+  <div id="preload-msg">Daten werden geladen...</div>
+  <div style="margin-top:12px;width:200px;height:3px;background:#1a1a1a;border-radius:2px;overflow:hidden;display:none;">
+   <div id="preload-bar" style="height:100%;width:0%;background:#39D353;transition:width 0.3s ease;"></div>
+  </div>
+ </div>
+
+ <div class="unsplash-credit" id="unsplash-credit">
+  Foto: <a href="https://unsplash.com/de/fotos/eine-grune-wiese-mit-ein-paar-wolken-am-himmel-FQkQxgO9Kh8" target="_blank">Tali Despins / Unsplash</a>
+ </div>
+
+ <div id="mac-menu-bar">
+  <div class="menu-bar-left">
+   <span class="menu-bar-apple">&#63743;</span>
+   <span class="menu-bar-item" id="menu-bar-app-name">Finder</span>
+   <span class="menu-bar-item" id="menu-bar-app-sub">Ablage</span>
+   <span class="menu-bar-item">Bearbeiten</span>
+   <span class="menu-bar-item">Darstellung</span>
+   <span class="menu-bar-item" id="menu-bar-gehe-zu">Gehe zu</span>
+   <span class="menu-bar-item">Fenster</span>
+   <span class="menu-bar-item">Hilfe</span>
+  </div>
+  <div class="menu-bar-right">
+   <span class="menu-bar-icon" title="Steuerzentrale">&#128268;</span>
+   <span class="menu-bar-icon" title="WLAN">&#128246;</span>
+   <span class="menu-bar-icon" title="Lautstärke">&#128266;</span>
+   <span class="menu-bar-icon" title="Akku">&#128267;</span>
+   <span class="menu-bar-icon" title="Bluetooth">&#128281;</span>
+   <span class="menu-bar-icon" title="Time Machine">&#8635;</span>
+   <span class="menu-bar-icon" title="Siri">&#63743;</span>
+   <span class="menu-bar-icon" title="Spotlight">&#8981;</span>
+   <span class="menu-bar-clock" id="mac-menu-clock">22:47</span>
+  </div>
+ </div>
+
+ <div id="desktop-icons">
+  <div class="desktop-icon desktop-icon-volume" title="Cloud_6Tb_USB"><span class="icon-disk"></span><span class="icon-label">Cloud_6Tb_USB</span></div>
+  <div class="desktop-icon desktop-icon-volume" title="Familie"><span class="icon-disk"></span><span class="icon-label">Familie</span></div>
+  <div class="desktop-icon desktop-icon-volume" title="TimeMachineBackup"><span class="icon-disk"></span><span class="icon-label">TimeMachineBackup</span></div>
+  <div class="desktop-icon desktop-icon-volume" title="webdav.hidrive.strato.com"><span class="icon-disk"></span><span class="icon-label">webdav.hidrive.strato.com</span></div>
+  <div class="desktop-icon" title="Neuer Ordner 2"><span class="icon-folder">&#128193;</span><span class="icon-label">Neuer Ordner 2</span></div>
+  <div class="desktop-icon" title="Dokumente"><span class="icon-folder">&#128196;</span><span class="icon-label">Dokumente</span></div>
+  <div class="desktop-icon" title="Bildschirmfotos"><span class="icon-folder">&#128247;</span><span class="icon-label">Bildschirmfotos</span></div>
+ </div>
+
+ <div id="os-dock-bar-wrapper">
+ <div id="os-dock-bar">
+  <div class="dock-mac">
+   <div class="dock-mac-inner">
+    <div class="dock-mac-icon" title="Finder">📁</div>
+    <div class="dock-mac-icon" title="Kalender">📅</div>
+    <div class="dock-mac-icon" title="Mail">✉️</div>
+    <div class="dock-mac-icon" title="Chrome">🌐</div>
+    <div class="dock-mac-icon" title="Slack">💬</div>
+    <div class="dock-mac-icon" title="Zoom">📹</div>
+    <div class="dock-mac-icon" title="WhatsApp">📱</div>
+    <div class="dock-mac-icon" title="Xcode">🔧</div>
+    <div class="dock-mac-icon" title="Figma">🎨</div>
+    <div class="dock-mac-icon" title="Apps">🐑</div>
+    <div class="dock-mac-icon" title="FaceTime">📞</div>
+    <div class="dock-mac-icon" id="dock-term-icon" title="Terminal"><span class="term-icon">>_</span></div>
+    <div class="dock-mac-icon" title="Systemeinstellungen">⚙️</div>
+    <div class="dock-mac-icon" title="HP Smart">🖨️</div>
+    <div class="dock-mac-separator" aria-hidden="true"></div>
+    <div class="dock-mac-icon" title="Notizen">📝</div>
+    <div class="dock-mac-icon" title="Unity Hub">🎮</div>
+    <div class="dock-mac-icon" title="Xcode">🔨</div>
+    <div class="dock-mac-icon" title="Downloads">📥</div>
+    <div class="dock-mac-icon" title="Excel">📊</div>
+    <div class="dock-mac-icon" title="Papierkorb">🗑️</div>
+   </div>
+  </div>
+  <div class="taskbar-win">
+   <div class="taskbar-win-start">⊞</div>
+   <div class="taskbar-win-tasks">
+    <div class="taskbar-win-icon" title="Explorer">📁</div>
+    <div class="taskbar-win-icon" title="Chrome">🌐</div>
+    <div class="taskbar-win-icon" id="taskbar-term-icon" title="Eingabeaufforderung"><span class="term-icon">>_</span></div>
+    <div class="taskbar-win-icon" title="VS Code">{}</div>
+   </div>
+   <div class="taskbar-win-clock" id="taskbar-clock">17:40</div>
+  </div>
+ </div>
+</div>
+
+ <div id="boot-screen">
+  <div class="boot-window">
+   <div class="boot-titlebar">
+    <div class="boot-titlebar-buttons">
+     <div class="boot-btn">_</div>
+     <div class="boot-btn">□</div>
+     <div class="boot-btn">✕</div>
+    </div>
+    <div class="boot-titlebar-title">Terminal öffnen</div>
+   </div>
+   <div class="boot-body">
+    <div class="boot-body-label" id="boot-label"></div>
+    <div class="boot-progress-outer">
+     <div class="boot-progress-inner" id="boot-progress"></div>
+     <span class="boot-progress-text" id="boot-progress-text">0%</span>
+    </div>
+    <div class="boot-status" id="boot-status">Initialisierung...</div>
+   </div>
+   <div class="boot-footer">
+    <span id="boot-os">Betriebssystem wird erkannt...</span>
+   </div>
+  </div>
+ </div>
+
+ <div id="story-screen" style="display:none;">
+  <div class="term-win" style="width:min(700px,95vw);height:min(520px,80vh);max-height:80vh;display:flex;flex-direction:column;flex-shrink:0;">
+   <div class="term-win-titlebar">
+    <div class="term-win-buttons">
+     <div class="term-win-btn">_</div>
+     <div class="term-win-btn">□</div>
+     <div class="term-win-btn">✕</div>
+    </div>
+    <div class="term-win-title">lebenslauf.html — -zsh — 120x30</div>
+   </div>
+   <div class="term-win-body" style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;">
+    <div class="story-text" id="story-text"></div>
+   </div>
+   <div class="term-win-statusbar">
+    <span>jm@Mac</span><span>lebenslauf</span>
+   </div>
+  </div>
+ </div>
+
+ <div id="loading-overlay" style="position:fixed;inset:0;z-index:10010;display:none;background:transparent;align-items:center;justify-content:center;">
+ <div id="terminal-window">
+  <div class="term-win">
+   <div class="term-win-titlebar">
+    <div class="term-win-buttons">
+     <div class="term-win-btn">_</div>
+     <div class="term-win-btn">□</div>
+     <div class="term-win-btn">✕</div>
+    </div>
+    <div class="term-win-title" id="term-win-title">lebenslauf.html — -zsh — 120x30</div>
+   </div>
+   <div class="term-win-body">
+    <div id="console-output" style="white-space:pre-wrap;word-wrap:break-word;line-height:1.6;color:#39D353;font-family:'Monaco','Courier New',monospace;font-size:13px;"></div>
+   </div>
+   <div class="term-win-statusbar">
+    <span id="term-status">Bereit</span>
+    <span id="term-os">–</span>
+   </div>
+  </div>
+ </div>
+ </div>
+ <div id="projekt-2-modern">
+ <div class="toggle-container">
+ <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Menü öffnen" onclick="toggleHamburger()">☰</button>
+ <div class="toggle-switch" role="group" aria-label="Ansicht">
+ <button type="button" class="toggle-segment active" data-mode="deckblatt" id="segDeckblatt" onclick="setMode('deckblatt')">Deckblatt</button>
+ <button type="button" class="toggle-segment" data-mode="design" id="segDesign" onclick="setMode('design')">Handoff</button>
+ <button type="button" class="toggle-segment" data-mode="onepage" id="segOnepage" onclick="setMode('onepage')">1 Seite</button>
+ <button type="button" class="toggle-segment" data-mode="ats" id="segATS" onclick="setMode('ats')">ATS</button>
+ <button type="button" class="toggle-segment" data-mode="anschreiben" id="segAnschreiben" onclick="setMode('anschreiben')">Anschreiben</button>
+ <button type="button" class="toggle-segment" data-mode="komplett" id="segKomplett" onclick="setMode('komplett')">Komplett</button>
+ <button type="button" class="toggle-segment" data-mode="profilplus" id="segProfilplus" onclick="setMode('profilplus')">Profil+</button>
+ </div>
+ <button type="button" class="music-btn" id="musicToggleBtn" title="Flow Mode" onclick="toggleFlowMusic()">♪</button>
+ </div>
+ <!-- Untere Navbar (nur Mobile): Tabs + Musik + Hamburger rechts -->
+ <nav class="bottom-nav" id="bottomNav" aria-label="Navigation">
+  <div class="bottom-nav-tabs">
+   <button type="button" class="toggle-segment" data-mode="design" onclick="setMode('design')">Handoff</button>
+   <button type="button" class="toggle-segment" data-mode="onepage" onclick="setMode('onepage')">1 Seite</button>
+   <button type="button" class="toggle-segment" data-mode="ats" onclick="setMode('ats')">ATS</button>
+   <button type="button" class="toggle-segment" data-mode="profilplus" onclick="setMode('profilplus')">Profil+</button>
+  </div>
+  <div class="bottom-nav-right">
+   <button type="button" class="music-btn bottom-nav-music" title="Flow Mode" onclick="toggleFlowMusic()">♪</button>
+   <button type="button" class="hamburger-btn" id="hamburgerBtnBottom" aria-label="Menü öffnen" onclick="toggleHamburger()">☰</button>
+  </div>
+ </nav>
+ <div class="hamburger-drawer" id="hamburgerDrawer" aria-hidden="true">
+  <div class="hamburger-drawer-backdrop" onclick="closeHamburger()"></div>
+  <div class="hamburger-drawer-panel">
+   <div class="hamburger-drawer-title">Menü</div>
+   <button type="button" onclick="setMode('deckblatt'); closeHamburger();">Deckblatt</button>
+   <button type="button" onclick="setMode('anschreiben'); closeHamburger();">Anschreiben</button>
+   <button type="button" onclick="setMode('komplett'); closeHamburger();">Komplett</button>
+  </div>
+ </div>
+ <!-- PROJEKT 2: Deckblatt (erste sichtbare Ansicht nach Retro) -->
+ <div class="deckblatt-page">
+ <div class="deckblatt-watermark" aria-hidden="true">
+ <div class="watermark-code wm-d1">if ping -c 1 "$NAS_IP"; then
+   log "NAS erreichbar"
+ fi</div>
+ <div class="watermark-code wm-d2">// MARK: - Delegate
+ extension SOSService</div>
+ <div class="watermark-code wm-d3">DOMContentLoaded
+    updateToggleActive("design");</div>
+   <div class="watermark-code wm-d4">// state · context · ship</div>
+  </div>
+  <div class="deckblatt-quote-top">
+   <p class="deckblatt-slogan-line deckblatt-slogan-1"><span class="deckblatt-print-prefix"></span><span class="deckblatt-slogan-content" data-typewriter="Code denkt in Zuständen." data-pause-after="Code denkt"></span><span class="deckblatt-print-suffix">")</span></p>
+   <p class="deckblatt-slogan-line deckblatt-slogan-nl"><span class="deckblatt-slogan-content" data-typewriter="\\n"></span></p>
+   <p class="deckblatt-slogan-line deckblatt-slogan-2"><span class="deckblatt-print-prefix"></span><span class="deckblatt-slogan-content" data-typewriter="Nutzer denken in Handlungen." data-pause-after="Nutzer denken"></span><span class="deckblatt-print-suffix">")</span></p>
+  </div>
+  <div class="deckblatt-inner">
+ <div class="deckblatt-title">JM</div>
+ <div class="deckblatt-sub">Jürgen Mann</div>
+ <p class="deckblatt-hint" style="font-size:13px;color:#9ca3af;margin-bottom:12px;">Wählen Sie eine Ansicht</p>
+ <div class="deckblatt-bubbles">
+ <button type="button" class="deckblatt-bubble" onclick="setMode('design')">Handoff</button>
+ <button type="button" class="deckblatt-bubble" onclick="setMode('onepage')">1 Seite</button>
+ <button type="button" class="deckblatt-bubble" onclick="setMode('ats')">ATS</button>
+ </div>
+ </div>
+ <div class="deckblatt-quote-bottom">
+ <p class="deckblatt-slogan-line deckblatt-slogan-3"><span class="deckblatt-print-prefix"></span><span class="deckblatt-slogan-content" data-typewriter="Produkte müssen beides verbinden." data-pause-after="Produkte müssen beides" data-typo-after="Produkte " data-typo-wrong="machen beide verbinden"></span><span class="deckblatt-print-suffix">")</span></p>
+ </div>
+ </div>
+ <!-- ===================== PROFIL+ (Coach-Profil, ausführlich) ===================== -->
+ <div class="profilplus-page">
+ <h1>Jürgen Mann – System-Architect &amp; App-Developer</h1>
+ <p class="profilplus-meta">Gifhorn, Niedersachsen · <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span> <a class="link-green" href="#">j.mann.software[at]gmail.com</a> | <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span> +49 1515 918**** · <a href="https://www.linkedin.com/in/juergen-mann-j19830720" target="_blank" rel="noreferrer">LinkedIn</a> | <a href="https://github.com/Juergenmann-dev" target="_blank" rel="noreferrer">GitHub</a></p>
+ <hr />
+ <h2>Profil</h2>
+ <p><strong>System-Architect mit 4 Jahren Architektur-Vision und laufender technischer Qualifizierung.</strong></p>
+ <p>Ich denke in Systemlogik, nicht in Code. Meine Stärke: <strong>Bedrohungen erkennen → Architekturen designen → Code validieren</strong>.</p>
+ <p><strong>Kern-Philosophie:</strong> KI ist ein Werkzeug, das ich führe. Ich definiere Struktur, Logik und die wesentlichen Vorgaben – und mehr –, KI implementiert die Details. Das Resultat: Production-ready Systeme für echte Probleme.</p>
+ <p><strong>Besonderheit:</strong> 4 Jahre Threat-Model-Thinking (seit Ukraine 2022) + formale Qualifizierung zur IT-Fachkraft App-Entwicklung (seit 06/2025, Abschluss geplant 06/2026).</p>
+ <hr />
+ <h2>Kernfähigkeiten</h2>
+ <h3>Architektur &amp; Systemdenken</h3>
+ <ul>
+ <li>Kausal-logische Systemanalyse (Ursache → Wirkung → Lösung)</li>
+ <li>Threat-Model-Denken (Sicherheit gegen echte Bedrohungen)</li>
+ <li>Modulare Architekturen (Loose Coupling, High Cohesion)</li>
+ <li>Self-Healing &amp; Self-Documenting Systems</li>
+ </ul>
+ <h3>Sicherheit (konzeptionell)</h3>
+ <p><em>Diese Punkte stammen aus einer frühen Architektur-Vision (mit KI-Unterstützung, Jahre vor der Qualifizierung – damals ohne Code-Erfahrung). Heute setze ich die <strong>Struktur-Idee</strong> (Integrität, Rollback, Audit) in KMSA um; die konkrete Implementierung von Krypto-Primitiven (AES-GCM, Curve25519, EdDSA) liegt nicht in meiner Hand – die Konzepte sind aber wiederverwendbar, wenn sie gebraucht werden.</em></p>
+ <ul>
+ <li>Integrität &amp; Rollback (z. B. Hash-basiert, Modul-Historie)</li>
+ <li>Forensik &amp; Audit (Status-Historie, Logging)</li>
+ <li>Verschlüsselung &amp; Signaturen: bewährte Frameworks/Bibliotheken (niemand schreibt das heute noch selbst – das sind etablierte Bausteine)</li>
+ </ul>
+ <h3>iOS/Android Entwicklung</h3>
+ <ul>
+ <li>Swift, SwiftUI, SwiftData (iOS)</li>
+ <li>Jetpack Compose (Android)</li>
+ <li>Firebase Backend (Firestore, Authentication, Cloud Functions)</li>
+ <li>Modulare Architektur (SPM, Dependency Injection)</li>
+ </ul>
+ <h3>Qualitätsdenken</h3>
+ <ul>
+ <li>Clean Code Fokus (selbsterklärende Code-Struktur)</li>
+ <li>Deep Work Mentalität (150% Hyperfokus bei Problemen)</li>
+ <li>System-Debugging (Fehler in 10 Minuten finden)</li>
+ <li>Production-Ready mindset</li>
+ </ul>
+ <h3>Arbeitsumgebung</h3>
+ <ul>
+ <li>Deep Work: Remote, asynchrone Kommunikation, fokussiert</li>
+ <li>Struktur: Klare Rollen, dokumentierte Prozesse</li>
+ <li>Kein Interrupt-Culture: Meetings nach Plan, nicht ad-hoc</li>
+ </ul>
+ <hr />
+ <h2>Projekte</h2>
+ <h3>KAILY – Epilepsie-Management-App (iOS)</h3>
+ <p><em>70–80% eigenständig entwickelt | 400+ Files, ~300 Zeilen pro File</em></p>
+ <p>Architekt &amp; Lead Developer für Medizin-App mit DSGVO-Anforderungen. Features: Anfalls-Tagebuch, Medikamentenverwaltung, Notfallzugriff, Statistiken. Backend: Firebase, Firestore, Cloud Functions. Frontend: SwiftUI, HealthKit-Integration, lokale Datenspeicherung. Accessibility: VoiceOver, Dynamic Type, Kontraste. Mehrsprachigkeit: Deutsch, Englisch.</p>
+ <p><strong>Designentscheidung:</strong> Granulare File-Struktur (400+ Files) statt monolithisch – extreme Wartbarkeit. <strong>Status:</strong> Ready für App Store, <strong class="launch-highlight">Launch 2026 geplant</strong>.</p>
+ <h3>SmartCity – Lebe Solidarisch (iOS)</h3>
+ <p><em>Architekt &amp; Lead Developer | 16+ Module, White-Label für Städte</em></p>
+ <p>Komplette Gemeinschafts-App (Gifhorn Pilot). KMSA-System: Module vollständig entkoppelt, Self-Registering. 16+ Module: Nachbarschaftsnetzwerk, Solidaritätskonto, Tausch-Börse, KI-Assistent „MIA“, Mobilitätsmodul u. a. White-Label-Architektur: eine Codebasis für mehrere Städte. <strong>Architektur:</strong> Auto-Discovery, Loose Coupling, Runtime Control (Modul kaputt → „in Wartung“, kein App-Crash). <strong>Status:</strong> Entwicklung abgeschlossen. <strong class="launch-highlight">Launch 2026 geplant.</strong></p>
+ <h3>CO2 Tracker – Klimaschutz (iOS)</h3>
+ <p><em>Debugging, Verbesserungen, System-Optimierung | White-Label für Kommunen</em></p>
+ <p>Fehleranalyse &amp; System-Verbesserungen, Nutzerfreundlichkeit optimiert, KMSA-Integration für Skalierung (Lippstadt, Soest, weitere geplant). <strong>Status:</strong> in der Betaphase (TestFlight).</p>
+ <hr />
+ <h2>KMSA – Karlchen Modular System Architecture</h2>
+ <p><strong>Architektur für Production-Ready Modular Systems.</strong> Prinzip: Es werden Module (Packages) angelegt, die ausschließlich über <strong>SharedCore</strong> kommunizieren – keine direkte Kopplung zwischen Modulen.</p>
+ <h3>Kernfeatures</h3>
+ <ul>
+ <li><strong>Module (Packages) anlegen:</strong> Jedes Modul wird als eigenes Package definiert und meldet sich bei SharedCore an</li>
+ <li><strong>Kommunikation nur über SharedCore:</strong> Module kennen sich nicht untereinander, nur über SharedCore; 1 Modul kaputt, Rest läuft</li>
+ <li><strong>Auto-Discovery:</strong> Modul erstellen → Bridges anlegen → SharedCore registriert automatisch</li>
+ <li><strong>Self-Healing:</strong> ModuleHashHistory, Rollback bei kompromittiertem Hash (z. B. Ransomware)</li>
+ <li><strong>Observability &amp; Forensik:</strong> ModuleConfiguration, ModuleStatusHistory, KMSADebugLogger – Audit-Trail</li>
+ <li><strong>Security:</strong> AIModelSigningService (Curve25519), AdvancedEncryption AES-GCM 256-Bit, EncryptedKeyStorage</li>
+ </ul>
+ <h3>Threat Model (Ursprung 2022)</h3>
+ <p>Ukraine-Angriffe auf kritische Infrastruktur → Lösung: Self-Healing &amp; forensische Dokumentation. Beispiel Tacho: Hash-Änderung bei Manipulation → Rollback → Betrug neutralisiert.</p>
+ <hr />
+ <h2>Zusätzliche Analysen</h2>
+ <h3>Payback UX-Analyse (Februar 2026)</h3>
+ <p>Bezahlvorgang scheiterte → 10 Min Analyse → 5 konkrete Probleme, Persona „Gerda, 71“, 8-seitige Analyse mit Lösungs-Mockups an Payback GmbH. <strong>Kern-Insight:</strong> „Das Problem ist fehlende Zustandskommunikation.“</p>
+ <h3>Sozialgericht – Rechtliche System-Analyse (Februar 2026)</h3>
+ <p>Hartz-IV-Fall (Familie, gut gelöst): Jobcenter hat Leistungen vorenthalten bzw. nicht gezahlt (ohne Rechtsgrund). Kausal-logische Analyse, mathematischer Nachweis (Fehlbetrag ≈ Energieschulden). Schriftsätze für Sozialgericht Braunschweig.</p>
+ <hr />
+ <h2>Technologie-Stack</h2>
+ <p><strong>Frontend:</strong> Swift, SwiftUI, SwiftData, HealthKit, Jetpack Compose (Android). <strong>Backend:</strong> Firebase, REST APIs. <strong>Sicherheit:</strong> CryptoKit (AES-GCM, Curve25519), Encrypted Key Storage, Digital Signatures. <strong>Architektur:</strong> KMSA, SPM, Clean Code.</p>
+ <hr />
+ <h2>Qualifizierung &amp; Lernen</h2>
+ <p><strong>IT-Fachkraft App-Entwicklung (AZAV)</strong> – Syntax Institut, 02.06.2025 – 06/2026 (geplant). Product Design, Software-Entwicklung, iOS 780 UE (100% Anwesenheit), Android 770 UE (laufend). <strong>Transformation:</strong> Von „KI ist magisch“ (2022) zu „KI ist Pattern-Matching, ich kontrolliere es präzise“ (2025–2026).</p>
+ <hr />
+ <h2>Besonderheiten</h2>
+ <p><strong>Deep-Work-Mentalität:</strong> 150% Hyperfokus, ruhige Umgebung (Remote). <strong>System-Debugging:</strong> Fehler in 10 Min durch Struktur-Verständnis. <strong>Kausal-logisches Denken:</strong> Ursache → Wirkung → Resultat. <strong>KI-Literacy:</strong> KI als Werkzeug, das ich führe; ich definiere Architektur, KI implementiert Details, ich validiere.</p>
+ <hr />
+ <h2>Arbeitsumgebung</h2>
+ <p><strong>Ideal:</strong> Remote, asynchrone Kommunikation, Deep-Work-Blöcke, klare Strukturen, kleine Teams (&lt;5). <strong>Nicht ideal:</strong> Viele Meetings, ständige Interrupts, unklare Prozesse.</p>
+ <hr />
+ <h2>Verfügbarkeit</h2>
+ <p>Vollzeitausbildung bis Ende Mai 2026. Praktika/Projekte mit Bildungsträger-Absprache ab sofort. Vollzeit-Start ab Juli 2026.</p>
+ <hr />
+ <p><strong>Persönlich:</strong> Systeme verstehen, echte Probleme lösen, Sicherheit von Anfang an, Ownership. Familie: Ehefrau + 3 Kinder + 2 Enkel (7 Personen) = Arbeit braucht Gegenpol: Struktur, Klarheit, Fokus.</p>
+ <p style="font-size:11px;color:#6b7280;margin-top:20px;">Letzte Aktualisierung: Februar 2026 · Erstellt auf Basis einer Coach-Analyse (Denkweisen, Begabungen)</p>
+ </div>
+ <!-- ===================== ANSCHREIBEN (zuerst bei Komplett) ===================== -->
+ <div class="anschreiben-page">
+ <div class="anschreiben-wrap design">
+ <aside class="sidebar">
+ <div class="brand-name">Jürgen Mann</div>
+ <div class="brand-sub">App-Entwickler (iOS / Android)<br /><span class="focus">Architektur · Zustandslogik · UX-nahe Produktentwicklung</span></div>
+ <div class="sidebar-section">
+ <h3>Kontakt</h3>
+ <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span><a class="link-green" href="#">j.mann.software[at]gmail.com</a></p>
+  <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><a class="link-green" href="#">+49 1515 918****</a></p>
+ <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>38518 Gifhorn</p>
+ </div>
+ <div class="sidebar-section">
+ <h3>Online</h3>
+ <p class="muted">LinkedIn</p>
+ <p><a class="link-green" href="https://www.linkedin.com/in/juergen-mann-j19830720" target="_blank" rel="noreferrer">↗ LinkedIn</a></p>
+ <p style="margin-top:10px" class="muted">GitHub</p>
+ <p><a class="link-green" href="https://github.com/Juergenmann-dev" target="_blank" rel="noreferrer">↗ GitHub</a></p>
+ </div>
+ <div class="sidebar-section">
+ <h3>Tech Stack</h3>
+ <ul class="list">
+ <li>Swift · SwiftUI</li>
+ <li>Jetpack Compose</li>
+ <li>Firebase</li>
+ <li>REST APIs</li>
+ <li>Git / GitHub</li>
+ <li>Xcode</li>
+ <li>JavaScript (Grundlagen)</li>
+ <li>Shell / zsh (Grundlagen)</li>
+ </ul>
+ </div>
+ <div class="sidebar-section">
+ <h3>Qualifizierung</h3>
+ <p><strong>IT-Fachkraft App-Entwicklung (AZAV)</strong></p>
+ <p class="muted">Syntax Institut · seit 02.06.2025</p>
+ <span class="pill">2.300+ UE · iOS · Android</span>
+ </div>
+ </aside>
+ <main class="main-content">
+ <div class="watermark-code wm-1" aria-hidden="true">NAS_IP="$NAS_SERVER"
+if ping -c 1 -t 2 "$NAS_IP"; then
+  log_technical "NAS erreichbar – starte Verbindung"
+fi</div>
+ <div class="watermark-code wm-2" aria-hidden="true">// MARK: - Location Delegate
+extension SOSService: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation]) {
+    guard let location = locations.last else { return }
+    self.gpsPosition = String(format: "%.6f, %.6f", lat, lon)
+  }
+}</div>
+ <div class="watermark-code wm-4" aria-hidden="true">document.addEventListener('touchstart', function() {
+  if (!fullscreenAttempted) { setTimeout(requestFullscreen, 100); }
+}, { once: true });</div>
+ <div class="watermark-code wm-5" aria-hidden="true">&lt;div class="watermark-code"&gt;
+  // state · context · ship
+&lt;/div&gt;</div>
+ <div class="header">
+ <h1>Anschreiben</h1>
+ <div class="tagline">Initiativbewerbung – App-Entwicklung iOS / Android</div>
+ </div>
+ <div class="date-line">Gifhorn, Februar 2026</div>
+ <div class="betreff">Initiativbewerbung als App-Entwickler (iOS / Android)</div>
+<div class="body-text">
+<p class="profile-statement">Junior-Entwickler mit Fokus auf modulare Architektur, Zustandslogik und wartbare Systeme. Ich arbeite strukturiert, lösungsorientiert und mit klarem Fokus auf Umsetzung – saubere, modulare Ergebnisse.</p>
+<p>Ich bin App-Entwickler mit Schwerpunkt iOS und Android, kurz vor Abschluss der Qualifizierung zur IT-Fachkraft (über 2.300 UE in SwiftUI, Jetpack Compose, Firebase). Meine erste iOS-App Kaily ist fertiggestellt und wartet auf die Freischaltung des Apple Developer Accounts. Ich wende mich initiativ an Sie, weil ich ein Team suche, in dem Code und Produktdenken gleichwertig behandelt werden.</p>
+<p>Was mich unterscheidet, ist meine Art zu denken: Ich sehe Systeme, erkenne Fehlerketten und frage nicht nur „funktioniert es?", sondern „versteht der Nutzer, was das System tut?" Ein Beispiel: Eigenständige UX-Analyse für das PAYBACK-Kassenterminal (5 Probleme, Personas, Mockups) – auf LinkedIn veröffentlicht, auf Anfrage verfügbar.</p>
+<p>Eigeninitiative und Systemdenken bringe ich aus anderen Kontexten mit: Vorarbeiter bei Borbet (Schichtkoordination, Qualität), bei Frindt Beiersdorf Anstoß für ein scan-basiertes Lagerverwaltungssystem.</p>
+<p>Ich suche eine Stelle zum Mitdenken und Mitgestalten – Produkt-Apps, interne Tools, kundengebundene Projekte. Vollzeitstart ab Juli 2026, Bewerbungsgespräche ab sofort. Praktikum oder Probearbeiten im Rahmen der Qualifizierung nach Absprache möglich.</p>
+<p>Ich freue mich auf ein Gespräch.</p>
+</div>
+<div class="signatur">
+ Mit freundlichen Grüßen<br />
+ <div class="name">Jürgen Mann</div>
+ <div style="margin-top:6px; font-size:12px; color:#6b7280;">GitHub: <a class="link-green" href="https://github.com/Juergenmann-dev" target="_blank" rel="noreferrer">github.com/Juergenmann-dev</a> &nbsp;·&nbsp; LinkedIn: <a class="link-green" href="https://www.linkedin.com/in/juergen-mann-j19830720" target="_blank" rel="noreferrer">linkedin.com/in/juergen-mann</a></div>
+ </div>
+ </main>
+ </div>
+ </div>
+ <!-- ===================== DESIGN PAGE ===================== -->
+ <div class="page design-page">
+ <div class="design">
+ <aside class="sidebar">
+ <div class="brand-name">Jürgen Mann</div>
+ <div class="brand-sub">
+ App-Entwickler (iOS / Android)<br />
+ <span class="focus">Architektur · Zustandslogik · UX-nahe Produktentwicklung</span>
+ </div>
+ <div class="sidebar-section">
+ <h3>Kontakt</h3>
+ <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span><a class="link-green" href="#">j.mann.software[at]gmail.com</a></p>
+  <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><a class="link-green" href="#">+49 1515 918****</a></p>
+ <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>38518 Gifhorn</p>
+ </div>
+ <div class="sidebar-section">
+ <h3>Online</h3>
+ <p class="muted">LinkedIn</p>
+ <p><a class="link-green" href="https://www.linkedin.com/in/juergen-mann-j19830720" target="_blank" rel="noreferrer">↗ LinkedIn</a></p>
+ <p style="margin-top:10px" class="muted">GitHub</p>
+ <p><a class="link-green" href="https://github.com/Juergenmann-dev" target="_blank" rel="noreferrer">↗ GitHub</a></p>
+ </div>
+ <div class="sidebar-section techstack-section">
+ <div class="techstack-header" role="button" tabindex="0" aria-expanded="false">
+ <h3>Tech Stack</h3>
+ <span class="techstack-chevron" aria-hidden="true">›</span>
+ </div>
+ <div class="techstack-panel">
+ <div class="techstack-items"></div>
+ <div class="techstack-extra-heading">Außerhalb der Qualifizierung</div>
+ <div class="techstack-extra-items"></div>
+ <div class="techstack-detail" hidden><div class="techstack-detail-content"></div></div>
+ </div>
+ </div>
+ <div class="sidebar-section">
+ <h3>Kernkompetenzen</h3>
+ <ul class="list">
+ <li>Modulare Architektur</li>
+ <li>Zustands- & Fehlerlogik</li>
+ <li>API-Integration</li>
+ <li>UX-nahe Systemanalyse</li>
+ <li>Strukturierte Codebasis</li>
+ <li>CI/Automation (Grundlagen)</li>
+ </ul>
+ </div>
+ <div class="sidebar-section">
+ <h3>Weiterbildung (Kurz)</h3>
+ <p><strong>Qualifizierung IT-Fachkraft App-Entwicklung (AZAV)</strong></p>
+ <p class="muted">02.06.2025 – lfd. · Syntax Institut</p>
+ <span class="pill">2.300+ UE · iOS · Android · Product Design</span>
+ </div>
+ <div class="sidebar-section">
+ <h3>Sonstiges</h3>
+ <ul class="list">
+ <li>Deutsch (Muttersprache)</li>
+ <li>Englisch (Grundkenntnisse)</li>
+ <li>Führerschein Kl. B</li>
+ </ul>
+ </div>
+ </aside>
+ <main class="main-content">
+ <div class="watermark-code wm-1" aria-hidden="true">NAS_IP="$NAS_SERVER"
+while [ $elapsed -lt $NETWORK_WAIT_MAX ]; do
+  if ping -c 1 -t 2 "$NAS_IP"; then
+    log_technical "NAS erreichbar … ${elapsed}s"
+    break
+  fi
+  sleep $NETWORK_WAIT_INTERVAL
+  elapsed=$((elapsed + NETWORK_WAIT_INTERVAL))
+done</div>
+ <div class="watermark-code wm-2" aria-hidden="true">// MARK: - Location Delegate
+extension SOSService: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation]) {
+    guard let location = locations.last else { return }
+    currentLocation = location
+    DispatchQueue.main.async {
+      self.gpsPosition = String(format: "%.6f, %.6f", lat, lon)
+    }
+  }
+}</div>
+ <div class="watermark-code wm-3" aria-hidden="true">// MARK: - CSV Export
+func exportAlsCSV() -> String {
+  let anfaelle = SpeicherManager.shared.loadAnfaelle()
+  guard !anfaelle.isEmpty else {
+    return "Keine Anfälle vorhanden."
+  }
+  var csv = "Datum,Uhrzeit,Typ,Schweregrad,Dauer,Notizen\n"
+  for anfall in sortierteAnfaelle {
+    csv += "\(datum),\(anfall.typ),\(anfall.schweregrad)…\n"
+  }
+  return csv
+}</div>
+ <div class="watermark-code wm-4" aria-hidden="true">document.addEventListener('touchstart', function() {
+  if (!fullscreenAttempted) {
+    fullscreenAttempted = true;
+    setTimeout(requestFullscreen, 100);
+  }
+}, { once: true });</div>
+ <div class="watermark-code wm-5" aria-hidden="true">&lt;div class="watermark-code"&gt;
+  // state · context · ship
+&lt;/div&gt;</div>
+ <div class="header">
+ <h1>Jürgen Mann</h1>
+ <div class="tagline">App-Entwickler (iOS / Android) – Architektur · Zustandslogik · Systemzustände · UX-nahe Produktentwicklung</div>
+ </div>
+ <section class="section">
+ <h2 class="section-title">Kurzprofil</h2>
+<p class="profile-text profile-statement">Junior-Entwickler mit Fokus auf modulare Architektur, Zustandslogik und wartbare Systeme. Ich arbeite strukturiert, lösungsorientiert und mit klarem Fokus auf Umsetzung und bringe saubere, modulare Ergebnisse.</p>
+<p class="profile-text">Ich arbeite eigenverantwortlich und bringe Ergebnisse strukturiert ins Team zurück. Konstruktives Code-Review sehe ich als Teil kontinuierlicher Verbesserung.</p>
+<p class="profile-text">
+ App-Entwickler (iOS/Android) in Qualifizierung zur IT-Fachkraft. Sucht den Einstieg in Teams und
+ Agenturen – von Produkt-Apps über interne Tools bis zu kundengebundenen Projekten. Praxis in
+ SwiftUI, Jetpack Compose, Firebase und modularer Architektur (SPM); überträgt Architekturkonzepte plattformübergreifend (SwiftUI → Jetpack Compose). Stärken: Codequalität, Denken in Systemzuständen und Fehlerketten, UX-nahe Systemanalyse und die Übersetzung von Anforderungen in wartbare Software. Bringt
+ Erfahrung aus anderen Branchen (Koordination, Qualität, Prozesse) mit.
+ </p>
+ </section>
+ <section class="section">
+ <h2 class="section-title">Aktuell</h2>
+ <div class="callout">
+ <h4>Qualifizierung IT-Fachkraft App-Entwicklung – Syntax Institut (AZAV, Vollzeit/Remote)</h4>
+ <p class="mini">Teilnahmebeginn: 02.06.2025 · Abschluss geplant: 06/2026 · Bewerbungen ab sofort, Vollzeitstart ab 07/2026</p>
+ <ul>
+ <li>Product Design & Prototyping: 350 UE (99% Anwesenheit)</li>
+ <li>Software-Entwicklung (OOP, GitHub): 400 UE (95% Anwesenheit)</li>
+ <li>iOS App Development: 780 UE (100% Anwesenheit)</li>
+ <li>Android App Development: 770 UE (laufend)</li>
+ </ul>
+ </div>
+ </section>
+ <section class="section">
+ <h2 class="section-title">Projekte – Auswahl</h2>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</div>
+ <div class="entry-meta">2026</div>
+ </div>
+ <div class="entry-sub">6 adaptive Views (Handoff, ATS, Druck, 1-Seite, …), ATS-optimiert, Easter Egg</div>
+ <ul class="bullets">
+ <li>Sie lesen es gerade.</li>
+ <li>Mit KI umgesetzt – bewusst transparent; mein Schwerpunkt liegt auf iOS/Android, nicht auf Web-Frontend.</li>
+ </ul>
+ <p class="mini">↗ Link: auf den Namen klicken – <span class="launch-highlight">Sie halten es gerade in der Hand.</span></p>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title"><a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS Automatisierung (zsh · SMB)</div>
+ <div class="entry-meta">2026</div>
+ </div>
+ <div class="entry-sub">Schwerpunkt: Automatisierung und Betriebssicherheit</div>
+ <ul class="bullets">
+ <li>Automatisierung von Time Machine Backups über SMB (Mounting, Sparsebundle Handling)</li>
+ <li>Erhöhte Betriebssicherheit durch Retry-Mechanismen, Timeout-Watchdog und strukturierte Exit-Code-Analyse</li>
+ <li>LaunchAgent-Integration (Login-Start & periodische Ausführung)</li>
+ <li>Strukturierte Logs und Fehlerpfade zur Betriebssicherheit</li>
+ </ul>
+ <p class="mini">↗ Repo: auf den Namen klicken · <span class="launch-highlight">läuft bereits privat bei mir im Einsatz</span></p>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">UX Case Study – Zustandskommunikation im Kassensystem</div>
+ <div class="entry-meta">02/2026</div>
+ </div>
+ <div class="entry-sub">Schwerpunkt: Systemzustände → UI-Kommunikation → Nutzerführung</div>
+ <ul class="bullets">
+ <li>Eigenständige UX-/Systemanalyse zu Zustandskommunikation und Nutzerführung</li>
+ <li>Identifikation von Problemen entlang einer Fehler- und Zustandskette</li>
+ <li>Personas, UI-Mockups und strukturierte Verbesserungsvorschläge</li>
+ </ul>
+ <a class="link-green" href="https://www.linkedin.com/feed/update/urn:li:activity:7432396925536006144/" target="_blank" rel="noreferrer">
+ → Veröffentlichung auf LinkedIn
+ </a>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">Kaily – iOS App (SwiftUI · Firebase · WatchKit)</div>
+ <div class="entry-meta">2025 – lfd.</div>
+ </div>
+ <div class="entry-sub">Schwerpunkt: Architektur für Echtzeit-Datenstabilität und Skalierbarkeit (u. a. für Nutzung im Familienumfeld), Zustandsmanagement, Datenflüsse · App Store Freischaltung ausstehend · <strong class="launch-highlight">Launch 2026 geplant</strong></div>
+ <ul class="bullets">
+ <li>iOS-App mit SwiftUI und Firebase; reaktive UI (z. B. @StateObject/Observation), Zustandsmanagement und strukturierte Fehlerbehandlung</li>
+ <li>Datenmodellierung, Cloud-Sync und Offline-Persistence</li>
+ <li>WatchKit-Integration für Benachrichtigungen und Ereignis-Trigger</li>
+ <li>Fokus auf Wartbarkeit und modulare Struktur</li>
+ </ul>
+ <p class="mini"><span class="launch-highlight">Repository derzeit privat aufgrund laufender Pre-Launch-Phase (App-Store-Veröffentlichung 2026 geplant); Zugriff auf Anfrage möglich.</span></p>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">SmartCity Gifhorn – Stadtentwicklung in einer App</div>
+ <div class="entry-meta">2025 – lfd.</div>
+ </div>
+ <div class="entry-sub">Schwerpunkt: Lokale Vernetzung, nutzerorientierte Struktur · <strong class="launch-highlight">Launch 2026 geplant</strong></div>
+ <ul class="bullets">
+ <li>Alle Bausteine der Stadtentwicklung (solidarisch, lokal) in einer App</li>
+ <li>Mitentwicklung im Rahmen der Qualifizierung; Übertragung von Architekturkonzepten (SwiftUI → Jetpack Compose)</li>
+ </ul>
+ <p class="mini"><span class="launch-highlight">Repo: privat (s.o.) – auf Anfrage</span></p>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">Minimodularsystem – modulares iOS Framework (SPM)</div>
+ <div class="entry-meta">2025</div>
+ </div>
+ <div class="entry-sub">Schwerpunkt: Modularchitektur und lose Kopplung · in realen Projekten eingesetzt</div>
+ <ul class="bullets">
+ <li>Modulare Struktur mit Swift Package Manager (SPM)</li>
+ <li>Lose Kopplung über Protokolle/Interfaces (Bridge/SharedCore-Ansatz)</li>
+ <li>Feature-Module aktivier-/deaktivierbar (Feature Flags/Registry)</li>
+ <li>CI/Automation über GitHub Actions (Build-/Quality-Checks)</li>
+ <li>Als SPM-Paket im CO2 Tracker produktiv eingesetzt; klare Modultrennung für parallele Feature-Entwicklung</li>
+ </ul>
+ <p class="mini"><span class="launch-highlight">Repo: privat (s.o.) – auf Anfrage</span></p>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">CO2 Tracker – iOS App (Mitentwicklung · Betaphase/TestFlight)</div>
+ <div class="entry-meta">2025</div>
+ </div>
+ <div class="entry-sub">Schwerpunkt: Kooperation, KMSA-Integration, Fehleranalyse</div>
+ <ul class="bullets">
+ <li>Mitentwicklung an einer veröffentlichten iOS-App im Rahmen einer Kooperation</li>
+ <li>KMSA (Karlchen Modular System Architecture) beigesteuert – eigene modulare Architektur</li>
+ <li>Fehleranalyse, Debugging und Qualitätssicherung</li>
+ </ul>
+ </div>
+ <p class="mini" style="margin-top: 8px;">
+ Projekt-Repositories derzeit privat aufgrund laufender Entwicklung und geplantem App-Store-Launch (Freigabe auf Anfrage möglich). 17 Schulungsrepos aus der Qualifizierung sind öffentlich einsehbar.
+ </p>
+ </section>
+ <section class="section">
+ <h2 class="section-title">Berufserfahrung</h2>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">Firma Obst – Glasreinigung</div>
+ <div class="entry-meta">09/2023 – 01/2025</div>
+ </div>
+ <ul class="bullets">
+ <li>Kundenkoordination, projektbezogene Durchführung mehrerer Objekte</li>
+ <li>Qualitätskontrolle, strukturierte Abläufe, Teamabstimmung</li>
+ </ul>
+ <p class="mini" style="margin-top:6px;">Davor: Persönliche Auszeit · Familienzeit · Vorbereitung Neuorientierung (06/2022 – 09/2023)</p>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">Frindt Beiersdorf – Logistik</div>
+ <div class="entry-meta">03/2021 – 06/2022</div>
+ </div>
+ <ul class="bullets">
+ <li>Kommissionierung, Versandvorbereitung, Frachtpapiere</li>
+ <li>Eigeninitiative außerhalb der Rolle: Identifikation struktureller Lagerprobleme (fehlende Bestandstransparenz) und Anstoß zur Einführung eines scan-basierten Lagerverwaltungssystems</li>
+ </ul>
+ <p class="mini" style="margin-top:6px;">Davor: Persönliche Auszeit · Familienzeit · Neuorientierung (04/2020 – 03/2021)</p>
+ </div>
+ <div class="entry">
+ <div class="entry-header">
+ <div class="entry-title">Borbet Kodersdorf – Schmelzer / Vorarbeiter</div>
+ <div class="entry-meta">03/2016 – 04/2020</div>
+ </div>
+ <ul class="bullets">
+ <li>Prozess- und Qualitätsüberwachung (Temperatur/Legierung nach Analyse)</li>
+ <li>Vorarbeiter ab 01/2017: Schichtkoordination, Übergaben, Arbeitsmittelbeschaffung</li>
+ </ul>
+ </div>
+ </section>
+ <section class="section">
+ <h2 class="section-title">Zusatzqualifikationen</h2>
+ <div class="entry">
+ <ul class="bullets">
+ <li>Mehrere abgeschlossene Aus- und Weiterbildungen · Details auf Anfrage</li>
+ <li>Workshops: Kommunikation & Teamwork; Resilienz & Stressmanagement</li>
+ <li>Führerschein Klasse B · Staplerschein · Brandschutzhelfer · Ersthelfer · DSGVO</li>
+ </ul>
+ </div>
+ </section>
+ <section class="section">
+ <h2 class="section-title">Zertifikate / Nachweise</h2>
+ <p class="profile-text" style="margin-bottom:10px;">Modulbescheinigungen (Modul 1, Modul 2, Modul 3) sowie Workshop-Zertifikate (Kommunikation &amp; Teamwork, Resilienz &amp; Stressmanagement, Demokratie). Originale auf Anfrage bzw. bei Bewerbung mitbringbar.</p>
+ </section>
+ <p class="cv-signature" aria-hidden="true">// state · context · ship</p>
+ </main>
+ </div>
+ </div>
+ <!-- ===================== ATS PAGE ===================== -->
+ <div class="ats-page">
+ <h1 class="ats-h1">Jürgen Mann</h1>
+ <div class="ats-line ats-muted">App-Entwickler (iOS / Android) – Architektur · Zustandslogik · UX-nahe Produktentwicklung</div>
+ <div class="ats-line" style="margin-top:8px;">
+ Standort: 38518 Gifhorn ·
+E-Mail: <a class="link-green" href="#">j.mann.software[at]gmail.com</a> ·
+  Telefon: <a class="link-green" href="#">+49 1515 918****</a> ·
+ LinkedIn: <a class="link-green" href="https://www.linkedin.com/in/juergen-mann-j19830720" target="_blank" rel="noreferrer">linkedin.com/in/juergen-mann-j19830720</a> ·
+ GitHub: <a class="link-green" href="https://github.com/Juergenmann-dev" target="_blank" rel="noreferrer">github.com/Juergenmann-dev</a>
+ </div>
+ <h2 class="ats-h2">Profil</h2>
+ <div class="ats-line profile-statement">Junior-Entwickler mit Fokus auf modulare Architektur, Zustandslogik und wartbare Systeme; strukturierte, lösungsorientierte Arbeit, saubere modulare Ergebnisse; eigenverantwortlich, Ergebnisse ins Team zurück, Code-Review als Verbesserung.</div>
+ <div class="ats-line">
+ App-Entwickler (iOS/Android), Qualifizierung zur IT-Fachkraft. Einstieg gesucht in Entwicklungsteams und Agenturen – Produkt-Apps, interne Tools, kundengebundene Projekte. Praxis in SwiftUI, Jetpack Compose, Firebase, modularer Architektur (SPM); überträgt Architekturkonzepte plattformübergreifend (SwiftUI → Jetpack Compose). Stärken: Codequalität, Denken in Systemzuständen und Fehlerketten, UX-nahe Systemanalyse, Umsetzung von Anforderungen in wartbare Software. Branchenerfahrung: Koordination, Qualität, Prozesse.
+ </div>
+ <h2 class="ats-h2">Technologien</h2>
+ <div class="ats-line">Swift, SwiftUI, Xcode, Jetpack Compose, Firebase, REST APIs, Git/GitHub, JavaScript (Grundlagen), Shell/zsh (Grundlagen)</div>
+ <h2 class="ats-h2">Weiterbildung</h2>
+ <div class="ats-line"><strong>Qualifizierung IT-Fachkraft App-Entwicklung (AZAV) – Syntax Institut</strong> (seit 02.06.2025, Vollzeit/Remote). Bewerbungen ab sofort, Vollzeitstart ab 07/2026.</div>
+ <ul class="ats-ul ats-line">
+ <li>Product Design & Prototyping: 350 UE (99% Anwesenheit)</li>
+ <li>Software-Entwicklung (OOP, GitHub): 400 UE (95% Anwesenheit)</li>
+ <li>iOS App Development: 780 UE (100% Anwesenheit)</li>
+ <li>Android App Development: 770 UE (laufend)</li>
+ </ul>
+ <h2 class="ats-h2">Projekte (Auswahl)</h2>
+ <div class="ats-line"><strong><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</strong> (2026)</div>
+ <ul class="ats-ul ats-line">
+ <li>6 adaptive Views (Handoff, ATS, Druck, 1-Seite), ATS-optimiert, Easter Egg</li>
+ <li>Link: auf den Namen klicken – Sie lesen es gerade.</li>
+ <li>Mit KI umgesetzt – bewusst transparent; mein Schwerpunkt liegt auf iOS/Android, nicht auf Web-Frontend.</li>
+ </ul>
+ <div class="ats-line" style="margin-top:6px;"><strong>timemachine-nas-backup – macOS Automatisierung (zsh, SMB)</strong> (2026)</div>
+ <ul class="ats-ul ats-line">
+ <li>Retry/Timeout-Watchdog, LaunchAgent, Logging; <span class="launch-highlight">läuft bereits privat im Einsatz</span></li>
+ <li>Repo: <a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">github.com/Juergenmann-dev/timemachine-nas-backup</a></li>
+ </ul>
+ <div class="ats-line" style="margin-top:6px;"><strong>UX Case Study – Zustandskommunikation im Kassensystem</strong> (02/2026)</div>
+ <ul class="ats-ul ats-line">
+ <li>System-/UX-Analyse, Mockups, Verbesserungsvorschläge</li>
+ <li>Veröffentlichung: <a class="link-green" href="https://www.linkedin.com/feed/update/urn:li:activity:7432396925536006144/" target="_blank" rel="noreferrer">LinkedIn-Post (UX-Analyse)</a></li>
+ </ul>
+ <div class="ats-line" style="margin-top:6px;"><strong>Kaily – iOS App (SwiftUI, Firebase, WatchKit)</strong> (2025 – lfd., App Store Freischaltung ausstehend, <span class="launch-highlight">Launch 2026 geplant</span>)</div>
+ <ul class="ats-ul ats-line">
+ <li>Architektur für Echtzeit-Datenstabilität und Skalierbarkeit (u. a. Nutzung im Familienumfeld); reaktive UI, Cloud-Sync, Offline-Persistence</li>
+ <li>Modulare Struktur (SPM); <span class="launch-highlight">Repository derzeit privat aufgrund laufender Pre-Launch-Phase (App-Store-Veröffentlichung 2026 geplant); Zugriff auf Anfrage möglich.</span></li>
+ </ul>
+ <div class="ats-line" style="margin-top:6px;"><strong>SmartCity Gifhorn – Stadtentwicklung in einer App</strong> (2025 – lfd., <span class="launch-highlight">Launch 2026 geplant</span>)</div>
+ <ul class="ats-ul ats-line">
+ <li>Lokale Vernetzung, Stadtentwicklung; Übertragung Architekturkonzepte (SwiftUI → Jetpack Compose)</li>
+ <li><span class="launch-highlight">Repo: privat (s.o.) – auf Anfrage</span></li>
+ </ul>
+ <div class="ats-line" style="margin-top:6px;"><strong>Minimodularsystem – modulares iOS Framework (SPM)</strong> (2025)</div>
+ <ul class="ats-ul ats-line">
+ <li>Lose Kopplung über Protokolle/Interfaces; Feature-Module; CI über GitHub Actions; klare Modultrennung für parallele Feature-Entwicklung</li>
+ <li>Produktiv eingesetzt im CO2 Tracker; <span class="launch-highlight">Repo: privat (s.o.) – auf Anfrage</span></li>
+ </ul>
+ <div class="ats-line" style="margin-top:6px;"><strong>CO2 Tracker – iOS App (Mitentwicklung · Betaphase/TestFlight)</strong> (2025)</div>
+ <ul class="ats-ul ats-line">
+ <li>Mitentwicklung an veröffentlichter iOS-App (Kooperation)</li>
+ <li>KMSA (Karlchen Modular System Architecture) beigesteuert; Fehleranalyse und Debugging</li>
+ </ul>
+ <h2 class="ats-h2">Berufserfahrung</h2>
+ <div class="ats-line"><strong>Firma Obst – Glasreinigung</strong> (09/2023 – 01/2025)</div>
+ <ul class="ats-ul ats-line">
+ <li>Kundenkoordination, projektbezogene Durchführung mehrerer Objekte, Qualitätskontrolle</li>
+ </ul>
+ <div class="ats-line ats-muted" style="margin-top:2px;">Davor: Persönliche Auszeit · Familienzeit · Vorbereitung Neuorientierung (06/2022 – 09/2023)</div>
+ <div class="ats-line" style="margin-top:6px;"><strong>Frindt Beiersdorf – Logistik</strong> (03/2021 – 06/2022)</div>
+ <ul class="ats-ul ats-line">
+ <li>Kommissionierung, Versandvorbereitung, Frachtpapiere</li>
+ <li>Eigeninitiative außerhalb der Rolle: Identifikation struktureller Lagerprobleme (fehlende Bestandstransparenz) und Anstoß zur Einführung eines scan-basierten Lagerverwaltungssystems</li>
+ </ul>
+ <div class="ats-line ats-muted" style="margin-top:2px;">Davor: Persönliche Auszeit · Familienzeit · Neuorientierung (04/2020 – 03/2021)</div>
+ <div class="ats-line" style="margin-top:6px;"><strong>Borbet Kodersdorf – Schmelzer / Vorarbeiter</strong> (03/2016 – 04/2020)</div>
+ <ul class="ats-ul ats-line">
+ <li>Prozess-/Qualitätsüberwachung; Vorarbeiter: Schichtkoordination, Übergaben</li>
+ </ul>
+ <h2 class="ats-h2">Zusatz</h2>
+ <div class="ats-line">Mehrere abgeschlossene Aus- und Weiterbildungen · Details auf Anfrage.</div>
+ <div class="ats-line" style="margin-top:4px;">Workshops: Kommunikation & Teamwork; Resilienz & Stressmanagement · Führerschein B · Staplerschein · Brandschutzhelfer · Ersthelfer · DSGVO</div>
+ <h2 class="ats-h2">Zertifikate / Nachweise</h2>
+ <div class="ats-line">Modulbescheinigungen (Modul 1, Modul 2, Modul 3); Workshop-Zertifikate: Kommunikation & Teamwork, Resilienz & Stressmanagement, Demokratie. Originale auf Anfrage bzw. bei Bewerbung mitbringbar.</div>
+ </div>
+ <!-- ===================== EIN SEITE ===================== -->
+ <div class="onepage-page">
+ <div class="op-wrap">
+ <aside class="op-sidebar">
+ <div class="op-name">Jürgen Mann</div>
+ <div class="op-sub">App-Entwickler (iOS / Android)<br>Architektur · Zustandslogik · Systemzustände · UX-nahe Produktentwicklung</div>
+ <h4>Kontakt</h4>
+ <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span><a class="link-green" href="#">j.mann.software[at]gmail.com</a></p>
+  <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><a class="link-green" href="#">+49 1515 918****</a></p>
+ <p><span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#39D353"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>38518 Gifhorn</p>
+ <h4>Online</h4>
+ <p><a href="https://www.linkedin.com/in/juergen-mann-j19830720" target="_blank" rel="noreferrer">LinkedIn</a><br><a href="https://github.com/Juergenmann-dev" target="_blank" rel="noreferrer">GitHub</a></p>
+ <h4>Tech Stack</h4>
+ <p>Swift · SwiftUI · Jetpack Compose · Firebase · REST APIs · Git/GitHub · Xcode · JavaScript (Grundlagen) · Shell (Grundlagen)</p>
+ <h4>Kernkompetenzen</h4>
+ <p>Modulare Architektur · Zustands- & Fehlerlogik · API-Integration · UX-nahe Systemanalyse · CI/Automation</p>
+ <h4>Qualifizierung</h4>
+ <p>IT-Fachkraft App-Entwicklung (AZAV), Syntax Institut. Abschluss 06/2026, Vollzeit ab 07/2026.</p>
+ <span class="op-pill">2.300+ UE · iOS · Android</span>
+ <h4>Sonstiges</h4>
+ <p>Deutsch · Englisch (Grundkenntnisse) · Führerschein B · Staplerschein</p>
+ </aside>
+ <main class="op-main">
+ <h2>Profil</h2>
+ <p class="op-profile profile-statement">Junior-Entwickler mit Fokus auf modulare Architektur, Zustandslogik und wartbare Systeme; strukturierte Umsetzung, saubere modulare Ergebnisse.</p>
+ <p class="op-profile">App-Entwickler (iOS/Android), Qualifizierung IT-Fachkraft. Einstieg in Entwicklungsteams – Produkt-Apps, interne Tools. Praxis: SwiftUI, Jetpack Compose, Firebase, SPM. Stärken: Codequalität, Systemzustände, UX-nahe Analyse. Branchenerfahrung: Koordination, Qualität, Prozesse.</p>
+ <h2>Projekte</h2>
+ <div class="op-row"><span class="op-title"><a class="link-green" href="https://juergenmann-dev.github.io" target="_blank" rel="noreferrer">Lebenslauf als Web-App</a> – HTML/CSS/JS</span><span class="op-meta">2026</span></div>
+ <ul><li>6 adaptive Views, ATS-optimiert. Schwerpunkt: iOS/Android.</li></ul>
+ <div class="op-row"><span class="op-title"><a class="link-green" href="https://github.com/Juergenmann-dev/timemachine-nas-backup" target="_blank" rel="noreferrer">timemachine-nas-backup</a> – macOS</span><span class="op-meta">2026</span></div>
+ <ul><li>Time Machine über SMB, Retry-Watchdog, LaunchAgent. <span class="launch-highlight">Läuft privat im Einsatz.</span></li></ul>
+ <div class="op-row"><span class="op-title">UX Case Study – Kassensystem</span><span class="op-meta">02/2026</span></div>
+ <ul><li>Systemanalyse, Personas, Mockups; <a class="link-green" href="https://www.linkedin.com/feed/update/urn:li:activity:7432396925536006144/" target="_blank" rel="noreferrer">LinkedIn</a></li></ul>
+ <div class="op-row"><span class="op-title">Kaily – iOS App (SwiftUI · Firebase)</span><span class="op-meta">Launch 2026</span></div>
+ <ul><li>Echtzeit-Datenstabilität, Cloud-Sync, WatchKit. <span class="launch-highlight">Repo auf Anfrage.</span></li></ul>
+ <div class="op-row"><span class="op-title">CO2 Tracker – iOS (Mitentwicklung)</span><span class="op-meta">2025</span></div>
+ <ul><li>KMSA beigesteuert; Fehleranalyse, Debugging.</li></ul>
+ <h2>Berufserfahrung</h2>
+ <div class="op-row"><span class="op-title">Firma Obst – Glasreinigung</span><span class="op-meta">09/2023 – 01/2025</span></div>
+ <ul><li>Kundenkoordination, Qualitätskontrolle</li><li class="op-note">Davor: Familienzeit · Neuorientierung</li></ul>
+ <div class="op-row"><span class="op-title">Frindt Beiersdorf – Logistik</span><span class="op-meta">03/2021 – 06/2022</span></div>
+ <ul><li>Kommissionierung, Versand; Anstoß scan-basiertes Lagerverwaltungssystem</li><li class="op-note">Davor: Familienzeit · Neuorientierung</li></ul>
+ <div class="op-row"><span class="op-title">Borbet Kodersdorf – Schmelzer/Vorarbeiter</span><span class="op-meta">03/2016 – 04/2020</span></div>
+ <ul><li>Prozess-/Qualitätsüberwachung; Vorarbeiter: Schichtkoordination</li></ul>
+ <h2>Zusatz</h2>
+ <p class="op-profile">Workshops: Kommunikation, Resilienz. Führerschein B · Staplerschein · Brandschutzhelfer · Ersthelfer. Zertifikate auf Anfrage.</p>
+ </main>
+ </div>
+ </div>
+  <!-- V2 wie Mac/Win/Linux: detection, boot-data, story + techstack (zentral), view -->
+  <script src="../story/content/detection.js?v=20260304"></script>
+  <script src="../story/content/boot-data.js?v=20260304"></script>
+  <script src="../story/content/story.js?v=20260304"></script>
+  <script src="../story/content/techskills_Kernkompetenz-data.js?v=20260304"></script>
+  <script src="android-view.js?v=20260305"></script>
+</body>
+</html>
